@@ -1,0 +1,34 @@
+<!doctype html>
+<html ng-app="stack">
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div ng-controller="myController">
+
+        <textarea ng-model="feed">
+
+        </textarea>
+    <br>
+	
+	 <input type="button" ng-click="clear()" value="Clear">
+	 
+	 <input type="button" ng-click="mymd5()" value="md5"
+                   ng-class="{'ng-hide' : ! feed }" >
+     <input type="button" ng-click="mysha1()" value="sha1"
+                   ng-class="{'ng-hide' : ! feed }" >
+
+   <br> 
+	 {{ feed }}  <br />
+
+   <div id="md5feed"></div>
+   <div id="sha1feed"></div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jshashes/1.0.7/hashes.min.js"></script>
+
+		<script src="./jsplay.js"></script>
+
+
+</body>	
+	
