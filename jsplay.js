@@ -39,9 +39,13 @@ angular.module('stack', [])
 		
 		function showPosition(position)
        			{
-         		myloc.innerHTML = "Latitude: " + position.coords.latitude +
-           		"<br>Longitude: " + position.coords.longitude  +
-           		"<br>PlusCode: "  + OpenLocationCode.encode(position.coords.latitude,position.coords.longitude )
+         		myloc.innerHTML = 
+			 // "Latitude: " + position.coords.latitude +
+           		 // "<br>Longitude: " + position.coords.longitude  + "<br>"
+			"PlusCodes: "  + OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;
+			
+			$scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;
+				
 			}
                 
 		
