@@ -49,8 +49,13 @@ angular.module('stack', [])
  
  	  $scope.mylocClick  = function()
                 {
-                    $scope.feed =  myloc.innerHTML.substr(10); ;
-                }
+                    navigator.clipboard.writeText(  myloc.innerHTML.substr(10)  ).then(function()
+                    {
+                        //  OK ,  alert("Second " + myloc.innerHTML.substr(10) );
+                    }, function() { /* clipboard write failed */} );
+                    $scope.feed =  myloc.innerHTML.substr(10);                
+	      
+	  }
  
  
 
