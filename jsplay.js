@@ -53,7 +53,8 @@ angular.module('stack', [])
                     {
                         //  OK ,  alert("Second " + myloc.innerHTML.substr(10) );
                     }, function() { /* clipboard write failed */} );
-                    $scope.feed =  myloc.innerHTML.substr(10);                
+                    $scope.feed =  myloc.innerHTML.substr(10);
+		    document.getElementById("exit_link").href = "https://plus.codes/" + $scope.feed ;
 	      
 	  }
  
