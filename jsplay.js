@@ -40,16 +40,19 @@ angular.module('stack', [])
 		
 		function showPosition(position)
        			{
-         		// myloc.innerHTML =
 			 document.getElementById("myloc").innerHTML =	
-				
-			 // "Latitude: " + position.coords.latitude +
+			  // "Latitude: " + position.coords.latitude +
            		 // "<br>Longitude: " + position.coords.longitude  + "<br>"
-			"PlusCodes: "  + OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;
-			//  $scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ; 
+			"PlusCodes:"  + OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;
 			}
-		//  $scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;                
                 } // oe_loc()
+ 
+ 	  $scope.mylocClick  = function()
+                {
+                    $scope.feed =  myloc.innerHTML.substr(10); ;
+                }
+ 
+ 
 
 
 
