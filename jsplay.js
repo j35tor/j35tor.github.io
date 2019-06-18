@@ -46,7 +46,7 @@ angular.module('stack', [])
 			 // "Latitude: " + position.coords.latitude +
            		 // "<br>Longitude: " + position.coords.longitude  + "<br>"
 			"PlusCodes: "  + OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;
-			$scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ; 
+			//  $scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ; 
 			}
 		//  $scope.feed = OpenLocationCode.encode(position.coords.latitude,position.coords.longitude ) ;                
                 } // oe_loc()
