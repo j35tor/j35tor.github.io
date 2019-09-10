@@ -34,12 +34,14 @@ document.getElementById("filetoRead").addEventListener("change",function()
 
 },false);
 
+
 function updateProgress(evt) {
 	// evt is an ProgressEvent.
-	if (evt.lengthComputable) {
+	if (evt.lengthComputable) 
+		{
 		var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
 		// Increase the progress bar length.
-		if (percentLoaded < 100) {
-			document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
-	}
-}	
+		if (percentLoaded < 100) 
+		{ document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
+		}
+}
