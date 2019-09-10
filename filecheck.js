@@ -43,4 +43,3 @@ function updateProgress(evt) {
 			document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
 	}
 	
-}
