@@ -42,4 +42,4 @@ function updateProgress(evt) {
 		if (percentLoaded < 100) {
 			document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
 	}
-	
+}	
