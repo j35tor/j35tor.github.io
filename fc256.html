@@ -5,12 +5,21 @@
       <title></title>
   </head>
   <body>
-Sha256 File Checksum: <br>
-<input type="text" name="checksum" id="checksum" size="80" >
+SHA256 file Checksum Validator: <br>
+<form>    
+<input type="text" name="checksum" id="checksum" size="60" >  &lt;==First put in Checksum <br />
+Then pick the file ====&gt; <input type="file" id="filetoRead" />  <br>
+    </form>
 
-<input type="file" id="filetoRead" />  <br>
 
 <table>
+<tr>
+    <td>File reading status:</td>
+    <td id="read_blks">0%</td>
+</tr>
+</table>    
+
+ <table>
 <tr>
     <td id="checksumOut"></td>
     <td id="ok"></td>
