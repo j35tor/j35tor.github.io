@@ -5,10 +5,17 @@
       <title></title>
   </head>
   <body>
-Sha1 File Checksum: <br>
-<input type="text" name="checksum" id="checksum" size="40" >
-
-<input type="file" id="filetoRead" />  <br>
+SHA1 file Checksum Validator:<br>
+<form>
+<input type="text" name="checksum" id="checksum" size="40" > &lt;==First put in Checksum <br />
+Then pick the file ====&gt;<input type="file" id="filetoRead" />
+</form>
+<table>
+<tr>
+    <td>File reading status:</td>
+    <td id="read_blks">0%</td>
+</tr>
+</table>
 
 <table>
 <tr>
