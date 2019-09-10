@@ -12,6 +12,7 @@ document.getElementById("filetoRead").addEventListener("change",function()
       {
         var arrayBuffer = reader.result;
         var gen_checksum = sha1(arrayBuffer);
+	document.getElementById("read_blks").innerHTML = '100 %'      
         document.getElementById("checksumOut").innerHTML =  gen_checksum ;
 
 
