@@ -7,8 +7,9 @@
   <body>
 SHA1 file Checksum Validator:<br>
 <form>
-<input type="text" name="checksum" id="checksum" size="40" > <font color="red">&lt;==First</font> put in Checksum <br />
-  <font color="red">Then</font> pick the file ====&gt;<input type="file" id="filetoRead" />
+<input type="text" name="checksum" id="checksum" size="40" > <font color="red">Expected</font> Checksum <br />
+  <font color="red">Pick/drag</font> the file =><input type="file" id="filetoRead"  
+		style="border: 2px solid blue;" />
 </form>
 <table>
 <tr>
@@ -16,18 +17,33 @@ SHA1 file Checksum Validator:<br>
     <td id="read_blks">0%</td>
 </tr>
 </table>
+-------------------------------------------------------------- <br />
+
+
 
 <table>
 <tr>
+	<td>File Checksum: </td> 
     <td id="checksumOut"></td>
-    <td id="ok"></td>
 </tr>
+	<tr>
+	<td>Expected Checksum: </td> 
+    <td id="feedChecksum"></td>
+</tr>		
+<tr>
+	<td id="ok"></td>
+</tr>	
 </table>
+
 
 <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha1/build/sha1.min.js"></script>
 <script src="./filecheck.js"></script>
 <p>
-You may try the <a href="./fc256.html"> sha256 version </a> of this web-tools
+You may try the <a href="./fc256.html"> sha256 version </a> of this web-tools <br/ >  <br />
+
+(Disclaimer:  The checkshum calculation is done locally on your browser via Javascript,<br />
+and the content of your file will NOT send over internet.  (You may check the 
+<a href="https://j35tor.github.io/filecheck.js">source </a> ;p ) 
 
   </body>
 </html>
