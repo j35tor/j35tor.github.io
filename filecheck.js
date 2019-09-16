@@ -14,14 +14,15 @@ document.getElementById("filetoRead").addEventListener("change",function()
         var gen_checksum = sha1(arrayBuffer);
 		document.getElementById("read_blks").innerHTML = '100 %' ;
 		document.getElementById("feedChecksum").innerHTML = document.getElementById("checksum").value ;	
-        document.getElementById("checksumOut").innerHTML =  gen_checksum ;
-
+        	document.getElementById("checksumOut").innerHTML =  gen_checksum ;
+		document.getElementById("checksumOut").style.border="2px solid black";
 
    if   ( gen_checksum == document.getElementById("checksum").value.trim() )
           { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
-            document.getElementById("ok").style.color="#0000FF"; }
+            document.getElementById("ok").style.color="#0000FF"; 
+	    document.getElementById("checksumOut").style.border="2px solid black"; }
 		else if ( document.getElementById("checksum").value.trim() != "" )
-					{ 	document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
+					{ 	document.getElementById("ok").innerHTML = "CheckSum Mismatch !!&#10007;"
 						document.getElementById("ok").style.color="#FF4000"; }
 			else {  document.getElementById("feedChecksum").innerHTML = "(missing)" }
 
