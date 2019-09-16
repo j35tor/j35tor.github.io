@@ -5,25 +5,32 @@
       <title></title>
   </head>
   <body>
-SHA256 file Checksum Validator: <br>
-<form>    
-<input type="text" name="checksum" id="checksum" size="75" > <font color="red">&lt;==First</font> put in Checksum <br />
-<font color="red">Then</font> pick the file ====&gt; <input type="file" id="filetoRead" />  <br>
-    </form>
-
-
+SHA256 file Checksum Validator:<br>
+<form>
+<input type="text" name="checksum" id="checksum" size="70" > <font color="red">Expected</font> Checksum <br />
+  <font color="red">Pick/drag</font> the file =><input type="file" id="filetoRead"  
+		style="border: 2px solid blue;" />
+</form>
 <table>
 <tr>
     <td>File reading status:</td>
     <td id="read_blks">0%</td>
 </tr>
-</table>    
+</table>
+-------------------------------------------------------------- <br />
 
- <table>
+<table>
 <tr>
+	<td>File Checksum: </td> 
     <td id="checksumOut"></td>
-    <td id="ok"></td>
 </tr>
+	<tr>
+	<td>Expected Checksum: </td> 
+    <td id="feedChecksum"></td>
+</tr>		
+<tr>
+	<td id="ok"></td>
+</tr>	
 </table>
 
 
@@ -31,7 +38,9 @@ SHA256 file Checksum Validator: <br>
 
 <script src="./fc256.js"></script>
 <p>
-You may try the <a href="./filecheck.html"> sha1 version </a> of this web-tools 
-
+You may try the <a href="./filecheck.html"> sha1 version </a> of this web-tools <br /> <br />
+(Disclaimer:  The checkshum calculation is done locally on your browser via Javascript, <br>
+and the content from your file will NOT send over internet.  (You may check the 
+<a href="https://j35tor.github.io/fc256.js">source</a> ;p ) 
   </body>
 </html>
