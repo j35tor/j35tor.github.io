@@ -12,17 +12,18 @@ document.getElementById("filetoRead").addEventListener("change",function()
       {
         var arrayBuffer = reader.result;
         var gen_checksum = sha1(arrayBuffer);
-	document.getElementById("read_blks").innerHTML = '100 %' ;     
+		document.getElementById("read_blks").innerHTML = '100 %' ;
+		document.getElementById("feedChecksum").innerHTML = document.getElementById("checksum").value ;	
         document.getElementById("checksumOut").innerHTML =  gen_checksum ;
 
 
-   if   ( gen_checksum == document.getElementById("checksum").value )
-          { document.getElementById("ok").innerHTML = "&#10004; CheckSum Good! " ;
-            document.getElementById("checksumOut").style.color="#0000FF";
-
-          }
-     else { document.getElementById("ok").innerHTML = "&#10007; CheckSum Failed!!"
-            document.getElementById("checksumOut").style.color="#FF4000";}
+   if   ( gen_checksum == document.getElementById("checksum").value.trim() )
+          { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
+            document.getElementById("ok").style.color="#0000FF"; }
+		else if ( document.getElementById("checksum").value != "" )
+					{ 	document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
+						document.getElementById("ok").style.color="#FF4000"; }
+			else {  document.getElementById("feedChecksum").innerHTML = "(missing)" }
 
       };
 
@@ -34,14 +35,27 @@ document.getElementById("filetoRead").addEventListener("change",function()
 
 },false);
 
+document.getElementById("filetoRead")
+        .addEventListener('dragover', handleDragOver, false);
 
 function updateProgress(evt) {
-	// evt is an ProgressEvent.
-	if (evt.lengthComputable) 
-		{
-		var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
-		// Increase the progress bar length.
-		if (percentLoaded < 100) 
-		{ document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
-		}
+// evt is an ProgressEvent.
+if (evt.lengthComputable) 
+{
+var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+// Increase the progress bar length.
+if (percentLoaded < 100) 
+{ document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
 }
+}
+
+
+function handleDragOver(evt)
+  {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // show as copy
+  }
+
+
+
