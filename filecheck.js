@@ -17,7 +17,7 @@ document.getElementById("filetoRead").addEventListener("change",function()
         	document.getElementById("checksumOut").innerHTML =  gen_checksum ;
 		document.getElementById("checksumOut").style.border="2px solid black";
 
-   if   ( gen_checksum == document.getElementById("feedChecksum").value.trim()  )
+   if   ( gen_checksum == document.getElementById("checksum").value.trim()  )
           { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
             document.getElementById("ok").style.color="#0000FF"; 
 	    document.getElementById("checksumOut").style.border="2px solid black"; }
