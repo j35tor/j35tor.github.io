@@ -12,8 +12,9 @@ angular.module('qrcode', [])
 
 
       $scope.qrupdate  = function()
-                { var myvalue = parseInt( ($scope.feed.length /25)+4);
-				
+                { 
+				if ( $scope.feed.length >= 920 ) { alert ("Input is too long") ;  $scope.clear() ; return  } ;
+				var myvalue = parseInt( ($scope.feed.length /25)+4);
 				var qr = qrcode(myvalue, "M");
                 qr.addData($scope.feed);
                 qr.make();
