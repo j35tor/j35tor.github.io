@@ -11,6 +11,16 @@ angular.module('qrcode', [])
 		{ $scope.feed = 'otpauth://totp/Issue:AC?secret=<>&algorithm=SHA1&digits=6&period=30'	}	
 
 
+     $scope.otpran = function ()
+	     {   var bytes = new Uint8Array(35); 
+		     window.crypto.getRandomValues(bytes);
+			 //  $scope.feed = bytes;
+
+             $scope.feed = 'otpauth://totp/Issue:AC?secret=' + base32.encode(bytes) +
+			    '&algorithm=SHA1&digits=6&period=30';			 
+		 }		  
+
+
       $scope.qrupdate  = function()
                 { 
 				if ( $scope.feed.length >= 920 ) { alert ("Input is too long") ;  $scope.clear() ; return  } ;

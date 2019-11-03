@@ -13,6 +13,7 @@
 
 	    <input type="button" ng-click="clear()" value="Clear">
 		<input type="button" ng-click="otpauth()" value="OTP_Temp">
+		<input type="button" ng-click="otpran()" value="OTP_RanD">
 	    <input type="button" ng-click="qrupdate()" value="QRGen"
                    ng-class="{'ng-hide' : ! feed }" >
 
@@ -24,7 +25,7 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.3/qrcode.min.js"></script>
-
+		<script src="./base32.js"></script>
 
 		<script src="./qrplay.js"></script>
 
