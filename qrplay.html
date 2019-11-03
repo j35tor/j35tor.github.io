@@ -1,0 +1,34 @@
+<!doctype html>
+<html ng-app="qrcode">
+  <head>
+    <title>QR code Generator</title>
+  </head>
+  <body>
+    <div ng-controller="myController">
+
+        <textarea ng-model="feed">
+
+        </textarea>
+    <br>
+
+	    <input type="button" ng-click="clear()" value="Clear">
+		<input type="button" ng-click="otpauth()" value="OTP_Temp">
+	    <input type="button" ng-click="qrupdate()" value="QRGen"
+                   ng-class="{'ng-hide' : ! feed }" >
+
+
+    <br>
+	 {{ feed }}  <br />
+  <div id="qr"></div>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.3/qrcode.min.js"></script>
+
+
+		<script src="./qrplay.js"></script>
+
+
+
+</body>
+</html>
