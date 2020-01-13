@@ -1,0 +1,145 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+	<meta name="description" content="Ad Free SHA1 Checksum Validator">
+    <meta name="keywords" content="Ad Free,SHA1,checksum,file Validator">
+	 <meta name="author" content="j35tor">
+	
+     <title>SHA1 Checksum Validator</title>
+  </head>
+  <body>
+SHA1 file Checksum Validator:<br>
+<form style="font-family:Arial;font-size:14px" >
+<font color="blue">Expected</font> Checksum 
+	<input type="text" name="checksum" id="checksum" size="40" >   
+	<input type="text" name="checksumFile" id="checksumFile" size="15" >
+	<br />
+	
+<font color="blue">Pick/drag</font> the file =>
+	<input type="file" id="filetoRead"  
+		style="font-family:arial;font-size:14px;border: 2px solid blue;" />
+</form>
+<table>
+<tr>
+    	<td>File processing status:</td>
+    	<td id="read_blks">0%</td>
+</tr>
+</table>
+-------------------------------------------------------------- <br />
+<table>
+<tr>
+	<td>File Checksum: </td> 
+    	<td id="checksumOut"  style="font-family:monospace;font-size:14px;" ></td>
+</tr>
+<tr>
+	<td>Expected Checksum: </td> 
+    	<td id="feedChecksum"  style="font-family:monospace;font-size:14px;" ></td>
+</tr>		
+<tr>
+	<td id="ok">Checksum status: unknown</td>
+</tr>	
+</table>
+<br />
+
+<table id="sha1table"  style="font-family:monospace;font-size:16px; border: 1px solid black;" border="1">
+<tr>
+	 
+    	<td id="bin.exe">6dd830c876a6db30fae0acb0f46e9963dea74930</td>
+		<td>/s/s7MSZSNxwkEQGyb</td>  
+		<td>bin.exe</td>
+</tr>
+<tr>
+	    <td id="MinGW.exe">3bf8ed23e43ea9ae08eddc73bcb11d4fc16dcc29</td>
+		<td>/s/tZxc9SBwCFdTkep</td>
+		<td>MinGW.exe</td>
+</tr>	
+
+<tr>
+	    <td id="node.7z">7e2a33c7a1cb7a1ce0db93cd299454cbcffe8f00</td>
+		<td>/s/pikK7WGGc4423KH</td>
+		<td>node.7z</td>
+</tr>
+
+<tr>
+	    <td id="miniconda3_64.7z">277c2085ae1bfd3f67f01dcdf932a98ca37aa510</td>
+		<td>/s/kprtjtMHJEZa4yz</td>
+		<td>miniconda3_64.7z</td>
+</tr>
+
+<tr>
+	    <td id="scoop.7z">0b78368dbba03bd002c3a65d541387ab74161d08</td>
+		<td>/s/8L3n9Gd8dDKj3Yk</td>
+		<td>scoop.7z</td>
+</tr>
+
+<tr>
+	    <td id="atomSetup.exe">3f497acfde9ca35912f0df663226f2a6a097048c</td>
+		<td>/s/7Qktb3mW3rZGLtD</td>
+		<td>atomSetup.exe</td>
+</tr>
+
+<tr>
+            <td id="mongodb.zip">9c668e0be97c5179bab0f580af50f971fd46da83</td>
+            <td></td>
+			<td>mongodb.zip</td>
+</tr>
+
+<tr>
+            <td id="my7z.exe">ad453d63824b6efe1bad7cbbf36ba205fd7d1d88</td>
+            <td>/s/rsop7TAM2aMXQ2z</td>
+			<td>my7z.exe</td>
+</tr>
+
+<tr>
+            <td id="emsdk_wrk.7z">496a5a2f393fc1965bf5e626e5ff661d8296ead2</td>
+            <td>/s/2BWrtzJXedKKNtH</td>
+			<td>emsdk_wrk.7z</td>
+</tr>
+
+<tr>
+            <td id="Rset.7z">2a02a6a9a3ced101c8fa22125da7d36a907b1027</td>
+             <td></td>
+			 <td>Rset.7z</td>
+</tr>
+
+<tr>
+            <td id="DOSBox.7z">06f23be4ceba35c8c547a98f1b327da20082b483</td>
+            <td>/s/AB9wcKzJKwgXW3N </td>
+			<td>DOSBox.7z</td>
+</tr>
+
+<tr>
+            <td id="sysRecCDRTU.exe">84fc47494c4703ba54d46f994b8f49280f1eda4b</td>
+            <td>/s/4KinGYXKRigCSAF</td>
+			<td>sysRecCDRTU.exe</td>
+</tr>
+
+
+</table>
+
+<a id="quickLink"  href ="." ></a> 
+<br />
+<br />
+
+<a href="https://toolbox.googleapps.com/apps/dig/">Google Dig</a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="http://cloud.disroot.org"> Disroot </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://web.whatsapp.com/"> Whatsapp </a> 
+&emsp;&emsp;&emsp;&emsp;
+<a href="http://search.kmb.hk/kmbwebsite/"> KMB </a>
+<br />
+<a href="https://web.telegram.org/#/login"> Telegram </a> 
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://transfer.sh/">Transfer.sh </a>
+
+<script src="https://cdn.jsdelivr.net/gh/emn178/js-sha1/build/sha1.min.js"></script>
+<script src="./myfc.js"></script>
+<br />
+
+</body>
+</html>
