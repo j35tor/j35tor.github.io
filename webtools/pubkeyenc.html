@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+Key Server:<select id="pubKeyServ" name="pubKeyServ" >
+
+    <option value="https://pgp.mit.edu"> PGP@MIT_h</option>
+    <option value="https://pgp.key-server.io">KeyServerIO_h</option> 
+    <option value="https://sks-keyservers.net/">Keys@SKS_h</option>
+  </select>
+
+
+KeyID:<input type="text" id="keyID"  value="(KeyID)"  style="width: 180px;" >
+<button onclick="keyLookup()"> Lookup </button>  <br />
+<textarea id="keyPub" style="width: 540px; height: 100px;" ></textarea> <br/>
+<button onclick="copy2clip('pubKey')"> copyPubKey </button><br />
+
+<textarea id="feedtext" style="width: 540px; height: 150px;" >(Text to Encrypt)</textarea> <br/>
+<button onclick="pubKey_enc()"> Encrypt </button>
+<br/>
+
+<textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
+<button onclick="copy2clip('outtext')"> copyOutput </button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.6.2/compat/openpgp.min.js"  crossorigin="anonymous" ></script>
+
+<script src="./pubkeyenc.js"></script>
+</body>
+</html>
