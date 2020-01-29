@@ -1,0 +1,127 @@
+<html>
+  <head>
+    <title>QR code Generator</title>
+  </head>
+  <body>
+    <div>
+
+<table>
+      <tr>
+      <td>
+         Issuing Organization
+      </td>
+      <td>
+          <input id="issue_org" type="text" placeholder="(optional e.g. some@domain.com)" onInput="onValueChanged()" >
+        </td>
+      </tr>
+
+      <tr>
+      <td>
+         User ID (required)
+      </td>
+      <td>
+        <input id="userID" type="text" placeholder="(UID)" onInput="onValueChanged()" >
+        </td>
+      </tr>
+
+      <tr>
+      <td>
+         Algorithm
+      </td>
+      <td class="shrink left">
+          <select id="algorithm" name="algorithm"   onChange="onValueChanged()"  onBlur="onValueChanged()">
+            <option value="SHA1" selected="selected">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA512">SHA512</option>
+          </select>
+        </td>
+      </tr>
+      <td>
+         Number of digits
+      </td>
+      <td class="shrink left">
+          <select id="numOfDigits" name="numOfDigits"   onChange="onValueChanged()"  onBlur="onValueChanged()">
+            <option value="6" selected="selected">6</option>
+            <option value="8">8</option>
+          </select>
+        </td>
+      </tr>
+      <td>
+         Time Slot
+      </td>
+      <td class="shrink left">
+          <select id="timeSlot" name="timeSlot"   onChange="onValueChanged()"  onBlur="onValueChanged()">
+            <option value="15" >15 Sec.</option>
+            <option value="30" selected="selected"> 30 Sec.</option>
+            <option value="60">1 min</option>
+            <option value="120">2 mins</option>
+            <option value="300">5 mins</option>
+            <option value="600">10 mins</option>
+          </select>
+        </td>
+      </tr>
+
+      <td>
+         Random_key(base32)
+      </td>
+      <td>
+          <input id="randomKey"  type="text" onInput="onKeyChanged()"  size="30"  />
+        </td>
+        <td>
+
+          </td>
+      </tr>
+
+      <td>
+
+      </td>
+      <td>
+	 <button onclick="ramdomKeyGen()"> GenData </button>
+
+        </td>
+        <td>
+
+          </td>
+      </tr>
+
+</table>
+otpauth URL: <br />
+
+<textarea id="oauth_url" style="width: 350px; height: 50px;" >  </textarea>
+<br/>
+
+    <button onclick="neu_clear()">Clear </button>
+    <button onclick="qrcode_gen()">GenQR</button>
+    <button onclick="copy2clip('oauth_url')"> copyURL</button>
+
+<!--	    <input type="button" ng-click="qrupdate()" value="QRGen" ng-class="{'ng-hide' : ! feed }" >  -->
+
+    <br>
+ <div id="qrtext"></div>
+ <div id="qr"></div>
+
+Key Server:<select id="pubKeyServ" name="pubKeyServ" >
+
+    <option value="https://pgp.mit.edu"> PGP@MIT_h</option>
+    <option value="https://sks-keyservers.net/">Keys@SKS_h</option>
+  </select>  <br/ >
+
+
+KeyID:<input type="text" id="keyID"  value="(KeyID)"  style="width: 180px;" >
+<button onclick="keyLookup()"> Lookup </button>  <br />
+
+<textarea id="keyPub" style="width: 350px; height: 50px;" ></textarea> <br/>
+<button onclick="copy2clip('pubKey')"> copyPubKey </button> <br />
+
+<textarea id="outtext" style="width: 350px; height: 100px;">
+(Press Encrypt button to get the OUTPUT)</textarea> <br />
+<button onclick="pubKey_enc()"> Encrypt </button> 
+<button onclick="copy2clip('outtext')"> copyOutput </button>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.3/qrcode.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.6.2/compat/openpgp.min.js"  crossorigin="anonymous" ></script>
+	<script src="./base32.js"></script>
+	<script src="./otpqrpub.js"></script>
+</body>
+</html>
