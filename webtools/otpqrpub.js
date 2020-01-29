@@ -58,6 +58,11 @@ function qrcode_gen()
         { alert ("Missing UID") ;
           return  } ;
 
+  if ( document.getElementById('oauth_url')
+		.value.search("mis-formed") >= 0  )
+        { alert ("otpauth URL misformed") ;
+          return  } ;
+
 
     var qr = qrcode(0, "M");
     qr.addData( document.getElementById('oauth_url').value );
