@@ -58,12 +58,12 @@ function qrcode_gen()
         { alert ("Missing UID") ;
           return  } ;
 
-/*   if ( document.getElementById('oauth_url')
+   if ( document.getElementById('oauth_url')
 		.value.search("mis-formed") >= 0  )
         { alert ("otpauth URL misformed") ;
-          return  } ; */
+          return  } ; 
 
-    alert ( "aas" + document.getElementById('oauth_url')
+     alert ( "aas " + document.getElementById('oauth_url')
                 .value.search("mis-formed") );
 
     var qr = qrcode(0, "M");
