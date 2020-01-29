@@ -63,9 +63,6 @@ function qrcode_gen()
         { alert ("otpauth URL misformed") ;
           return  } ; 
 
-     alert ( "aas " + document.getElementById('oauth_url')
-                .value.search("mis-formed") );
-
     var qr = qrcode(0, "M");
     qr.addData( document.getElementById('oauth_url').value );
     qr.make();
