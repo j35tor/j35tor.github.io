@@ -8,10 +8,10 @@
 <textarea id="feedtext" style="width: 540px; height: 200px;" >(Text to Encrypt)</textarea> <br/>
 
 SymKey:<input type="text" id="symKey"  value="(Press GenKey)"> <button onclick="genRan()"> GenKey </button>
+<br />
+(you may edit the SymKey in above box)
 <button onclick="copy2clip('symKey')"> copyKey </button>
 <button onclick="qrcode_gen()">Key2QR</button> <br />
-<!-- <p id='qr'> </p> -->
-(you may edit the SymKey in above box)
 <div id="qr"></div>
 <textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
 <button onclick="symGnuPG_enc()"> Encrypt </button>
