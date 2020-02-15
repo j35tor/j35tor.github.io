@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+
+
+
+<textarea id="feedtext" style="width: 540px; height: 200px;" >(Text to Encrypt)</textarea> <br/>
+
+SymKey:<input type="text" id="symKey"  value="(Press GenRan)"> <button onclick="genRan()"> GenKey </button>
+<button onclick="copy2clip('symKey')"> copyKey </button>
+<button onclick="qrcode_gen()">Key2QR</button> <br />
+<!-- <p id='qr'> </p> -->
+(you may edit the SymKey in above box) <button onclick="symGnuPG_enc()"> Encrypt </button>
+<div id="qr"></div>
+<textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
+<button onclick="copy2clip('outtext')"> copyOutput </button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.3/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.6.2/compat/openpgp.min.js"></script>
+<script src="./base32.js"></script>
+<script src="./symgpg.js"></script>
+</body>
+</html>
