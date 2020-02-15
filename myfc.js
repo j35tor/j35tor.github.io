@@ -82,15 +82,14 @@ document.getElementById("sha1table").addEventListener("click",function()
 	{
 	/// Local url //  document.getElementById("quickLink").href =  "./" +  event.target.innerHTML ;
 	// document.getElementById("quickLink").innerHTML = event.target.innerHTML ;
-
-  document.getElementById("quickLink").href =  "http://cloud.disroot.org/" +  event.target.innerHTML ;
-	document.getElementById("quickLink").innerHTML =  "_" ;
-	} 
+  document.getElementById("quickLink").innerHTML =  "_" ;
+	}
 	else if  //  ( event.target.innerHTML.length < 40 )
 		 ( event.target.innerHTML.toString().slice(0,2) === "/s" )
 
 			{  //  alert ("That me " + event.target.cellIndex );
-					document.getElementById("quickLink").href =  event.target.innerHTML ;
+					//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
+          document.getElementById("quickLink").href =  "http://cloud.disroot.org/" +  event.target.innerHTML ;
 					document.getElementById("quickLink").innerHTML =  "_" ;
 					navigator.clipboard.writeText(event.target.innerHTML);
 			}
