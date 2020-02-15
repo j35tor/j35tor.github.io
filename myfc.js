@@ -82,6 +82,8 @@ document.getElementById("sha1table").addEventListener("click",function()
 	{
 	/// Local url //  document.getElementById("quickLink").href =  "./" +  event.target.innerHTML ;
 	// document.getElementById("quickLink").innerHTML = event.target.innerHTML ;
+
+  document.getElementById("quickLink").href =  "" ;
   document.getElementById("quickLink").innerHTML =  "_" ;
 	}
 	else if  //  ( event.target.innerHTML.length < 40 )
@@ -89,7 +91,8 @@ document.getElementById("sha1table").addEventListener("click",function()
 
 			{  //  alert ("That me " + event.target.cellIndex );
 					//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
-          document.getElementById("quickLink").href =  "http://cloud.disroot.org/" +  event.target.innerHTML ;
+          document.getElementById("quickLink").href =
+                    "http://cloud.disroot.org" +  event.target.innerHTML ;
 					document.getElementById("quickLink").innerHTML =  "_" ;
 					navigator.clipboard.writeText(event.target.innerHTML);
 			}
