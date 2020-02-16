@@ -1,0 +1,15 @@
+<html>
+<head>
+</head>
+<body>
+<textarea id="feedtext" style="width: 540px; height: 200px;" >(GnuPG Message to Decrypt)</textarea> <br/>
+SymKey:<input type="text" id="symKey"  value="(SymKey)">
+<button onclick="symGnuPG_dec()"> Decrypt </button>
+<div id="qr"></div>
+<textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
+<button onclick="copy2clip('outtext')"> copyOutput </button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.6.2/compat/openpgp.min.js"></script>
+<script src="./symgpgdec.js"></script>
+</body>
+</html>
