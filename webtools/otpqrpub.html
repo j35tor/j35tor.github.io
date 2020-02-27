@@ -100,23 +100,32 @@ otpauth URL: <br />
     <br>
  <div id="qrtext"></div>
  <div id="qr"></div>
-
+-----------------------------------------------------------------------------<br />
+Using GnuPG SymKey to encrypt otpauth URI  <br />
+SymKey:<input type="text" id="symKey"  value="(Press GenKey)"> <button onclick="genRan()"> GenKey </button> <br />
+(you may edit the SymKey)
+<button onclick="copy2clip('symKey')"> copyKey </button>
+<button onclick="symGnuPG_enc()"> Encrypt </button><br />
+-----------------------------------------------------------------------------<br />
+Using GnuPG Public Key to encrypt otpauth URI  <br />
 Key Server:<select id="pubKeyServ" name="pubKeyServ" >
 
-    <option value="https://pgp.mit.edu"> PGP@MIT_h</option>
-    <option value="https://sks-keyservers.net/">Keys@SKS_h</option>
+    <option value="https://pgp.mit.edu"> PGP@MIT</option>
+    <option value="https://pgp.key-server.io">KeyServerIO</option>
+    <option value="https://sks-keyservers.net/">Keys@SKS</option>
   </select>  <br/ >
 
 
 KeyID:<input type="text" id="keyID"  value="(KeyID)"  style="width: 180px;" >
-<button onclick="keyLookup()"> Lookup </button>  <br />
+<button onclick="keyLookup()"> Lookup </button>
+<button onclick="copy2clip('pubKey')"> copyPubKey </button>  <br />
 
-<textarea id="keyPub" style="width: 350px; height: 50px;" ></textarea> <br/>
-<button onclick="copy2clip('pubKey')"> copyPubKey </button> <br />
+<textarea id="keyPub" style="width: 350px; height: 50px;" >(Pending for KeyID, then press Lookup)</textarea> <br/>
+ <br />
 
 <textarea id="outtext" style="width: 350px; height: 100px;">
 (Press Encrypt button to get the OUTPUT)</textarea> <br />
-<button onclick="pubKey_enc()"> Encrypt </button> 
+<button onclick="pubKey_enc()"> Encrypt </button>
 <button onclick="copy2clip('outtext')"> copyOutput </button>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.3/qrcode.min.js"></script>
