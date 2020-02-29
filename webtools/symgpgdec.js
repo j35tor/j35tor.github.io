@@ -1,4 +1,5 @@
 async function symGnuPG_dec()
+//  function symGnuPG_dec()
 {
   var feed = document.getElementById("symKey").value;
   //// DEBUG:  console.log(feed);
@@ -11,9 +12,13 @@ async function symGnuPG_dec()
        // armor : true
    }
 
-   var outText = await window.openpgp.decrypt(options);
+   ///** var outText = await window.openpgp.decrypt(options);
+    try { var outText = await window.openpgp.decrypt(options) ;
+           document.getElementById("outtext").value = outText.data ;  }
+    catch  (err) { alert (err.message )  }
+
    //  console.log(outText);
-   document.getElementById("outtext").value = outText.data ;
+   ////***  document.getElementById("outtext").value = outText.data ;
 //    return (encText);
 }
 
