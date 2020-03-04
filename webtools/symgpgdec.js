@@ -5,6 +5,8 @@ async function symGnuPG_dec()
   //// DEBUG:  console.log(feed);
 
   var feedintext2 = document.getElementById("feedtext").value;
+  document.getElementById("outtext").value = '' ;
+
   //// DEBUG:   console.log(feedintext2);
   const options = {
        message : await openpgp.message.readArmored(feedintext2) ,
@@ -12,14 +14,11 @@ async function symGnuPG_dec()
        // armor : true
    }
 
-   ///** var outText = await window.openpgp.decrypt(options);
     try { var outText = await window.openpgp.decrypt(options) ;
-           document.getElementById("outtext").value = outText.data ;  }
+           document.getElementById("outtext").value = outText.data ;
+           return (outText);
+           }
     catch  (err) { alert (err.message )  }
-
-   //  console.log(outText);
-   ////***  document.getElementById("outtext").value = outText.data ;
-//    return (encText);
 }
 
 function copy2clip(myElementId)

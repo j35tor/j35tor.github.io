@@ -9,6 +9,12 @@ SymKey:<input type="text" id="symKey"  value="(SymKey)">
 <textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
 <button onclick="copy2clip('outtext')"> copyOutput </button>
 
+<p style="font-family:Arial;font-size:12px" >
+(Disclaimer:  The decryption is done locally on your browser via Javascript,<br />
+and the content will NOT send over internet.  (You may check the
+<a href="./symgpgdec.js">source</a> ;p )
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.6.2/compat/openpgp.min.js"></script>
 <script src="./symgpgdec.js"></script>
 </body>

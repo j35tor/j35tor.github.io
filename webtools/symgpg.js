@@ -4,6 +4,8 @@ async function symGnuPG_enc()
   //// DEBUG:  console.log(feed);
 
   var feedintext2 = document.getElementById("feedtext").value;
+  document.getElementById("outtext").value = '';
+
   //// DEBUG:   console.log(feedintext2);
   const options = {
        message : window.openpgp.message.fromText(feedintext2) ,
