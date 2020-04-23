@@ -1,0 +1,97 @@
+<html lang="en" dir="ltr"   ng-app="platecal">
+<head>
+   <title>PlateCal</title>
+</head>
+<body ng-controller="platecal_ctrl" >
+
+<table>
+        <tr>
+        <td>Metal layer:</td>
+        <td colspan="2" >
+            <select id="targetMetal" ng-model="targetMetal"
+                ng-options="metal.Symbol for metal in metals" ng-change="onValueChanged_Metal()" >
+              </select>
+        </td>
+        </tr>
+
+        <tr>
+        <td>Density:</td>
+        <td id="metalDensity"> ------- </td>
+        <td> g/cc </td>
+        </tr>
+
+        <tr>
+        <td>ElectroChem. Eq:</td>
+        <td id="electroChemEq"> ------- </td>
+        <td> g/Amp-hr </td>
+        </tr>
+
+        <tr>
+        <td>Cathode Efficiency:</td>
+        <td>  <input id="cathodeEff" type="text" onchange="onValueChanged_cathodeEff()"  size="4" value="100" ></td>
+        <td>%</td>
+        </tr>
+
+
+        <tr>
+        <td>------------------</td>
+        <td>-------</td>
+        <td>-----</td>
+        </tr>
+
+        <tr>
+        <td>Thickness:</td>
+        <td>  <input id="thinknces" type="text" onchange="onValueChanged_Thickness()"  size="4"></td>
+        <td>um</td>
+        </tr>
+
+        <tr>
+        <td>Plated surface area:</td>
+        <td>  <input id="platedArea" type="text" onchange="onValueChanged_platedArea()"  size="4"></td>
+        <td>dm2</td>
+        </tr>
+
+        <tr>
+        <td>Plated Metal:</td>
+        <td>  <input id="platedMetal" type="text" onchange="onValueChanged_PlatedMetal()"  size="4"></td>
+        <td>g</td>
+        </tr>
+
+        <tr>
+        <td>------------------</td>
+        <td>-------</td>
+        <td>-----</td>
+        </tr>
+
+        <tr>
+        <td>Current Density:</td>
+        <td>  <input id="currentDensity" type="text" onchange="onValueChanged_CurrentDensity()" size="4"></td>
+        <td>A/dm2 (asd)</td>
+        </tr>
+
+        <tr>
+        <td>Applied Current:</td>
+        <td>  <input id="appliedCurrent" type="text" onchange="onValueChanged_AppliedCurrent()" size="4"></td>
+        <td>Amp</td>
+        </tr>
+
+        <tr>
+        <td>------------------</td>
+        <td>-------</td>
+        <td>-----</td>
+        </tr>
+
+        <tr>
+        <td>Plating Time:</td>
+        <td id="platingTime"> ------- </td>
+        <td id="platingTimeUnit"> </td>
+        </tr>
+
+
+</table>
+<!-- {{targetMetal.electroChemEqCal}}  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+<script src="./platecal.js"></script>
+
+</body>
+</html>
