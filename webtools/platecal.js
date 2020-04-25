@@ -40,12 +40,20 @@ var platingTime =  document.getElementById('platedMetal').value /
 if (platingTime > 1)
           {  document.getElementById('platingTime').innerHTML =
                 platingTime.toString().substring(0,4);
-              document.getElementById('platingTimeUnit').innerHTML = 'Min(s)' ;
+              document.getElementById('platingTimeUnit').innerHTML = 'Hour(s)' ;
           } else {
-              document.getElementById('platingTime').innerHTML =
-                 (platingTime * 60).toString().substring(0,2) ;
-              document.getElementById('platingTimeUnit').innerHTML = 'Second(s)' ;
-          }
+              platingTime = platingTime * 60 ;
+              if  (platingTime > 1)
+                      {
+                          document.getElementById('platingTime').innerHTML =
+                            platingTime.toString().substring(0,4) ;
+                              document.getElementById('platingTimeUnit').innerHTML = 'Min(s)' ;
+                      }  else {
+                                document.getElementById('platingTime').innerHTML =
+                                  (platingTime*60).toString().substring(0,2) ;
+                                  document.getElementById('platingTimeUnit').innerHTML = 'Second(s)' ;
+                                }
+                     }
 }
 
 
