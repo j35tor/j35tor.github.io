@@ -27,21 +27,53 @@ angular.module('platecal', [])
                               $scope.targetMetal.electroChemEqCal.toString().substring(0,6) ;
                               recalc_metal();
                             }
+          $scope.convTabUnits = [  { unit: "cm <-> inch" , modFactor : "0.3937007874", srcUnit: "cm" , destUnit : "inch(es)" },
+                                   // { unit: "inch -> cm" , modFactor : "2.54" , srcUnit: "inch(es)" , destUnit : "cm" } ,
+                                   { unit: "ft <-> meter" , modFactor : "0.3048", srcUnit: "ft" , destUnit : "m(s)" } ,
+                                   // { unit: "meter -> ft" , modFactor : "3.2808", srcUnit: "m(s)" , destUnit : "ft(s)" },
+                                   { unit: "um <-> m-inch" , modFactor : "40",  srcUnit: "um" , destUnit : "m-inch" },
+                                  //  { unit: "m-inch -> um" , modFactor : "0.025", srcUnit: "m-inch" ,  destUnit : "um" },
+                                   { unit: "sq-ft <-> dm2" , modFactor : "9.290304", srcUnit: "sq-ft" ,  destUnit : "dm2" },
+                                  //  { unit: "dm2 -> sq-ft" , modFactor : "0.107639104167097", srcUnit: "dm2" , destUnit : "sq-ft" },
+                                   { unit: "oz <-> g" , modFactor : "28.328611898017", srcUnit: "oz(s)" ,  destUnit : "gram(s)" },
+                                   { unit: "toz <-> g" , modFactor : "31.1034768", srcUnit: "toz(s)" ,  destUnit : "gram(s)" },
+                                   { unit: "lb <-> kg" , modFactor : "0.45359237" ,srcUnit: "lb(s)" ,  destUnit : "kg(s)" },
+                                   { unit: "gal <-> lit" , modFactor : "3.785411784" ,srcUnit: "gal(s)" ,  destUnit : "lit(s)" },
+                                   { unit: "toz/gal <-> g/l" , modFactor : "8.21666930173005", srcUnit: "toz/gal" ,  destUnit : "g/lit" },
+                                   { unit: "fl oz <-> ml" , modFactor : "29.57353", srcUnit: "fl.oz" ,  destUnit : "ml" },
+                                   { unit: "floz/gal <-> ml/lit" , modFactor : "7.81250011557527" , srcUnit: "floz/gal" ,  destUnit : "ml/l" },
+                                   { unit: "cu-ft <-> lit" , modFactor : "28.316846592", srcUnit: "cu-ft" ,  destUnit : "litre(s)" },
+                                   { unit: "A/sq-ft <-> ASD" , modFactor : "0.107639104167097", srcUnit: "A/sq-ft" ,  destUnit : "A/dm2" },
+                                ]
+
+
+         $scope.onValueChanged_ConvTabLeftUnit = function () {
+                                  //  alert ("I'm Left")
+                                  document.getElementById('conTabRightUnit').innerHTML =
+                                        $scope.convTabLeftUnit.destUnit ;
+                                  document.getElementById('conTabLeftUnit').innerHTML =
+                                              $scope.convTabLeftUnit.srcUnit ;
+                                  document.getElementById('conTabRight').value =
+                                              $scope.convTabLeftUnit.modFactor ;
+                                  onValueChanged_ConvTabLeft();
+                                  }
+
+
 } ] )
 
 
 function recalc_metal()
 {
   //  1 cm3 = 100 um.dm2
-  document.getElementById('platedMetal').value =
-          (document.getElementById('platedArea').value * document.getElementById('thinknces').value) / 100 *
-            document.getElementById('metalDensity').innerHTML ;
+  document.getElementById('platedMetal').innerHTML =
+          ((document.getElementById('platedArea').value * document.getElementById('thinknces').value) / 100 *
+            document.getElementById('metalDensity').innerHTML).toFixed(4) ;
             recalc_amp();
 }
 
 function recalc_amp()
 {
-var platingTime =  document.getElementById('platedMetal').value /
+var platingTime =  document.getElementById('platedMetal').innerHTML /
     ( document.getElementById('electroChemEq').innerHTML *  document.getElementById('appliedCurrent').value
         * ( document.getElementById('cathodeEff').value / 100 )   );
 
@@ -68,14 +100,14 @@ if (platingTime > 1)
 function onValueChanged_CurrentDensity()
 {
   document.getElementById('appliedCurrent').value =
-        document.getElementById('platedArea').value  *  document.getElementById('currentDensity').value ;
+        (document.getElementById('platedArea').value  *  document.getElementById('currentDensity').value).toFixed(4)   ;
   recalc_amp() ;
 }
 
 function onValueChanged_AppliedCurrent()
 {
   document.getElementById('currentDensity').value =
-    document.getElementById('appliedCurrent').value  / document.getElementById('platedArea').value ;
+    (document.getElementById('appliedCurrent').value  / document.getElementById('platedArea').value).toFixed(4)  ;
   recalc_amp();
 }
 
@@ -95,4 +127,49 @@ function onValueChanged_platedArea()
 function onValueChanged_cathodeEff()
 {
   recalc_metal();
+}
+
+
+function onValueChanged_ConvTabLeft()
+{
+//  alert (document.getElementById('conTabRight').value)
+   if ( document.getElementById('conTabRight').value == null)
+            { document.getElementById('conTabRight').value = 0.3937007874 }
+
+    document.getElementById('convTabRightOut').value = ( document.getElementById('conTabRight').value *
+               document.getElementById('convTabLeft').value).toFixed(4) ;
+}
+
+function onValueChanged_ConvTabRight()
+{
+//  alert (document.getElementById('conTabRight').value)
+   if ( document.getElementById('conTabRight').value == null)
+            { document.getElementById('conTabRight').value = 0.3937007874 }
+
+    document.getElementById('convTabLeft').value =  ( document.getElementById('convTabRightOut').value /
+                  document.getElementById('conTabRight').value).toFixed(4);
+
+}
+
+
+
+function conTabRightCopy()
+{
+    document.getElementById("convTabRightOut").select();
+    document.execCommand("copy");
+
+}
+
+
+function conTabLeftCopy()
+{
+    document.getElementById("convTabLeft").select();
+    document.execCommand("copy");
+
+}
+
+function addDot(local)
+{
+  // alert (local.id)
+  local.value=local.value + '.';
 }

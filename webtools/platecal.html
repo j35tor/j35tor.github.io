@@ -15,7 +15,7 @@
         </tr>
 
         <tr>
-        <td>Density:</td>
+        <td>Metal Density:</td>
         <td id="metalDensity"> ------- </td>
         <td> g/cc </td>
         </tr>
@@ -28,7 +28,8 @@
 
         <tr>
         <td>Cathode Efficiency:</td>
-        <td>  <input id="cathodeEff" type="text" onchange="onValueChanged_cathodeEff()"  size="4" value="100" ></td>
+        <td>  <input id="cathodeEff"   inputmode="numeric" pattern="[0-9]*"  type="text"
+                        onchange="onValueChanged_cathodeEff()"  size="4" value="100" ></td>
         <td>%</td>
         </tr>
 
@@ -40,20 +41,22 @@
         </tr>
 
         <tr>
-        <td>Thickness:</td>
-        <td>  <input id="thinknces" type="text" onchange="onValueChanged_Thickness()"  size="4"></td>
+        <td>Metal Thickness:</td>
+        <td>  <input id="thinknces"  inputmode="numeric" pattern="[0-9]*" type="text"
+                  onchange="onValueChanged_Thickness()"  size="4"  value="0" ></td>
         <td>um</td>
         </tr>
 
         <tr>
         <td>Plated surface area:</td>
-        <td>  <input id="platedArea" type="text" onchange="onValueChanged_platedArea()"  size="4"></td>
+        <td>  <input id="platedArea"  inputmode="numeric" pattern="[0-9]*"  type="text"
+                  onchange="onValueChanged_platedArea()"  size="4"></td>
         <td>dm2</td>
         </tr>
 
         <tr>
         <td>Plated Metal:</td>
-        <td>  <input id="platedMetal" type="text" onchange="onValueChanged_PlatedMetal()"  size="4"></td>
+        <td id="platedMetal">-------</td>
         <td>g</td>
         </tr>
 
@@ -65,13 +68,15 @@
 
         <tr>
         <td>Current Density:</td>
-        <td>  <input id="currentDensity" type="text" onchange="onValueChanged_CurrentDensity()" size="4"></td>
+        <td>  <input id="currentDensity" inputmode="numeric" pattern="[0-9]*"  type="text"
+                onchange="onValueChanged_CurrentDensity()" size="4"></td>
         <td>A/dm2 (asd)</td>
         </tr>
 
         <tr>
         <td>Applied Current:</td>
-        <td>  <input id="appliedCurrent" type="text" onchange="onValueChanged_AppliedCurrent()" size="4"></td>
+        <td>  <input id="appliedCurrent" inputmode="numeric" pattern="[0-9]*"  type="text"
+                  onchange="onValueChanged_AppliedCurrent()" size="4"></td>
         <td>Amp</td>
         </tr>
 
@@ -89,7 +94,42 @@
 
 
 </table>
-<!-- {{targetMetal.electroChemEqCal}}  -->
+--------------------------------<br />
+Unit Conversion tools:
+<table>
+  <tr>
+  <td>
+    <input id="convTabLeft" inputmode="numeric" pattern="[0-9]*"
+                              onchange="onValueChanged_ConvTabLeft()"   type="text" size="8"  ></td>
+
+  <td> <input type="button" value="."  onclick="addDot(convTabLeft)"> </td>
+  <td id="conTabLeftUnit">cm</td>
+
+  <td>
+      <select id="convTabLeftUnit" ng-model="convTabLeftUnit"  ng-init="convTabLeftUnit = convTabUnits[0]"
+          ng-options="conTabUnit.unit for conTabUnit in convTabUnits" ng-change="onValueChanged_ConvTabLeftUnit()"
+          >
+        </select>
+  </td>
+  <td id="conTabRight">
+    <input id="convTabRightOut"  inputmode="numeric" pattern="[0-9]*"
+                        onchange="onValueChanged_ConvTabRight()"   type="text" size="8"  > </td>
+  <td> <input type="button" value="." onclick="addDot(convTabRightOut)" > </td>
+  <td id="conTabRightUnit">inch(es)</td>
+  </tr>
+
+  <tr>
+  <td><input type="button" value="Copy" onclick="conTabLeftCopy()"></td>
+  <td><input type="button" value="&#8594;" onclick="onValueChanged_ConvTabLeft()"></td>
+  <td></td>
+  <td></td>
+
+  <td> <input type="button" value="Copy" onclick="conTabRightCopy()"> </td>
+  <td> <input type="button" value="&#8592;" onclick="onValueChanged_ConvTabRight()"></td>
+</tr>
+
+</table>
+  <!-- {{targetMetal.electroChemEqCal}}  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
 <script src="./platecal.js"></script>
 
