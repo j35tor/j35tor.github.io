@@ -61,12 +61,12 @@ angular.module('platecal', [])
 
 } ] )
 
-
+//============================
 function recalc_metal()
 {
   //  1 cm3 = 100 um.dm2
   document.getElementById('platedMetal').innerHTML =
-          ((document.getElementById('platedArea').value * document.getElementById('thinknces').value) / 100 *
+          ((document.getElementById('platedArea').value * document.getElementById('thickness').value) / 100 *
             document.getElementById('metalDensity').innerHTML).toFixed(4) ;
             recalc_amp();
 }
@@ -99,13 +99,21 @@ if (platingTime > 1)
 
 function onValueChanged_CurrentDensity()
 {
-  document.getElementById('appliedCurrent').value =
+  if (  document.getElementById('currentDensity').value  < 0 )
+  { alert ("Current Density be larger than 0");
+     document.getElementById('currentDensity').value  = 0; }
+
+    document.getElementById('appliedCurrent').value =
         (document.getElementById('platedArea').value  *  document.getElementById('currentDensity').value).toFixed(4)   ;
   recalc_amp() ;
 }
 
 function onValueChanged_AppliedCurrent()
 {
+  if (  document.getElementById('appliedCurrent').value  < 0 )
+  { alert ("The Applied Current be larger than 0");
+     document.getElementById('appliedCurrent').value  = 0; }
+
   document.getElementById('currentDensity').value =
     (document.getElementById('appliedCurrent').value  / document.getElementById('platedArea').value).toFixed(4)  ;
   recalc_amp();
@@ -113,12 +121,20 @@ function onValueChanged_AppliedCurrent()
 
 function onValueChanged_Thickness()
 {
-recalc_metal();
+  if (  document.getElementById('thickness').value  < 0 )
+          { alert ("The plating thincess be larger than 0");
+              document.getElementById('thickness').value  = 0; }
+
+              recalc_metal();
 }
 
 
 function onValueChanged_platedArea()
 {
+  if (  document.getElementById('platedArea').value  < 0 )
+          { alert ("The plated area be larger than 0");
+              document.getElementById('platedArea').value  = 0; }
+
   document.getElementById('appliedCurrent').value =
         document.getElementById('platedArea').value  *  document.getElementById('currentDensity').value ;
   recalc_metal();
@@ -126,6 +142,10 @@ function onValueChanged_platedArea()
 
 function onValueChanged_cathodeEff()
 {
+   if ( (document.getElementById('cathodeEff').value  > 100 ) || ( document.getElementById('cathodeEff').value  < 0 )  )
+
+   { alert ("Current Efficiency should be between 0 - 100%");
+      document.getElementById('cathodeEff').value  = 100; }
   recalc_metal();
 }
 
@@ -151,8 +171,7 @@ function onValueChanged_ConvTabRight()
 
 }
 
-
-
+/*
 function conTabRightCopy()
 {
     document.getElementById("convTabRightOut").select();
@@ -165,7 +184,13 @@ function conTabLeftCopy()
 {
     document.getElementById("convTabLeft").select();
     document.execCommand("copy");
+}
+*/
 
+function padCopy(local)
+{
+    local.select();
+    document.execCommand("copy");
 }
 
 function addDot(local)
@@ -173,3 +198,21 @@ function addDot(local)
   // alert (local.id)
   local.value=local.value + '.';
 }
+
+
+document.getElementById("platecal").addEventListener("click",function()
+{
+  if ( (event.target.id == "platedMetal") || ( event.target.id == "platingTime" ) ||
+        (event.target.id == "electroChemEq") || ( event.target.id == "metalDensity" )   )
+    {
+        document.getElementById('clickPad').value = event.target.innerHTML ;
+       }
+
+  if ( (event.target.id == "cathodeEff") || ( event.target.id == "thickness" ) ||
+             ( event.target.id == "currentDensity") || ( event.target.id == "appliedCurrent" )  ||
+             ( event.target.id == "platedArea")  )
+    {  // alert (event.target.value)
+        document.getElementById('clickPad').value = event.target.value ;
+       }
+
+  },false);

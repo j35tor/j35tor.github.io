@@ -4,7 +4,7 @@
 </head>
 <body ng-controller="platecal_ctrl" >
 
-<table>
+<table id="platecal" >
         <tr>
         <td>Metal layer:</td>
         <td colspan="2" >
@@ -35,14 +35,14 @@
 
 
         <tr>
-        <td>------------------</td>
+        <td>------------------------</td>
         <td>-------</td>
         <td>-----</td>
         </tr>
 
         <tr>
         <td>Metal Thickness:</td>
-        <td>  <input id="thinknces"  inputmode="numeric" pattern="[0-9]*" type="text"
+        <td>  <input id="thickness"  inputmode="numeric" pattern="[0-9]*" type="text"
                   onchange="onValueChanged_Thickness()"  size="4"  value="0" ></td>
         <td>um</td>
         </tr>
@@ -61,7 +61,7 @@
         </tr>
 
         <tr>
-        <td>------------------</td>
+        <td>------------------------</td>
         <td>-------</td>
         <td>-----</td>
         </tr>
@@ -81,7 +81,7 @@
         </tr>
 
         <tr>
-        <td>------------------</td>
+        <td>------------------------</td>
         <td>-------</td>
         <td>-----</td>
         </tr>
@@ -92,6 +92,15 @@
         <td id="platingTimeUnit"> </td>
         </tr>
 
+        <tr>
+        <td colspan="3" > ------------------------------------------- </td>
+        </tr>
+
+        <tr>
+        <td>Click-Copy Pad:</td>
+        <td colspan="2"><input id="clickPad" type="text" size="8" >
+            <input type="button" value="Copy" onclick="padCopy(clickPad)"></td>
+        </tr>
 
 </table>
 --------------------------------<br />
@@ -119,19 +128,21 @@ Unit Conversion tools:
   </tr>
 
   <tr>
-  <td><input type="button" value="Copy" onclick="conTabLeftCopy()"></td>
+  <td><input type="button" value="Copy" onclick="padCopy(convTabLeftUnit)"></td>
   <td><input type="button" value="&#8594;" onclick="onValueChanged_ConvTabLeft()"></td>
   <td></td>
   <td></td>
 
-  <td> <input type="button" value="Copy" onclick="conTabRightCopy()"> </td>
+  <td> <input type="button" value="Copy" onclick="padCopy(convTabRightOut)"> </td>
   <td> <input type="button" value="&#8592;" onclick="onValueChanged_ConvTabRight()"></td>
-</tr>
+  </tr>
+
+
 
 </table>
   <!-- {{targetMetal.electroChemEqCal}}  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script> -->
+<script src="../cddir/angular.min.js"></script>
 <script src="./platecal.js"></script>
-
 </body>
 </html>
