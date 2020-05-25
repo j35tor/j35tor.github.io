@@ -109,7 +109,7 @@ document.getElementById("sha1table").addEventListener("click",function()
 			{  //  alert ("That me " + event.target.cellIndex );
 					//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
           document.getElementById("quickLink").href =
-                    "http://cloud.disroot.org" +  event.target.innerHTML ;
+                    "https://cloud.disroot.org" +  event.target.innerHTML ;
 					document.getElementById("quickLink").innerHTML =  "_" ;
 					navigator.clipboard.writeText(event.target.innerHTML);
 			}
