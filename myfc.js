@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", function()
+{
+   // init();
+   mytab2 = document.getElementById("sha1table");
+   Object.keys(mydata).forEach(function(key)
+    {
+      var rowNum = mytab2.insertRow();
+      rowNum.insertCell(0).innerHTML = mydata[key].checkSum ;
+      rowNum.cells[0].id = mydata[key].fileName ;
+      rowNum.insertCell(1).innerHTML = mydata[key].link;
+      rowNum.insertCell(2).innerHTML = mydata[key].fileName;
+    })
+
+}, false);
+
+
+
 document.getElementById("filetoRead").addEventListener("change",function()
 
 {
