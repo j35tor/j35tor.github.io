@@ -12,8 +12,8 @@ document.getElementById("mylocalStore").addEventListener("click",function()
     var my_table_node = document.getElementById(event.target.id).parentElement.parentElement.children ;
 
     for ( var i=0 ; i < my_table_node.length; i++)
-      { my_table_node[i].firstElementChild.style = "black";
-        my_table_node[i].firstElementChild.nextSibling.style = "black"; }
+      { my_table_node[i].firstElementChild.style.color = "black";
+        my_table_node[i].firstElementChild.nextSibling.style.color = "black"; }
 
    	if ( event.target.id.substring(0,6) === "lsKey_" )
     { document.getElementById(event.target.id).style.color = "blue";
@@ -53,10 +53,15 @@ function copyTo()
 function storeValue()
 {
   var someid1 = document.getElementById("localStoreKey").value ;
+
+  if ( someid1.includes("_") ) { alert ("Key included '_' is NOT allowed");  return; }
+  if ( someid1.includes(":") ) { alert ("Key included ':' is NOT allowed");  return; }
+  // TODo some users may use ':' before the updated....
   if ( someid1 != '' )
           {
           localStorage.setItem( someid1, document.getElementById("feed_box").value );
           reFreshTable(); }
+
 }
 
 function clearText()
