@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+        <script src="scripts/Common.js"></script>
+        <script src="scripts/Route.js"></script>
+        <script src="scripts/Stop.js"></script>
+        <script src="scripts/StopRoute.js"></script>
+        <script src="scripts/Variant.js"></script>
+        <script src="scripts/Eta.js"></script>
+        <script src="scripts/ui.js"></script>
+        <script src="scripts/event.js"></script>
+        <title>KMB &amp; LWB combined ETA</title>
+    </head>
+    <body>
+
+        <form>
+            <p>
+                <label>Enter the route number: <input id="route" name="route" maxlength="4"/></label>
+                <input type="submit" id="route_submit"/><br/>
+                <button id="switch_direction" type="button" disabled="disabled">Switch direction</button>
+                <input id="bound" name="bound" type="hidden" value="1" />
+                <span id="direction"/>
+                <br/>
+                <label>Choose a route variant: <select id="variant_list" name="variant" disabled="disabled"/></label><br/>
+            </p>
+        </form>
+        <p id="failure"/>
+        <form id="form">
+            <p>
+                <label>Choose a stop in the list: <select id="stop_list" name="stop" disabled="disabled"/></label>
+            </p>
+            <p><label><input type="checkbox" id="one_departure" name="one_departure" />Show the first departure only for each route</label></p>
+            <div>
+                <label>Route serving the stop selected: <select multiple="multiple" id="common_route_list" name="selections" disabled="disabled"/></label>
+                <div id="route_list_loading">Loading - <span id="route_list_count">0</span> route(s) remaining</div>
+            </div>
+        </form>
+        <br />
+		<button id="clearTrip" type="button">Clear above trip</button> <br />
+        <button id="bookmark" type="button">Bookmark above trip as</button>
+        <input id="bookmark_label" name="bookmark_label" maxlength="16"  value="Bookmark1"/>
+
+        <table id="bookmarkStore" border="1" >
+        </table>
+
+        <br />
+		The trip details: <br/>
+        <table id="eta">
+            <thead>
+                <tr><th>Time</th><th>Route</th><th>Distance (m)</th><th>Remark</th></tr>
+            </thead>
+            <tbody />
+        </table>
+        <div>
+            <div id="eta_loading">Loading</div>
+            <div>Last updated: <span id="eta_last_updated"/></div>
+        </div>
+
+
+        <p>
+            © Victor Lee 2020 with the forked work from © Michael Tsang 2020, released under <a href="https://opensource.org/licenses/AGPL-3.0">AGPL 3.0 Licence</a>.<br/>
+            <a href="https://github.com/j35tor/kmb-lwb-combined-headway-eta">Source available on Github.</a>
+        </p>
+    </body>
+</html>
