@@ -182,4 +182,27 @@ if ( myversion === null )
 // alert ( "Version Checked" ) ;
 };
   
-function switchPage() { reFreshTable(); }
+function switchPage() 
+{ 
+var someid1 = document.getElementById("localStoreKeyPage").value ;
+if ( someid1.includes(":") )
+     {
+		  if ( someid1 === ':list' )
+                {
+                var myObjs = [] ;
+                ddItem = Object.create( {} );
+                Object.keys( localStorage )
+						.forEach( function(key) {
+                            addItem = key.split(":")[2] ;
+                            if ( addItem[0] != "_" )  { myObjs.push(addItem); }  })  // eo forEach
+
+                var myObjs_uniq = myObjs
+						.filter( function(item, pos) { return myObjs.indexOf(item) == pos } );
+                var jsonFeed = myObjs_uniq.toString();
+				document.getElementById("feed_box").value = "Page: " + jsonFeed ;		
+				
+				return; }
+		/// All :command catched		
+	    alert ("Page name included ':' is NOT allowed");  return; }
+
+reFreshTable(); }
