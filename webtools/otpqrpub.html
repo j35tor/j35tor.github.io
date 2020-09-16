@@ -86,14 +86,14 @@
       </tr>
 
 </table>
-otpauth URL: <br />
+otpauth URI: <br />
 
 <textarea id="oauth_url" style="width: 350px; height: 50px;" >  </textarea>
 <br/>
 
     <button onclick="neu_clear()">Clear </button>
     <button onclick="qrcode_gen()">GenQR</button>
-    <button onclick="copy2clip('oauth_url')"> copyURL</button>
+    <button onclick="copy2clip('oauth_url')"> copyURI</button>
 
 <!--	    <input type="button" ng-click="qrupdate()" value="QRGen" ng-class="{'ng-hide' : ! feed }" >  -->
 
@@ -113,6 +113,7 @@ Key Server:<select id="pubKeyServ" name="pubKeyServ" >
     <option value="https://pgp.mit.edu"> PGP@MIT</option>
     <option value="https://pgp.key-server.io">KeyServerIO</option>
     <option value="https://sks-keyservers.net/">Keys@SKS</option>
+    <option value="https://keyserver-03.2ndquadrant.com">Keys@2ndQ</option>
   </select>  <br/ >
 
 
