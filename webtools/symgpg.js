@@ -52,3 +52,11 @@ function qrcode_gen()
     qr.make();
      document.getElementById('qr').innerHTML =  qr.createImgTag();
 }
+
+
+function boxclear(myElementId)
+{
+
+document.getElementById(myElementId).value = '';
+	
+}

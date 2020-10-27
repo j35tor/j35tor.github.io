@@ -30,3 +30,10 @@ function copy2clip(myElementId)
   document.execCommand("copy");
   //// DEBUG:   alert("Copied the text: " + copyText.value);
 }
+
+function boxclear(myElementId)
+{
+
+document.getElementById(myElementId).value = '';
+	
+}

@@ -50,3 +50,11 @@ function copy2clip(myElementId)
 
 
 }
+
+
+function boxclear(myElementId)
+{
+
+document.getElementById(myElementId).value = '';
+	
+}

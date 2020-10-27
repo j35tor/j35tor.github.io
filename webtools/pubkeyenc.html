@@ -14,14 +14,17 @@ Key Server:<select id="pubKeyServ" name="pubKeyServ" >
 KeyID:<input type="text" id="keyID"  value="(KeyID)"  style="width: 180px;" >
 <button onclick="keyLookup()"> Lookup </button>  <br />
 <textarea id="keyPub" style="width: 540px; height: 100px;" ></textarea> <br/>
-<button onclick="copy2clip('pubKey')"> copyPubKey </button><br />
-
+<button onclick="copy2clip('keyPub')"> copyPubKey </button>
+<button onclick="boxclear('keyPub')"> Clear </button>
+<br />
 <textarea id="feedtext" style="width: 540px; height: 150px;" >(Text to Encrypt)</textarea> <br/>
-<button onclick="pubKey_enc()"> Encrypt </button>
+<button onclick="pubKey_enc()"> &#8595; Encrypt </button>
+<button onclick="boxclear('feedtext')"> Clear </button>
 <br/>
 
 <textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
 <button onclick="copy2clip('outtext')"> copyOutput </button>
+<button onclick="boxclear('outtext')"> Clear </button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js"  crossorigin="anonymous" ></script>
 
