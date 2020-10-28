@@ -1,6 +1,6 @@
 const mydata =
 [
- { "checkSum": "d256f641afb6e06a985099349e09db66b8792574" , "link" : "/s/mf8dzS38Hyw45Wz"  , "fileName":  "bin.exe" }
+ { "checkSum": "746572d0ba55fdc3a5479aeeb6318b26d33108a0" , "link" : "/s/9nBc5ECH5JnpcyW"  , "fileName":  "bin.exe" }
 ,{ "checkSum": "3bf8ed23e43ea9ae08eddc73bcb11d4fc16dcc29" , "link" : "/s/tZxc9SBwCFdTkep"  , "fileName":  "MinGW.exe" }
 ,{ "checkSum": "1affe9f23360aadefdbee2bec8180de091a84d33" , "link" : "/s/3DCPGgPjMHSkiae"  , "fileName":  "node.7z" }
 ,{ "checkSum": "277c2085ae1bfd3f67f01dcdf932a98ca37aa510" , "link" : "/s/kprtjtMHJEZa4yz"  , "fileName":  "miniconda3_64.7z" }
