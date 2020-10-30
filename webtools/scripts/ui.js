@@ -494,12 +494,10 @@ $(document).ready(
 		           } ;  // eo function reFreshTable;
 
 //=========================
-          $stop_list.change(
-              function () {
-=======
+
         $stop_list.change(
             async function () {
->>>>>>> upstream/master
+
                 /** @var {Stop|undefined} */
                 const stop = $('#stop_list option:checked').first().data('model');
                 /** @var {Variant|undefined} */
