@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-hant" lang="zh-hant">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aes-js/3.1.2/index.min.js"></script>
+        <script src="scripts/Common.js"></script>
+        <script src="scripts/Route.js"></script>
+        <script src="scripts/Stop.js"></script>
+        <script src="scripts/StopRoute.js"></script>
+        <script src="scripts/Variant.js"></script>
+        <script src="scripts/Eta.js"></script>
+        <script src="scripts/Secret.js"></script>
+        <script type="module" src="scripts/ui.js"></script>
+        <title>九巴及龍運聯合班次到站時間預報</title>
+    </head>
+    <body>
+        <table id="eta">
+            <thead>
+                <tr><th>時間</th><th>路線</th><th>距離（米）</th><th>備註</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div>
+            <div id="eta_loading">載入中</div>
+            <div>最後更新：<span id="eta_last_updated"></span></div>
+        </div>
+        <p id="failure"></p>
+        <form>
+            <p>
+                <label>輸入路線編號：<input id="route" name="route" maxlength="4"/></label><br/>
+                <input id="bound" name="bound" type="hidden" value="1" />
+                <input type="submit" id="route_submit"/>
+                <button id="switch_direction" type="button" disabled="disabled">切換方向</button>
+                <span id="direction"></span>
+                <br/>
+                <label>選擇路線變體：<select id="variant_list" name="variant" disabled="disabled"></select></label><br/>
+            </p>
+        </form>
+        <form id="form">
+            <p>
+                <label>從清單中選擇車站：<select id="stop_list" name="stop" disabled="disabled"></select></label>
+            </p>
+            <p><label><input type="checkbox" id="one_departure" name="one_departure" />只顯示每條路線首個班次</label></p>
+            <div>
+                <label>服務已選車站之路線：<select multiple="multiple" id="common_route_list" name="selections" disabled="disabled"></select></label>
+                <div id="route_list_loading">載入中 - 剩餘<span id="route_list_count">0</span>條路線</div>
+            </div>
+        </form>
+        <p>
+            © Michael Tsang 2020, 於<a href="https://opensource.org/licenses/AGPL-3.0">AGPL 3.0 授權協議</a>下發佈。<br/>
+            <a href="https://github.com/miklcct/kmb-lwb-combined-headway-eta">原始碼於 Github 發佈。</a>
+        </p>
+        <nav>
+            <a id="en_link" lang="en" xml:lang="en" href="index.html">English</a>
+            <a id="zh_hant_link" lang="zh-hant" xml:lang="zh-hant" href="index_zh_hant.html">繁體中文</a>
+            <a id="zh_hans_link" lang="zh-hans" xml:lang="zh-hans" href="index_zh_hans.html">简体中文</a>
+        </nav>
+    </body>
+</html>

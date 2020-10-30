@@ -1,17 +1,17 @@
 'use strict';
 
-const Common = {
+export const Common = {
     PROXY_URL : 'https://miklcct.com/proxy/',
-    API_ENDPOINT : 'http://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx',
+    API_ENDPOINT : 'https://search.kmb.hk/KMBWebSite/Function/FunctionRequest.ashx',
 
     /**
      * Call the KMB API
      *
-     * @param {Object<string, string>} query The query string parameters, except the common "syscode" and "l"
-     * @param {function(object)} callback The handler for the returned JSON
+     * @param {object<string, string>} query The query string parameters, except the common "syscode" and "l"
+     * @return {Promise<object>}
      */
-    callApi : function (query, callback) {
-        $.get((location.protocol === 'https:' ? Common.PROXY_URL : '') + Common.API_ENDPOINT, query, callback);
+    callApi : async function (query) {
+        return $.get(Common.API_ENDPOINT, query);
     },
 
     /**
@@ -40,6 +40,14 @@ const Common = {
      */
     getQueryOneDeparture : function () {
         return Boolean((new URLSearchParams(window.location.search)).get('one_departure'));
+    },
+
+    /**
+     * Get the language used in the document
+     * @returns {string}
+     */
+    getLanguage() {
+        return $('html').attr('lang');
     },
 
     secret : null,
