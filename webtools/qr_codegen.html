@@ -3,12 +3,14 @@
 </head>
 <body>
 
-<textarea id="feedtext" style="width: 540px; height: 200px;">(Text to QR code gen)</textarea> <br/>
+<textarea id="feedtext" style="width: 540px; height: 200px;">(Text to generate QR code)</textarea> <br/>
+Please note that the support of UTF-8 multibyte characters is not yet implemented 
+<!-- UTF-8 Support is not yet implemented 
 Text containing multibyte characters (UTF-8)? :<select name="text_UTF8">
-      <option value="no_UTF8">No</option>
+ <option value="no_UTF8">No</option>
 
       <option value="yes_UTF8" selected>Yes</option>
-</select>
+</select> -->
 <br />
 <button onclick="qrcode_gen()">&#8595; QR code</button>
 <button onclick="genRan()"> GenRandom Text</button>
@@ -18,7 +20,7 @@ Text containing multibyte characters (UTF-8)? :<select name="text_UTF8">
 <div id="qr"></div>
 
 <p style="font-family:Arial;font-size:12px" >
-(Disclaimer:  The encryption is done locally on your browser via Javascript,<br />
+(Disclaimer:  The code generation is done locally on your browser via Javascript,<br />
 and the content will NOT send over internet.  (You may check the
 <a href="./qr_codegen.js">source</a> ;p )
 

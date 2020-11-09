@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function()
    
    if (document.getElementById("feedtext").value == '' ) 
 		{  
-			document.getElementById("feedtext").value = "(Text to QR code gen)";
+			document.getElementById("feedtext").value = "(Text to generate QR code)";
 		}
 		
    
@@ -19,9 +19,6 @@ var bytes = new Uint8Array(35);
 window.crypto.getRandomValues(bytes);
 
 document.getElementById("feedtext").value = base32.encode(bytes);
-
-// document.getElementById("feedtext").innerHTML = base32.encode(bytes);
-
 }
 
 
@@ -39,12 +36,7 @@ function qrcode_gen()
 	
 	qr_feed = document.getElementById('feedtext').value ;
 	
-	
-	
-alert (qr_feed + ">>\n" + toUTF8Array(qr_feed) + "===\n" +  encoder.encode(qr_feed) );
-	
-	
-	
+    //DEBUG  alert (qr_feed + ">>\n" + toUTF8Array(qr_feed) + "===\n" +  encoder.encode(qr_feed) );	
 	//  qr.addData( document.getElementById('feedtext').value );
 	/// qr.addData( bin2String(qr_feed)  );
 	
