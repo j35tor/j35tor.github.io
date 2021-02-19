@@ -1,14 +1,19 @@
 <html lang="en" dir="ltr">
 <head>
   <title>Scoop Quick Cmd</title>
+    <style>
+  .click_lines > * { white-space: pre; font-family:monospace; font-size:14px;" }
+  
+  </style>
+
 </head>
 <body>
-<div  id="click_lines">
-<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line1">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser </div>
-<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line2">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
-<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line3">iwr -useb get.scoop.sh | iex</div>
-<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line4">~\scoop\apps\git\current\usr\bin\gpg.exe </div>
-<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line5">gpgconf --kill gpg-agent && gpg-connect-agent reloadagent /bye</div>
+<div class="click_lines" id="click_lines">
+<div id="line1">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser </div>
+<div id="line2">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
+<div id="line3">iwr -useb get.scoop.sh | iex</div>
+<div id="line4">~\scoop\apps\git\current\usr\bin\gpg.exe </div>
+<div id="line5">gpgconf --kill gpg-agent && gpg-connect-agent reloadagent /bye</div>
 </div>
 </body>
 <script type="text/javascript">
