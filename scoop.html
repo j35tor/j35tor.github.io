@@ -1,0 +1,24 @@
+<html lang="en" dir="ltr">
+<head>
+  <title>Scoop Quick Cmd</title>
+</head>
+<body>
+<div  id="click_lines">
+<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line1">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser </div>
+<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line2">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
+<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line3">iwr -useb get.scoop.sh | iex</div>
+<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line4">~\scoop\apps\git\current\usr\bin\gpg.exe </div>
+<div style="white-space: pre; font-family:monospace; font-size:14px;" id="line5">gpgconf --kill gpg-agent && gpg-connect-agent reloadagent /bye</div>
+</div>
+</body>
+<script type="text/javascript">
+  document.getElementById("click_lines").addEventListener("click",function() {
+     var sibling = document.getElementById(event.target.id).parentElement.firstElementChild;
+	 while (sibling) {    
+			sibling.style.color = "black" ; 
+			sibling = sibling.nextSibling.nextSibling; }
+	 document.getElementById(event.target.id).style.color = "red" ;
+	 navigator.clipboard.writeText(event.target.innerHTML); } )
+</script>
+
+</html>
