@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+	<meta name="description" content="">
+    <meta name="keywords" content="">
+	 <meta name="author" content="j35tor">
+
+     <title>xxHash32 Checksum Validator</title>
+  </head>
+  <body>
+xxHash32 file Checksum Validator:<br>
+<form style="font-family:Arial;font-size:14px" >
+<font color="blue">Expected</font> Checksum
+	<input type="text" name="checksum" id="checksum" size="6" >
+	<input type="text" name="checksumFile" id="checksumFile" size="15" >
+	<br />
+
+<font color="blue">Pick/drag</font> the file =>
+	<input type="file" id="filetoRead"
+		style="font-family:arial;font-size:14px;border: 2px solid blue;" />
+</form>
+<table>
+<tr>
+    	<td>File processing status:</td>
+    	<td id="read_blks">0%</td>
+</tr>
+</table>
+-------------------------------------------------------------- <br />
+<table>
+<tr>
+	<td>File Checksum: </td>
+    	<td id="checksumOut"  style="font-family:monospace;font-size:14px;" ></td>
+</tr>
+<tr>
+	<td>Expected Checksum: </td>
+    	<td id="feedChecksum"  style="font-family:monospace;font-size:14px;" ></td>
+</tr>
+<tr>
+	<td id="ok">Checksum status: unknown</td>
+</tr>
+</table>
+<br />
+
+<table id="sha1table"  style="font-family:monospace;font-size:16px; border: 1px solid black;" border="1">
+</table>
+
+<a id="quickLink"  href ="." ></a>
+<br />
+<br />
+
+<a href="https://toolbox.googleapps.com/apps/dig/">Google Dig</a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="http://cloud.disroot.org">Disroot </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://web.whatsapp.com/">Whatsapp </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="http://search.kmb.hk/kmbwebsite/">KMB </a>
+<br />
+<a href="https://web.telegram.org/#/login">Telegram </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://transfer.sh/">Transfer.sh </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://www.cipherdyne.org/cgi-bin/myip">myip </a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://regex101.com/">Regex101</a>
+<br />
+<a href="https://keyserver.2ndquadrant.com/">PubKeys</a>
+&emsp;&emsp;&emsp;&emsp;
+<a href="https://www.compart.com/en/unicode/">Symbols</a>
+&emsp;&emsp;&emsp;&emsp;&emsp;
+<a href="https://mega.nz/folder/Fs9HQYTZ#tc5h_4qA9AMqLbvaEVYjpg">
+Mega</a>
+
+<script src="https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js"></script>
+
+<script src="./myfch32.js"></script>
+<script src="./myfch32_data.js"></script>
+<br />
+
+</body>
+</html>
