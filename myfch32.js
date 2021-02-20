@@ -109,12 +109,12 @@ document.getElementById("sha1table").addEventListener("click",function()
 	else if  //  ( event.target.innerHTML.length < 40 )
 		 ( event.target.innerHTML.toString().slice(0,2) === "/s" )
 
-			{  //  alert ("That me " + event.target.cellIndex );
-					//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
+			{  
+				//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
                 document.getElementById("quickLink").href =
                     "https://cloud.disroot.org" +  event.target.innerHTML ;
 					document.getElementById("quickLink").innerHTML =  "_" ;
-					navigator.clipboard.writeText(event.target.innerHTML);
+					navigator.clipboard.writeText( "https://cloud.disroot.org" + event.target.innerHTML);
 			}
 
 	else
