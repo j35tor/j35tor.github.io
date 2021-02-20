@@ -11,13 +11,7 @@ document.getElementById("filetoRead").addEventListener("change",function()
       reader.onload = function (evt)
       {
         var arrayBuffer = reader.result;
-        // var gen_checksum = sha256(arrayBuffer);
-		// var gen_checksum = xxhash32(arrayBuffer);
-			// var H = XXH.h32( 0xABCD );
-		//  var H = XXH.h32();
 		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
-		
-		
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 		
 		document.getElementById("read_blks").innerHTML = '100 %' ;
@@ -28,7 +22,7 @@ document.getElementById("filetoRead").addEventListener("change",function()
    if   ( gen_checksum === feedChecksum )
           { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
             document.getElementById("ok").style.color="#0000FF"; 
-	    document.getElementById("feedChecksum").style.border="2px solid black"; }
+	        document.getElementById("feedChecksum").style.border="2px solid black"; }
 	      
 		else if ( feedChecksum != "" )
 					{ 	document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
