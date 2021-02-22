@@ -12,6 +12,12 @@ document.getElementById("filetoRead").addEventListener("change",function()
       {
         var arrayBuffer = reader.result;
 		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
+		
+		// if ( gen_checksum.length < 8 ) { 
+		//     gen_checksum = ("0".repeat(8 - gen_checksum.length) + gen_checksum);  };
+			 
+		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ; // lead padding with '0' 	 
+		
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 		
 		document.getElementById("read_blks").innerHTML = '100 %' ;
@@ -75,3 +81,7 @@ document.getElementById("checksum").addEventListener("mouseover",function()
 	document.getElementById("checksumOut").style.border="0px solid black";
 	document.getElementById("feedChecksum").style.border="0px solid black";
 },false);
+
+document.getElementById("checksumOut").addEventListener("click",function()
+{  navigator.clipboard.writeText( event.target.innerHTML); } ,false);  
+// copy the checksum to clipboard
