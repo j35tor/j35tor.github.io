@@ -2,8 +2,13 @@
 <head>
   <title>Scoop Quick Cmd</title>
     <style>
-  .click_lines > * { white-space: pre; font-family:monospace; font-size:14px;" }
-  
+  .click_lines > * 
+  { white-space: pre; font-family:monospace; font-size:14px;" 
+  }
+
+   .ts 
+  { white-space: pre; font-family:monospace; font-size:16px;" 
+  }   
   </style>
 
 </head>
@@ -15,8 +20,15 @@
 <div id="line4">~\scoop\apps\git\current\usr\bin\gpg.exe </div>
 <div id="line5">gpgconf --kill gpg-agent </div>
 <div id="line6">gpg-connect-agent reloadagent /bye</div>
-<div id="line8">git clone git@github.com:_1</div>
+<div id="line6a">ssh -T git@github.com</div>
+<div id="line8">git clone git@github.com:_1</div>  <br />
+
+<div id="line_">---</div>
 </div>
+
+<span class="ts" id="ts">000101_0000:</span><input id="webKey" type="text" size="5"><input 
+type="button"  value="WebK" onclick="webKey()" />
+
 </body>
 <script type="text/javascript">
   document.getElementById("click_lines").addEventListener("click",function() {
@@ -25,7 +37,38 @@
 			sibling.style.color = "black" ; 
 			sibling = sibling.nextSibling.nextSibling; }
 	 document.getElementById(event.target.id).style.color = "red" ;
-	 navigator.clipboard.writeText(event.target.innerHTML); } )
+	 navigator.clipboard.writeText(event.target.innerHTML); } );
+	 
+  document.getElementById("ts").addEventListener("click",function() { 
+	var my_date_str = get_dateString();
+
+	document.getElementById("ts").innerHTML = my_date_str ;
+	navigator.clipboard.writeText( my_date_str );
+	},"false" );	 
+	 
+   function get_dateString() {
+	var my_date = new Date();
+        var my_date_str = my_date.getFullYear();
+
+        my_date_str = my_date_str.toString().slice(-2);
+        my_date_str = my_date_str.concat(
+                        ("0" + ( my_date.getMonth() + 1)).slice(-2)  ,
+                        ("0" + ( my_date.getDate()  )).slice(-2) ,
+                         "_" +
+                        ("0" + ( my_date.getHours() )).slice(-2) ,
+                        ("0" + ( my_date.getMinutes() )).slice(-2) ,
+                         ":" ); 
+	return (my_date_str);
+	};
+	
+	function webKey() {
+			navigator.clipboard.writeText(document.getElementById("ts").innerHTML+":"+
+            document.getElementById("webKey").value );
+	}	
+
+	
+	
+	 
 </script>
 
 </html>
