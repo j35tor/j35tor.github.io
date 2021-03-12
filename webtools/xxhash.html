@@ -3,15 +3,21 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-	<meta name="description" content="Ad Free SHA256 Checksum Validator">
-    <meta name="keywords" content="Ad Free,SHA256,checksum,file Validator">
+	<meta name="description" content="Ad Free xxhash Checksum Validator">
+    <meta name="keywords" content="Ad Free,xxhash,checksum,file Validator">
 	<meta name="author" content="j35tor">
 	
-    <title>xxHash32 Checksum Validator</title>
+    <title>xxHash Checksum Validator</title>
   </head>
   <body>
-xxHash32 file Checksum Validator:<br>
+xxHash file Checksum Validator:<br /> <br />
 <form style="font-family:Arial;font-size:14px" >
+Pick the xxhash algorithm: 	
+  <select id="xxhsum" name="xxhsum" >
+    <option value="h32">xxhsum32</option>
+    <option value="h64">xxhsum64</option>   
+  </select> <br />
+
  
   <font color="blue">Expected</font> Checksum :<input type="text" name="checksum" id="checksum" size="10" ><br />
   <font color="blue">Pick/drag</font> the file => 
@@ -43,16 +49,16 @@ xxHash32 file Checksum Validator:<br>
 
 <script src="https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js"></script>
 
-<script src="./xxhash32.js"></script>
+<script src="./xxhash.js"></script>
 <br />
 <p style="font-family:Arial; font-size:12px">
-You may try the <a href="./filecheck.html"> sha1 version </a> of this web-tools <br /> <br />
+
 Due to different browsers would have processing  engine, you may need 
-to <a href="./xxhash32.html">reload</a> the page when you <br /> 
+to <a href="./xxhash.html">reload</a> the page when you <br /> 
 check on the SAME file.<br /> 
 (Disclaimer:  The checksum calculation is done locally on your browser via Javascript, <br>
 and the content of your file will NOT send over internet.  (You may check the 
-<a href="https://j35tor.github.io/webtools/xxhash32.js">source</a> ;p )
+<a href="./xxhash.js">source</a> ;p )
 
 
   </body>

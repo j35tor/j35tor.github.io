@@ -11,12 +11,31 @@ document.getElementById("filetoRead").addEventListener("change",function()
       reader.onload = function (evt)
       {
         var arrayBuffer = reader.result;
-		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
+		var gen_checksum ;
+			
+		switch( document.getElementById("xxhsum").value ) 
+		{
+			case  "h32":  
+				gen_checksum= XXH.h32().update( arrayBuffer ).digest().toString(16) ; 
+				gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
+			break; 
+			
+			case  "h64":  
+				gen_checksum= XXH.h64().update( arrayBuffer ).digest().toString(16) ; 
+				gen_checksum = ( "0000000000000000" + gen_checksum ).slice(-16) ;
+			break;
+			
+
+			default:
+				gen_checksum= XXH.h64().update( arrayBuffer ).digest().toString(16) ; 
+				gen_checksum = ( "0000000000000000" + gen_checksum ).slice(-16) ;
+			break ; 
+		}
 		
+			
 		// if ( gen_checksum.length < 8 ) { 
 		//     gen_checksum = ("0".repeat(8 - gen_checksum.length) + gen_checksum);  };
 			 
-		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ; // lead padding with '0' 	 
 		
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 		
