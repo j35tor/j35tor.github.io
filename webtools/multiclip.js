@@ -90,7 +90,11 @@ function clearText()
 function clearKey()
 {
 if ( document.getElementById("localStoreKey").value === '_killall' )
-   {  Object.keys( localStorage ).forEach( function(key) { localStorage.removeItem( key ); } )
+   {  
+   var lastVersion = localStorage.getItem( ":j35mc:_version" );
+   Object.keys( localStorage ).forEach( 
+		function(key) { localStorage.removeItem( key ); } );
+   localStorage.setItem( ":j35mc:_version", lastVersion ); 
    var mylocalStore = document.getElementById("mylocalStore");
    html_table_header("mylocalStore");
    document.getElementById("feed_box").value = "" ;
@@ -116,19 +120,10 @@ if ( document.getElementById("localStoreKey").value === '_tojson'  ||
 
   if ( document.getElementById("localStoreKey").value === '_fromjson'  ||
 		document.getElementById("localStoreKey").value === '_fromjsonF'
-	)
-    {   var myObjs = [] ;  //  alert ("_fromjson") ;
-        var jsonFeed = document.getElementById("feed_box").value ;
-		
-		if ( document.getElementById("localStoreKey").value === '_fromjson' ) 
-			jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
-
-        myObjs =  JSON.parse( jsonFeed );
-        Object.keys( myObjs ).forEach( function(key) {
-            localStorage.setItem( ":j35mc:" + myObjs[key].Key , myObjs[key].Value );
-        } )
-        reFreshTable();
-    }  // eo _fromjson
+	) {  
+	fromJSON( document.getElementById("localStoreKey").value, 
+				document.getElementById("feed_box").value  );					
+	}  // eo _fromjson
 	
 	if ( document.getElementById("localStoreKey").value === '_lspage' ){
 		var myObjs = [] ;
@@ -236,6 +231,16 @@ if ( myversion === "2.0" )
 	);
 		
 	}
+	
+if ( myversion === "2.1" )
+	{
+	localStorage.setItem( ":j35mc:_version", "2.2" );
+	alert ("Multiclip is about to upgrade to 2.2 \n" +
+            "Now multiclip is supporting dump stored content as json \n" +
+			"And restore dump from reading json file"
+	);
+		
+	}	
 
 
 // alert ( "Version Checked" ) ;
@@ -266,3 +271,71 @@ if ( someid1.includes(":") )
 	    alert ("Page name included ':' is NOT allowed");  return; }
 
 reFreshTable(); }
+
+
+function fromJSON( fromJSON_type, content ){ 
+
+var myObjs = [] ; 
+var jsonFeed = content ;
+
+if ( fromJSON_type === '_fromjson' ) 
+	jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
+
+myObjs = JSON.parse( jsonFeed );
+Object.keys( myObjs ).forEach( function(key) {
+	localStorage.setItem( ":j35mc:" + myObjs[key].Key , myObjs[key].Value );
+    } );
+
+document.getElementById("feed_box").value = 
+	"(Restore is completed,\n you may clear this message by clear button)";
+reFreshTable();
+}
+
+
+// function toJSON() {} 
+
+
+FileReaderJS.setupInput(document.getElementById('loadDocument'), {
+    readAsDefault: 'Text',
+    on: {
+      load: function (event, file) {
+		// document.getElementById("feed_box").value = event.target.result ;
+		fromJSON( "fromDump", event.target.result );		
+      }
+    }
+  })
+
+
+document.getElementById('saveDocument').onclick = function () {
+    // Save Dialog
+    let fname = window.prompt("Save as...")
+
+    // Check json extension in file name
+    if (fname.indexOf(".") === -1) {
+      fname = fname + ".json"
+    } else {
+      if (fname.split('.').pop().toLowerCase() === "json") {
+        // Nothing to do
+      } else {
+        fname = fname.split('.')[0] + ".json"
+      }
+    }
+	
+	var myObjs = [] ;
+    addItem = Object.create( {} );
+    Object.keys( localStorage ).forEach( function(key) {
+		if ( key.split(":")[2].includes("_") )  return;  // skip;
+        addItem = { "Key" : key.split(":")[2] + ":" + key.split(":")[3]  
+			, "Value" : localStorage.getItem(key) } ;
+        myObjs.push(addItem);  } )  // eo forEach
+			 
+			 
+    // var jsonFeed = JSON.stringify(myObjs) ;
+	const blob = new Blob([ JSON.stringify(myObjs) ], 
+			{type: 'application/json;charset=utf-8'})
+
+	// const blob = new Blob([ document.getElementById("feed_box").value ], {type: 'application/json;charset=utf-8'})
+    saveAs(blob, fname);
+	document.getElementById("feed_box").value = 
+	"(Dump is completed,\n you may clear this message by clear button)";
+}	
