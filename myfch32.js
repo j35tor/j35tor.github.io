@@ -41,7 +41,7 @@ document.getElementById("filetoRead").addEventListener("change",function()
 
    if   ( gen_checksum === feedChecksum )
           { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
-            document.getElementById("ok").style.color="#0000FF";
+            document.getElementById("ok").style.color="#00CC33";
 			document.getElementById("feedChecksum").style.border="2px solid black"; }
 
 		else if ( document.getElementById("checksum").value.trim() != "" )
