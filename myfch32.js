@@ -1,9 +1,7 @@
-document.addEventListener("DOMContentLoaded", function()
-{
+document.addEventListener("DOMContentLoaded", function() {
    // init();
    mytab2 = document.getElementById("sha1table");
-   Object.keys(mydata).forEach(function(key)
-    {
+   Object.keys(mydata).forEach(function(key) {
       var rowNum = mytab2.insertRow();
       rowNum.insertCell(0).innerHTML = mydata[key].checkSum ;
       rowNum.cells[0].id = mydata[key].fileName ;
@@ -15,18 +13,13 @@ document.addEventListener("DOMContentLoaded", function()
 
 
 
-document.getElementById("filetoRead").addEventListener("change",function()
-
-{
+document.getElementById("filetoRead").addEventListener("change",function() {
   var file = this.files[0];
   if (file) {
-
     var reader = new FileReader();
+    reader.onprogress = updateProgress;
 
-     reader.onprogress = updateProgress;
-
-      reader.onload = function (evt)
-      {
+    reader.onload = function (evt) {
         var arrayBuffer = reader.result;
         // var gen_checksum = sha1(arrayBuffer);
 		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
@@ -37,28 +30,23 @@ document.getElementById("filetoRead").addEventListener("change",function()
 		document.getElementById("checksumOut").innerHTML =  gen_checksum ;
 		document.getElementById("feedChecksum").innerHTML =  feedChecksum ;
 		document.getElementById("checksumOut").style.border="2px solid black";
-
-
-   if   ( gen_checksum === feedChecksum )
-          { document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
-            document.getElementById("ok").style.color="#00CC33";
+		if   ( gen_checksum === feedChecksum ) { 
+			document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
+            document.getElementById("ok").style.color="#00b300";
 			document.getElementById("feedChecksum").style.border="2px solid black"; }
 
-		else if ( document.getElementById("checksum").value.trim() != "" )
-					{ 	document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
-						document.getElementById("ok").style.color="#FF4000";
-						document.getElementById("feedChecksum").style.border="2px solid black";  }
+		else if ( document.getElementById("checksum").value.trim() != "" ) { 	
+			document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
+			document.getElementById("ok").style.color="#FF4000";
+			document.getElementById("feedChecksum").style.border="2px solid black";  }
 
 			else {  document.getElementById("feedChecksum").innerHTML = "(missing)" }
+		};
 
-
-      };
-
-      reader.onerror = function (evt) {
-        console.error("An error ocurred reading the file",evt);
-      };
-      reader.readAsArrayBuffer(file);
-      }
+	reader.onerror = function (evt) {
+      console.error("An error ocurred reading the file",evt); };
+    reader.readAsArrayBuffer(file);
+    }
 
 },false);
 
@@ -77,16 +65,14 @@ if (percentLoaded < 100)
 }
 
 
-function handleDragOver(evt)
-  {
+function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // show as copy
-  }
+	}
 
 
-document.getElementById("sha1table").addEventListener("click",function()
-{
+document.getElementById("sha1table").addEventListener("click",function() {
     document.getElementById("checksumOut").innerHTML = "" ;
 	document.getElementById("feedChecksum").innerHTML = "" ;
 	document.getElementById("ok").innerHTML = "Checksum status: unknown" ;
@@ -97,33 +83,27 @@ document.getElementById("sha1table").addEventListener("click",function()
 	document.getElementById("checksum").value =  "" ;
 	document.getElementById("checksumFile").value =  "" ;
 
-
-	if ( event.target.innerHTML.includes(".") )
-	{
+	if ( event.target.innerHTML.includes(".") ) {
 	/// Local url //  document.getElementById("quickLink").href =  "./" +  event.target.innerHTML ;
 	// document.getElementById("quickLink").innerHTML = event.target.innerHTML ;
     
-		document.getElementById("quickLink").href =  "" ;
-		document.getElementById("quickLink").innerHTML =  "_" ;
+	document.getElementById("quickLink").href =  "" ;
+	document.getElementById("quickLink").innerHTML =  "_" ;
 	}
 	else if  //  ( event.target.innerHTML.length < 40 )
-		 ( event.target.innerHTML.toString().slice(0,2) === "/s" )
-
-			{  
+		 ( event.target.innerHTML.toString().slice(0,2) === "/s" ) {  
 				//  local url // document.getElementById("quickLink").href =  event.target.innerHTML ;
                 document.getElementById("quickLink").href =
                     "https://cloud.disroot.org" +  event.target.innerHTML ;
-					document.getElementById("quickLink").innerHTML =  "_" ;
-					navigator.clipboard.writeText( "https://cloud.disroot.org" + event.target.innerHTML);
-			}
+				document.getElementById("quickLink").innerHTML =  "_" ;
+				navigator.clipboard.writeText( "https://cloud.disroot.org" + event.target.innerHTML);
+				}
 
-	else
-	{
-	document.getElementById("checksum").value =  event.target.innerHTML ;
- 	document.getElementById("checksumFile").value =  event.target.id ;
-	document.getElementById("quickLink").href =  "./" ;
-	document.getElementById("quickLink").innerHTML = "";
-
-	} ;
+	else {
+		document.getElementById("checksum").value =  event.target.innerHTML ;
+		document.getElementById("checksumFile").value =  event.target.id ;
+		document.getElementById("quickLink").href =  "./" ;
+		document.getElementById("quickLink").innerHTML = "";
+		} ;
 
 },false);
