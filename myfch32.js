@@ -23,6 +23,7 @@ document.getElementById("filetoRead").addEventListener("change",function() {
         var arrayBuffer = reader.result;
         // var gen_checksum = sha1(arrayBuffer);
 		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
+		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
 		
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 
