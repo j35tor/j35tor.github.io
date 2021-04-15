@@ -1,0 +1,40 @@
+<html>
+<head>
+</head>
+<body>
+
+passwd:<input type="text" id="symKey"  value="(Press GenKey)"> <button onclick="genRan()"> GenKey </button>
+<button onclick="boxclear('symKey')"> Clear Key</button> 
+<br />
+(you may edit the SymKey in above box)
+<button onclick="copy2clip('symKey')"> copyKey </button>
+<br />
+
+//==============================================
+<br />
+GnuPG Encrypt file:
+<br />
+Read Original <input type="file"  value="File2gpg" id="file2gpg" />
+<span id="read_blks"></span>
+<br />
+<span id="inFile"> </span>
+<p />
+GnuPG Decrypt file:
+<br />
+Read GnuPG <input type="file"  value="File2dec" id="file2dec" /><br />
+<span id="outFile"> </span>
+<br />
+ 
+<!-- <script src="./cdn/openpgp.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script>
+
+<!-- <script src="./cdn/FileSaver.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<!-- <script src="./cdn/filereader.js"></script> -->
+<script src="https://bgrins.github.io/filereader.js/filereader.js"></script> 
+
+<script src="./base32.js"></script>
+<script src="./gpgfilesym_mob.js"></script>
+</body>
+</html>
