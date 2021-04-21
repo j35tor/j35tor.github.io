@@ -9,7 +9,43 @@
      <title>Symbols clipboard</title>
   </head>
   <body>
-   &#20879;     &#22247;    &#22237;   &#23620;   &#23620;   &#128304;   &#128517;  &#129315;  &#128918;
-     
-  
+   &#20879;     &#22247;    &#22237;   &#23620;     &#128304;   &#128517;  &#129315;  &#128918;  <br />
+   &micro;      &xi;         D&#860;1     E&#864;T   U&#872;    &#131101;   &#134848;   &#132322;  <br />
+   &#135053;    &#135361;    &#135423;    &#175417;   &#126977;   &#135423; 
+
+<br />
+
+<span id="mySpan"> </span>
+
   </body>
+
+<script type="text/javascript">
+/*
+function encode_utf8(s) {
+  return unescape(encodeURIComponent(s));
+}
+
+function decode_utf8(s) {
+  return decodeURIComponent(escape(s));
+} */
+
+// var some_data = [0xF0, 0x9F, 0x80, 0x81] ;
+var some_data = [240,159,128,129] ;
+
+/*
+some_data.push(0xF0);  
+some_data.push(0x9F);
+some_data.push(0x80);
+some_data.push(0x81);*/
+
+var uint8array = new TextEncoder().encode("🀁");
+
+// document.getElementById('mySpan').innerHTML =  uint8array  ;
+document.getElementById('mySpan').innerHTML =  some_data  ;
+// document.getElementById('mySpan').innerHTML =  new TextDecoder().decode( some_data );
+
+
+</script>
+
+
+</html>  
