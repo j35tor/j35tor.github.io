@@ -37,7 +37,7 @@ document.getElementById("filetoRead").addEventListener("change",function() {
 			document.getElementById("feedChecksum").style.border="2px solid black"; }
 
 		else if ( document.getElementById("checksum").value.trim() != "" ) { 	
-			document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10007;"
+			document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10060;"
 			document.getElementById("ok").style.color="#FF4000";
 			document.getElementById("feedChecksum").style.border="2px solid black";  }
 
