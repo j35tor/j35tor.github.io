@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
       rowNum.insertCell(1).innerHTML = mydata[key].link;
       rowNum.insertCell(2).innerHTML = mydata[key].fileName;
     })
+	document.getElementById("ok").style.color="#FFC300";
 
 }, false);
 
@@ -76,8 +77,9 @@ function handleDragOver(evt) {
 document.getElementById("sha1table").addEventListener("click",function() {
     document.getElementById("checksumOut").innerHTML = "" ;
 	document.getElementById("feedChecksum").innerHTML = "" ;
-	document.getElementById("ok").innerHTML = "Checksum status: unknown" ;
-
+	document.getElementById("ok").innerHTML = "Checksum status: unknown?" ;
+	document.getElementById("ok").style.color="#FFC300";
+//
 	document.getElementById("checksumOut").style.border="0px solid black";
 	document.getElementById("feedChecksum").style.border="0px solid black";
 
