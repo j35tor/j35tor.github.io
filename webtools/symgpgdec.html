@@ -5,10 +5,16 @@
 <textarea id="feedtext" style="width: 540px; height: 200px;" >(GnuPG Message to Decrypt)</textarea> <br/>
 <button onclick="boxclear('feedtext')">Clear Feed</button>  <br />
 SymKey:<input type="text" id="symKey"  value="(SymKey)"> 
-<button onclick="symGnuPG_dec()"> Decrypt </button>
+<button onclick="genRan()"> GenKey </button>
 <button onclick="boxclear('symKey')">ClearKey</button>
 
+<br />
+(you may edit the SymKey in above box)
+<button onclick="copy2clip('symKey')"> copyKey </button>
+<button onclick="qrcode_gen()">Key2QR</button>  <div id="qr"></div> 
+
 <div id="qr"></div>
+<button onclick="symGnuPG_dec()"> Decrypt </button> <br />
 <textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
 <button onclick="copy2clip('outtext')"> copyOutput </button>
 <button onclick="boxclear('outtext')">clearOutput</button>
@@ -19,7 +25,9 @@ and the content will NOT send over internet.  (You may check the
 <a href="./symgpgdec.js">source</a> ;p )
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js"></script>
+<script src="./base32.js"></script>
 <script src="./symgpgdec.js"></script>
 </body>
 </html>

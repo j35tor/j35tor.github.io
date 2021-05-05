@@ -11,9 +11,9 @@ SymKey:<input type="text" id="symKey"  value="(Press GenKey)"> <button onclick="
 <br />
 (you may edit the SymKey in above box)
 <button onclick="copy2clip('symKey')"> copyKey </button>
-<button onclick="qrcode_gen()">Key2QR</button> <br />
+<button onclick="qrcode_gen()">Key2QR</button>  <div id="qr"></div> 
 <button onclick="symGnuPG_enc()">&#8595; Encrypt </button>
-<div id="qr"></div>
+<br />
 <textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
 
 <button onclick="copy2clip('outtext')"> copyOutput </button>
