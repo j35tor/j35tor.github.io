@@ -41,6 +41,20 @@ function copy2clip(myElementId)  {
 	//// DEBUG:   alert("Copied the text: " + copyText.value);
 	}
 
+function qrcode_gen()
+{
+   ///// DEBUG:  alert ("QRCode");
+   if ( document.getElementById('symKey').length >= 1990 )
+        { alert ("Input is too long") ;
+          neu_clear() ;return  } ;
+
+    var qr = qrcode(0, "M");
+    qr.addData( document.getElementById('symKey').value );
+    qr.make();
+     document.getElementById('qr').innerHTML =  qr.createImgTag();
+	}
+
+
 
 function boxclear(myElementId) { 
 	document.getElementById(myElementId).value = '';

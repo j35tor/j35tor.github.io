@@ -5,12 +5,11 @@
 
 passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button onclick="boxclear('symKey')">&#10060;</button><button 
 onclick="genRan()"> GenKey </button>
- 
 <br />
 (you may edit the SymKey in above box)
 <button onclick="copy2clip('symKey')"> copyKey </button>
-<br />
-
+<button onclick="qrcode_gen()">Key2QR</button> <br /> 
+<div id="qr"></div> 
 //==============================================
 <br />
 GnuPG Encrypt file:
@@ -25,7 +24,7 @@ GnuPG Decrypt file:
 Read GnuPG <input type="file"  value="File2dec" id="file2dec" /><br />
 <span id="outFile"> </span>
 <br />
- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <!-- <script src="./cdn/openpgp.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script>
 
