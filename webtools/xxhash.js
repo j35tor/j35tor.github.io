@@ -82,12 +82,17 @@ if (percentLoaded < 100)
 }
 
 
-function handleDragOver(evt)
-  {
+function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // show as copy
-  }
+	}
+
+function boxclear(myElementId) { 
+	document.getElementById(myElementId).value = '';
+	}
+
+
 
 
 

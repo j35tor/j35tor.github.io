@@ -34,8 +34,9 @@
 <div id="line_">---</div>
 </div>
 
-<span class="ts" id="ts">000101_0000:</span><input id="webKey" type="text" size="5"><input 
-type="button"  value="WebK" onclick="webKey()" />
+<span class="ts" id="ts">000101_0000</span><input type="button" value=" :" onclick="ts_col()"/><input 
+id="webKey" type="text" size="5"><button onclick="boxclear('ts')">&#10060;</button><input 
+type="button"  value="ts+Key" onclick="webKey()" />
 
 </body>
 <script type="text/javascript">
@@ -64,19 +65,25 @@ type="button"  value="WebK" onclick="webKey()" />
                         ("0" + ( my_date.getDate()  )).slice(-2) ,
                          "_" +
                         ("0" + ( my_date.getHours() )).slice(-2) ,
-                        ("0" + ( my_date.getMinutes() )).slice(-2) ,
-                         ":" ); 
+                        ("0" + ( my_date.getMinutes() )).slice(-2) //,
+                         // ":" 
+						 ); 
 	return (my_date_str);
 	};
 	
 	function webKey() {
-			navigator.clipboard.writeText(document.getElementById("ts").innerHTML+":"+
-            document.getElementById("webKey").value );
-	}	
+		navigator.clipboard.writeText(document.getElementById("ts").innerHTML+":"+
+        document.getElementById("webKey").value );
+		}	
 
-	
-	
-	 
+	function ts_col() {
+		document.getElementById("ts").innerHTML = get_dateString() ;
+		navigator.clipboard.writeText( get_dateString() + ":" );
+		}
+
+	function boxclear(myElementId) { 
+		document.getElementById(myElementId).value = '';
+		}
 </script>
 
 </html>

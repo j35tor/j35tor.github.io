@@ -3,21 +3,22 @@
 </head>
 <body>
 
-<textarea id="feedtext" style="width: 540px; height: 200px;" >(Text to Encrypt)</textarea> <br/>
-<button onclick="boxclear('feedtext')"> Clear Text</button>
+<textarea id="feedtext" style="width: 540px; height: 200px;" >(Text to Encrypt)</textarea>
+<button onclick="boxclear('feedtext')">&#10060;</button>
 <br />
-SymKey:<input type="text" id="symKey"  value="(Press GenKey)"> <button onclick="genRan()"> GenKey </button>
-<button onclick="boxclear('symKey')"> Clear Key</button>
+SymKey:<input type="text" id="symKey"  value="(Press GenKey)"><button 
+onclick="boxclear('symKey')">&#10060;</button><button onclick="genRan()">GenKey</button>
 <br />
 (you may edit the SymKey in above box)
 <button onclick="copy2clip('symKey')"> copyKey </button>
 <button onclick="qrcode_gen()">Key2QR</button>  <div id="qr"></div> 
 <button onclick="symGnuPG_enc()">&#8595; Encrypt </button>
 <br />
-<textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea> <br />
+<textarea id="outtext" style="width: 540px; height: 200px;">(Press Encrypt to get the OUTPUT)</textarea><button
+ onclick="boxclear('outtext')">&#10060;</button> <br />
 
 <button onclick="copy2clip('outtext')"> copyOutput </button>
-<button onclick="boxclear('outtext')"> Clear Encrypt</button>
+
 
 <p style="font-family:Arial;font-size:12px" >
 (Disclaimer:  The encryption is done locally on your browser via Javascript,<br />

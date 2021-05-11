@@ -73,6 +73,11 @@ function handleDragOver(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // show as copy
 	}
 
+function boxclear(myElementId) { 
+	document.getElementById(myElementId).value = '';
+	}
+
+
 
 document.getElementById("sha1table").addEventListener("click",function() {
     document.getElementById("checksumOut").innerHTML = "" ;
