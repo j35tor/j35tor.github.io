@@ -1,6 +1,6 @@
 const mydata =
 [
- { "checkSum": "48ca33ca85da3692" , "link" : "/s/9nBc5ECH5JnpcyW"  , "fileName":  "bin.exe" }
+ { "checkSum": "eb94da79f1c869a2" , "link" : "/s/PkjdGmrZBPS9Moq"  , "fileName":  "bin.exe" }
 ,{ "checkSum": "6c34b1918dba8319" , "link" : "/s/tZxc9SBwCFdTkep"  , "fileName":  "MinGW.exe" }
 ,{ "checkSum": "d841e0ee225f2875" , "link" : "/s/3DCPGgPjMHSkiae"  , "fileName":  "node.7z" }
 ,{ "checkSum": "733a1ee616e53b8d" , "link" : "/s/8L3n9Gd8dDKj3Yk"  , "fileName":  "_scoop.7z" }
