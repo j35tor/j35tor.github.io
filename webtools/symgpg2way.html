@@ -1,0 +1,45 @@
+<html>
+<head>
+</head>
+<body>
+PlainTEXT <br />
+<textarea id="feedtext" style="width: 540px; height: 200px;" >(Type in or Press Dec Key to decrypt 
+or Read Text file by pressing Choose File key below)</textarea><button 
+onclick="boxclear('feedtext')">&#10060;</button><button onclick="box2File('feedtext')">&#128190;</button><button 
+onclick="copy2clip('feedtext')">&#128203;</button>
+<br />
+Read Box from <input type="file"  value="File2Box" id="file2Box" />
+
+<!-- Encrypt & Save as<input type="file"  value="File2Box" id="file2Buffer" />  -->
+<br />
+<button onclick="symGnuPG_enc()">&#8681; Enc</button><button 
+	onclick="symGnuPG_dec(outtext)"> &#8679; Dec</button>
+passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button 
+onclick="boxclear('symKey')">&#10060;</button><button 
+onclick="copy2clip('symKey')">&#128203;</button><button onclick="genRan()"> GenKey </button><button 
+onclick="qrcode_gen()">Key2QR</button><div id="qr"></div>
+<br />
+GnuPG encryption: <br />
+<textarea id="outtext" style="width: 540px; height: 200px;">(Press Enc Key to get the OUTPUT 
+or Read encrypted file by pressing Choose File key below)</textarea><button 
+onclick="boxclear('outtext')">&#10060;</button><button onclick="box2File('outtext')">&#128190;</button><button 
+onclick="copy2clip('outtext')">&#128203;</button> 
+<br />
+Read Box from <input type="file"  value="File2Box" id="file2Enc" /><br />
+
+<p style="font-family:Arial;font-size:12px" >
+(Disclaimer:  The encryption is done locally on your browser via Javascript,<br />
+and the content will NOT send over internet.  (You may check the
+<a href="./symgpg2way.js">source</a> &#128540; ) 
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+<script src="https://bgrins.github.io/filereader.js/filereader.js"></script> 
+
+
+<script src="./base32.js"></script>
+<script src="./symgpg2way.js"></script>
+</body>
+</html>
