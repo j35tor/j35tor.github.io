@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="MultiClipBoard">
+    <meta name="keywords" content="Mulit copy and paste">
+    <meta name="author" content="j35tor">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./j35mc.css">
+	<link id="favicon" rel="icon" type="image/x-icon" href="./.multiclip.ico" />
+    <title>MultiClipBoard</title>
+  </head>
+
+<body>
+Key: <input id="localStoreKey" type="text" size="5" >
+<input type="button"  value="&#10060;" onclick="clearKey()" >  <br />
+TextBox: <br />
+<textarea id="feed_box" rows="4"  cols="40"></textarea><input
+type="button"  value="&#10060;" onclick="boxclear('feed_box')" /><input
+type="button"  value="&#128203;" onclick="copyTo()" /><input
+type="button"  value="&#128229; &#8681;" onclick="storeValue()"/>
+
+<br />
+<input type="button"  value="encBox" onclick="encBox( feed_box )"/>
+<span class="text"> passwd: </span>
+<input id="encKey" type="text" size="5" ><input
+type="button"  value="&#10060;" onclick="boxclear('encKey')" />
+<input type="button"  value="decBox" onclick="symGnuPG_dec( feed_box )" />
+<br />
+
+<br />
+TextBox &#8703; File I/O <br />
+<span class="text">
+Save&#8680;<input type="button"  value="&#128190;" onclick="box2File()"/>
+Read&#8680;<input type="file" value="File2Box" id="file2Box" width="5" />
+</span> <br />
+<br />
+
+Store: <select class="selectBox" id="pageTag" name="pageTag" >
+    <option value="(new)">(new)</option>
+    </select> &#8678; Page <br />
+
+<table id="mylocalStore" border="1" >
+</table>
+<span class="text" >
+<input type="button"  value="&#10060;Pair" onclick="delPair()">
+&#10060; confirmed<input type="checkbox" id="delConfirm" name="delConfirm" />
+</span>
+<br/>
+
+<br />
+Backup & Restore via TextBox:<br />
+<input type="button" id="dump2box" value="Store&#8680;Box"  onclick="dump2box()" /><input
+type="button" id="box2Store" value="Box&#8680;Store"  onclick="box2Store()"  />
+<br />
+<br />
+
+
+Store &#8703; File I/O <br /><span class="text">
+Store Save<input type="button" id="saveDocument" value="&#128190;"/> <br />
+Restore from:<input type="file" id="loadDocument" value="Load"/> <br />
+</span>
+</p>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+<script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
+<script src="./j35mc.js"></script>
+</html>
