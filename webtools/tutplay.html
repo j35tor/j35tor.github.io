@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<link href="https://vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+ <link id="favicon" rel="icon" type="image/x-icon" href="./.tutvid.ico" />
+
+</head>
+<body>
+
+
+URL: <input id="feedURL" type="text" size="20" onchange="urlUpdate()" /> <br />
+Type :
+<select id="mediaType" name="mediaType">
+    <option value="video/mp4">video/mp4</option>
+	<option value="audio/aac">audio/aac</option>
+	<option value="application/x-mpegURL">m3u</option>
+</select>
+
+<video
+    id="my-player"
+    class="video-js"
+    controls
+    preload="manual"
+
+    data-setup='{}'>
+
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a
+    web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video
+    </a>
+  </p>
+</video>
+
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+
+<script>
+
+function urlUpdate() {
+	//  alert ("Checked");
+	//   '../../../../temp/<media>'
+	//   '../../../../../Downloads/media/'
+	var player = videojs('my-player');
+	player.src( {
+	  src: document.getElementById("feedURL").value,
+	  type: document.getElementById("mediaType").value ,
+	   } );
+	}  // eo function
+
+	/*
+	player.eme();
+	player.src({
+		src: '<your url here>',
+		type: 'application/dash+xml',
+		keySystems: { 'com.widevine.alpha': '<YOUR URL HERE>' }
+		});
+	*/
+
+
+
+</script>
+
+</body>
+</html>
