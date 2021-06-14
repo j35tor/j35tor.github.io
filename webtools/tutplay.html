@@ -37,6 +37,21 @@ Type :
 
 <script>
 
+function onReady() {
+		var searchParams = new URLSearchParams(window.location.search);
+	  var initLink = searchParams.get("link");
+		document.getElementById("feedURL").value = initLink;
+		//  check_version();
+		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
+		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
+		// readPageCombo();
+		// reFreshTable( keyFilter , valueFilter);
+		// setColwidth();
+
+		// reFreshTable()
+		}
+
+
 function urlUpdate() {
 	//  alert ("Checked");
 	//   '../../../../temp/<media>'
