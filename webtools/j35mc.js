@@ -285,7 +285,7 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_width' )
 
 function setColwidth(input) {
 			if ( input === undefined ) {
-					if ( localStorage.getItem( ":j35mc:_colwidth" ) >= 0 )  return;
+					if ( localStorage.getItem( ":j35mc:_colwidth" ) > 0 )  return;
 
 					localStorage.setItem( ":j35mc:_colwidth",20 );
 					return;
