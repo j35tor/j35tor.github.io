@@ -1,16 +1,24 @@
-body   { font-family:"Times New Roman"; }
+body   { font-family:"Times New Roman";
+		 background-color: #EDEADE; }
 
-table  { font-family:Arial;
+
+.table  { font-family:Arial;
          border: 1px solid black;}
 
-textarea { font-family:"Courier New"; }
+.textarea { font-family:"Courier New"; }
+
+.selectBox  { font-family: Arial; }
+
+.text { font-size: 16px; }
+
+.bluebox { color: blue; }
 
 @media screen and (min-width : 400px)
-{ body, textarea, input  { font-size: 24px; }
-
+{ body, .textarea, .input, .selectBox  { font-size: 20px; };
+	.text { font-size: 16 px;}
 }
 
-
 @media screen and (min-width : 800px)
-{ body, textarea, input  { font-size: 16px; }
+{ body, .textarea, .input, .selectBox  { font-size: 16px; };
+	.text { font-size: 14 px;}
 }

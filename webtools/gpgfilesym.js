@@ -1,4 +1,36 @@
-// For license issues, please check https://j35tor.github.io/webtools/LICENSE.md
+//
+
+function onReady() {
+		readPubKeyCombo();
+		}
+
+if (document.readyState !== "loading") {
+    onReady(); // Or setTimeout(onReady, 0); if you want it consistently async
+} else {
+    document.addEventListener("DOMContentLoaded", onReady);
+}
+
+
+function readPubKeyCombo() {
+	var myObjs = [] ;
+	addItem = Object.create( {} );
+	Object.keys( localStorage ).forEach( function(key) {
+			//  if ( key.split(":")[2] != "_pubKey" )  return ;
+			if ( ! key.includes(":j35mc:_pubKey") )  return ;
+			myObjs.push( key.split(":")[3] );
+			})
+	myObjs.sort();
+	var list = document.getElementById("pubKey");
+	myObjs.forEach( (item, i) => {
+			var option = document.createElement("option");
+				option.text =  item ;
+				option.value =  item ;
+			list.add(option) ;
+			} )
+
+	}
+
+
 
 async function symGnuPG_decF( myvalue ) {
 	var passwd = document.getElementById("symKey").value;
@@ -27,12 +59,25 @@ async function symGnuPG_decF( myvalue ) {
 
 
 
-function genRan()  {
-	var bytes = new Uint8Array(35);
-	window.crypto.getRandomValues(bytes);
-	document.getElementById("symKey").value = base32.encode(bytes);
-	}
-	
+function genRan()
+{
+var bytes = new Uint8Array(35);
+window.crypto.getRandomValues(bytes);
+
+document.getElementById("symKey").value = base32.encode(bytes);
+
+}
+
+function copy2clip(myElementId)
+{
+
+  var copyText = document.getElementById(myElementId);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  document.execCommand("copy");
+  //// DEBUG:   alert("Copied the text: " + copyText.value);
+}
+
 
 function qrcode_gen()
 {
@@ -45,36 +90,114 @@ function qrcode_gen()
     qr.addData( document.getElementById('symKey').value );
     qr.make();
      document.getElementById('qr').innerHTML =  qr.createImgTag();
-	}
-
-	
-	
-
-function copy2clip(myElementId)  {
-	var copyText = document.getElementById(myElementId);
-	copyText.select();
-	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-	document.execCommand("copy");
-	//// DEBUG:   alert("Copied the text: " + copyText.value);
-	}
+}
 
 
 function boxclear(myElementId) { 
 	document.getElementById(myElementId).value = '';
 	}
+
+
+  
+FileReaderJS.setupInput(document.getElementById('file2gpgPub'), {
+    readAsDefault: 'ArrayBuffer',
+    on: {
+      load: function (event, file) {
+
+		if (  document.getElementById("pubKey").value === '(none)' )  { 
+			alert ("PubKey is missing"); return  }
+
+		document.getElementById("inFilePub").innerHTML = "xxh32 checksum:" 
+					+  XXH.h32().update( event.target.result ).digest().toString(16) ; 
+		
+		//  var feed = document.getElementById("PubKey").value;
+		
+		document.getElementById("symKey").setAttribute("myNewvalue","aaaa" );
+		
+		var StoredKey = localStorage.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value );
+		
+		//  alert (StoredKey);
+		//  var pubkey = openpgp.key.readArmored(StoredKey);
+		const readKey = async () => {
+				let armored = await openpgp.key.readArmored(StoredKey);
+				
+				Object.keys( armored.keys ).forEach( function(myIt) {
+					console.log (  armored.keys[myIt].users[0].userId.userid ) } );
+				//  console.log( armored.keys[1].users[0].userId.userid  );
+				
+				var uint8View = new Uint8Array( event.target.result );		
+				const options = {
+						message : window.openpgp.message.fromBinary(  uint8View  ) ,
+						publicKeys: armored.keys ,
+						armor : true
+						}
+
+					try { 
+						var encOut = window.openpgp.encrypt(options) ;
+						Promise.resolve( encOut ).then ( val => { 
+						//  console= val.data ;
+						let fname = window.prompt("Save as...");	
+						const blob = new Blob([ val.data  ], 
+									{type: 'text/plain;charset=utf-8'}) ;
+						saveAs(blob, fname);		
+						} );  // eo Promise	
+			
+						} catch (error) { alert(error) };	
+				};
+		
+			readKey();
+		
+
+		}, // eo on load 
+	
+	  progress: function (event, file) { 
+	  
+			//====
+			
+			if (event.lengthComputable)  {
+					var percentLoaded = Math.round((event.loaded / event.total) * 100);
+					// Increase the progress bar length.
+					if (percentLoaded < 100) {
+						document.getElementById("read_blksPub").innerHTML 
+									=  percentLoaded + '%' ;  } }
+			
+			
+			//=====
+	  
+		}, // eo on progress
+		
+	  loadend: function(e, file) { 
+			document.getElementById("read_blksPub").innerHTML = "100%";
+		} ,	
+
+	  error: function (event, file) { 
+			alert ("Error on reading file: " + event.err );
+		}, // eo on errot
+	  
+    }  // eo read event
+  })  
+
+
+
+
+
   
 FileReaderJS.setupInput(document.getElementById('file2gpg'), {
     readAsDefault: 'ArrayBuffer',
     on: {
       load: function (event, file) {
 
-		if  (event.total >= 367001600)  { 
-				alert ("The input file size is limited to 350M"); 
-				document.getElementById("read_blks").innerHTML = "Error";
-				return ;  }
-
-
+		document.getElementById("inFile").innerHTML = "xxh32 checksum:" 
+					+  XXH.h32().update( event.target.result ).digest().toString(16) ; 
 		var feed = document.getElementById("symKey").value;
+		
+		document.getElementById("symKey").setAttribute("myNewvalue","aaaa" );
+		
+		
+		/* alert ( "Checked ->" 
+				//  + document.getElementById("symKey").getAttribute("Id")  
+				+ document.getElementById("symKey").getAttribute("myNewvalue") 
+				) ; */
 		
 		if ( (! feed ) || feed === '(Press GenKey)' )  { 
 			alert ("passwd missing"); return  }
@@ -107,27 +230,28 @@ FileReaderJS.setupInput(document.getElementById('file2gpg'), {
 		}, // eo on load 
 	
 	  progress: function (event, file) { 
-	  			
+	  
+			//====
+			
 			if (event.lengthComputable)  {
 					var percentLoaded = Math.round((event.loaded / event.total) * 100);
 					// Increase the progress bar length.
 					if (percentLoaded < 100) {
 						document.getElementById("read_blks").innerHTML 
 									=  percentLoaded + '%' ;  } }
-		
-			console.log("FileSize: " +  event.total  );
+			
+			
+			//=====
+	  
 		}, // eo on progress
 		
 	  loadend: function(e, file) { 
 			document.getElementById("read_blks").innerHTML = "100%";
-			if  (event.total >= 367001600)  
-					document.getElementById("read_blks").innerHTML = "Error";
-
-			} ,	
+		} ,	
 
 	  error: function (event, file) { 
 			alert ("Error on reading file: " + event.err );
-			}, // eo on errot
+		}, // eo on errot
 	  
     }  // eo read event
   })  
@@ -140,6 +264,11 @@ FileReaderJS.setupInput(document.getElementById('file2dec'), {
     on: {
       load: function (event, file) {
 
+		let gen_checksum = XXH.h32().update( event.target.result ).digest().toString(16);
+		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
+
+		document.getElementById("outFile").innerHTML = "xxh32 checksum :" + gen_checksum ; 
+		
 		var feed = document.getElementById("symKey").value;
 		
 		if ( (! feed ) || feed === '(Press GenKey)' )  { 
@@ -148,7 +277,27 @@ FileReaderJS.setupInput(document.getElementById('file2dec'), {
 		
 		try {symGnuPG_decF( event.target.result ) }
 			catch  (err) { alert (err.message )  }
-      }
+      } ,
+	  
+	progress: function (event, file) { 
+	  
+			//====
+			
+			if (event.lengthComputable)  {
+					var percentLoaded = Math.round((event.loaded / event.total) * 100);
+					// Increase the progress bar length.
+					if (percentLoaded < 100) {
+						document.getElementById("read_blks_dec").innerHTML 
+									=  percentLoaded + '%' ;  } }
+			
+			
+			//=====
+	  
+		}, // eo on progress
+	loadend: function(e, file) { 
+			document.getElementById("read_blks_dec").innerHTML = "100%";
+		} ,	  
+	  
     }
   })  
 

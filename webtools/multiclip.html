@@ -7,32 +7,97 @@
     <meta name="author" content="j35tor">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./multiclip.css">
+	  <link id="favicon" rel="icon" type="image/x-icon" href="./multiclip.ico" />
     <title>MultiClipBoard</title>
   </head>
 
 <body>
 Key: <input id="localStoreKey" type="text" size="5" >
-<input type="button"  value="&#8592; Clear" onclick="clearKey()" >  <br />
-Value: <br />
-<textarea id="feed_box" rows="4"  cols="40"></textarea> <br />
-<input type="button"  value="&#8593; Clear" onclick="clearText()" />
-<input type="button"  value="&#8595; Store" onclick="storeValue()" />
-<input type="button"  value="CopyBox" onclick="copyTo()" /> <br /> <br />
-Page: <input id="localStoreKeyPage" type="text" value="page1" size="5" />
-<input type="button"  value="Switch" onclick="switchPage()" /> <br />
+<input type="button" id="clearKey" value="&#10060;" onclick="clearKey()"
+onmouseover="clearKeyOver()"/>
 
-<table id="mylocalStore" border="1" >
+  <br />
+<span style="color: blue;">Box:</span> <span class="text"><input
+type="button"  value="&#8680;&#128190;" onclick="box2File()"/>
+&#8681;<input type="file" value="File2Box" id="file2Box" width="5" />
+</span> <br />
+
+<textarea id="feed_box" rows="4"  cols="40"></textarea><input
+type="button"  value="&#10060;" onclick="boxclear('feed_box')" /><input
+type="button"  value="&#128203;" onclick="copyTo()" /><input
+type="button"  value="&#128452; &#8681;" onclick="storeValue()"/>
+
+<br />
+<span  class="text">Passwd Enc: </span><input
+id="encKey" type="text" size="5" ><input
+type="button"  value="&#10060;" onclick="boxclear('encKey')" /><input
+class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
+class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" />
+<br />												
+
+
+PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
+    <option value="">(none)</option>
+    </select><input
+class="bluebox" type="button"  value="encBox" onclick="encBoxPub( feed_box )"/>
+
+	<br />
+	<br />
+&#128452; Page<select class="selectBox" id="pageTag" name="pageTag" >
+    <option value="(new)">(new)</option>
+    </select>
+
+    <input type="checkbox" id="swapPageClear" name="swapPageClear"
+    unchecked onchange="swapPageClearChange()"/><span id="swapPageClearLock">&#128275;</span>
+    Key/<span
+    style="color: blue;">Box</span>
+
+<br />
+
+
+<table class="table" id="mylocalStore" border="1" >
 </table>
+<span class="text" >
+<input type="button"  value="&#10060; Pair" onclick="delPair()">
+OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
+<input type="button"  value="Chk&#128452;" onclick="storeChkSum()"><span id="xxh32sum"></span>
+</span>
+<br/>
+<br/>
 
-<input type="button"  value="DelKey" onclick="delPair()" >
-<br /> <br />
-<input type="button" id="saveDocument" value="Dump" /> contents as offline json file. <br />
+<table>
+    <tr>
+      <td>Export &#128452;</td>
+    </tr>
+    <tr>
 
-Restore from:<input type="file" id="loadDocument" value="Load"/>
-</p>
+        <td>         
+		<!-- Sync2Cloud will be implemented when the support from KickStart is available
+		<input
+        class="bluebox" type="button" id="dump2box" value="&#8680;Box"  onclick="dump2box()" />
+        <input type="button" id="dump2cloud" value="&#8680;&#127781;"  onclick="dump2cloud()" />
+         -->
+        <input type="button" id="dump2file" value="選擇檔案"  onclick="dump2file()" />
+          <span id="saveFileName" style="font-size: 13px;">未選擇任何檔案</span>  </td>
+          <!-- &#128452;&#8680;   -->
+    </tr>
+    <tr>
+        <td>Import &#128452;</td>
+    </tr>
+    <tr>
 
-
+        <td>
+		<!-- Sync2Cloud will be implemented when the support from KickStart is available
+		<input
+        class="bluebox" type="button" id="box2Store" value="&#8678;Box"  onclick="box2Store()" />
+        <input type="button" id="cloudfeed" value="&#8678;&#127781;"  onclick="cloudfeed()" />
+        </td> -->
+        <input type="file" id="loadDocument" value="Load"/></td>
+        <!-- &#128452;&#8678;  -->
+</table>
+<br />
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/file-reader-wrapper@0.9.10/filereader.js"></script>
 <!--
 <script src="./cdn/filereader.js"></script>
@@ -40,6 +105,14 @@ Restore from:<input type="file" id="loadDocument" value="Load"/>
 <script src="https://cdn.jsdelivr.net/npm/filesaver.js-npm@1.0.1/FileSaver.min.js"></script>
 <!--
 <script src="./cdn/FileSaver.min.js"></script>
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js"></script>
+<!--
+<script src="./cdn/openpgp.min.js"></script>
+-->
+<script src="https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js"></script>
+<!--
+<script src="./cdn/xxhash.min.js"></script>
 -->
 <script src="./multiclip.js"></script>
 </html>
