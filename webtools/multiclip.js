@@ -519,11 +519,12 @@ if ( myversion === null ) {
 if ( myversion === "2.0" )
 	{
 	localStorage.setItem( ":j35mc:_version", "2.1" );
+	/*
 	alert ("Multiclip is about to upgrade to 2.1 \n" +
             "You may use keyFilter and valueFilter in search box to do fitlering\n" +
 			"e.g. https://j35tor.github.io/webtools/multiclip.html?keyFilter=a&valueFilter=b"
 	);
-
+	*/
 	}
 //alert ( "Version Checked" ) ;
 };
