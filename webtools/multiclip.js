@@ -194,9 +194,15 @@ function copyTo() {
 
 
 function storeValue() {
+	
+	if ( document.getElementById("feed_box").value.includes("<script") ) {
+		alert ("your input is invalid, please use '&lt;' instead"); return;
+		}
+			
 	var someid1 = document.getElementById("localStoreKey").value ;
 	if ( someid1.includes("_") ) { alert ("Key included '_' is NOT allowed");  return; }
 	if ( someid1.includes(":") ) { alert ("Key included ':' is NOT allowed");  return; }
+	if ( someid1.includes("<") ) { alert ("Key included '<' is NOT allowed");  return; }	
 	// TODo some users may use ':' before the updated....
 	if ( someid1 === '' ) return;
 
@@ -211,13 +217,15 @@ function storeValue() {
 		if ( newPage.includes("_") ) { alert ("Page Name included '_' is NOT allowed");  return; }
 		if ( newPage.includes(":") ) { alert ("Page Name included ':' is NOT allowed");  return; }
 		if ( newPage.includes("*") ) { alert ("Page Name included '*' is NOT allowed");  return; }
-
+		if ( newPage.includes("<") ) { alert ("Page Name included '<' is NOT allowed");  return; }		
+		
 		someid1 = ":j35mc:" + newPage + ":"
 				+ document.getElementById("localStoreKey").value ;
 		localStorage.setItem( someid1, document.getElementById("feed_box").value );
-		readPageCombo();
+		
 		document.getElementById("pageTag").value = newPage ;
 		reFreshTable("","", 1 );
+		readPageCombo();
 		return;
 	}
 
@@ -592,7 +600,7 @@ function box2File() {
 	saveAs( blob , fname);
     // document.getElementById("feed_box").value =
 	alert ("Box content is saved");
-	"(Dump is completed,\n you may clear this message by &#10060; button)";
+	// "(Dump is completed,\n you may clear this message by &#10060; button)";
 
 	}
 
