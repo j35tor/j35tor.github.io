@@ -194,15 +194,15 @@ function copyTo() {
 
 
 function storeValue() {
-	
+
 	if ( document.getElementById("feed_box").value.includes("<script") ) {
 		alert ("your input is invalid, please use '&lt;' instead"); return;
 		}
-			
+
 	var someid1 = document.getElementById("localStoreKey").value ;
 	if ( someid1.includes("_") ) { alert ("Key included '_' is NOT allowed");  return; }
 	if ( someid1.includes(":") ) { alert ("Key included ':' is NOT allowed");  return; }
-	if ( someid1.includes("<") ) { alert ("Key included '<' is NOT allowed");  return; }	
+	if ( someid1.includes("<") ) { alert ("Key included '<' is NOT allowed");  return; }
 	// TODo some users may use ':' before the updated....
 	if ( someid1 === '' ) return;
 
@@ -217,15 +217,16 @@ function storeValue() {
 		if ( newPage.includes("_") ) { alert ("Page Name included '_' is NOT allowed");  return; }
 		if ( newPage.includes(":") ) { alert ("Page Name included ':' is NOT allowed");  return; }
 		if ( newPage.includes("*") ) { alert ("Page Name included '*' is NOT allowed");  return; }
-		if ( newPage.includes("<") ) { alert ("Page Name included '<' is NOT allowed");  return; }		
-		
+		if ( newPage.includes("<") ) { alert ("Page Name included '<' is NOT allowed");  return; }
+
 		someid1 = ":j35mc:" + newPage + ":"
 				+ document.getElementById("localStoreKey").value ;
 		localStorage.setItem( someid1, document.getElementById("feed_box").value );
-		
+
+		location.reload();
+		readPageCombo();
 		document.getElementById("pageTag").value = newPage ;
 		reFreshTable("","", 1 );
-		readPageCombo();
 		return;
 	}
 
@@ -267,13 +268,13 @@ function storeChkSum () {
 		document.getElementById("xxh32sum").style.color = "red";
 		return;
 		}
-		
+
 	document.getElementById("xxh32sum").style.color = "black";
 	}
 
 function clearKeyOver(){ }
 
-function clearStore(){ 
+function clearStore(){
 		Object.keys( localStorage ).forEach(
 		function(key) {
 			 	if ( key.includes(":j35mc:_") ) return;
@@ -295,7 +296,8 @@ if ( document.getElementById("localStoreKey").value === '_killall' ) {
 	document.getElementById("feed_box").value = "" ;
 	reFreshTable();
 	boxclear("localStoreKey");
-	boxclear("feed_box");	
+	boxclear("feed_box");
+	location.reload();
 	// return ;
 	};
 
@@ -303,7 +305,7 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] === '_addPk' 
 
 	if (document.getElementById("localStoreKey").value.split(":")[1] === '' ) {
 		alert ("Please specify the KeyID")
-	return;}	
+	return;}
 
 	localStorage.setItem( ":j35mc:_pubKey:"
 			+ document.getElementById("localStoreKey").value.split(":")[1] ,
@@ -313,14 +315,14 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] === '_addPk' 
 	readPubKeyCombo();
 	boxclear("localStoreKey");
 	boxclear("feed_box");
-	
+
 	}
 
 if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' ) {
 
 	if (document.getElementById("localStoreKey").value.split(":")[1] === '' ) {
 		alert ("Please specify the KeyID")
-	return;}		
+	return;}
 
 	document.getElementById("feed_box").value =
 		localStorage.getItem( ":j35mc:_pubKey:"
@@ -332,11 +334,11 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 
 	localStorage.removeItem( ":j35mc:_pubKey:"
 			+ document.getElementById("localStoreKey").value.split(":")[1]  );
-	
-	readPubKeyCombo();		
+
+	readPubKeyCombo();
 	boxclear("localStoreKey");
 	boxclear("feed_box");
-	
+
 	}
 
 
@@ -350,9 +352,9 @@ if 	( document.getElementById("localStoreKey").value === '_help' ) {
 		+ "_width:nn : set Box Column width <mum> \n \t e.g. _width:10 \n"
 		+ "_addPk:KeyID : add Public key under KeyID \n \t e.g. _addPk:SomeKey \n"
 		+ "_rmPk:KeyID : remove the Pulic Key with KeyId \n"
-		
+
 		;
-		
+
 	};
 
 if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_width' ) {
@@ -365,7 +367,7 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_width' )
 	localStorage.setItem( ":j35mc:_colwidth" ,  new_width );
 	reFreshTable("","",1);
 	};
-	
+
 document.getElementById("localStoreKey").value = "" ;
 }
 
@@ -467,7 +469,7 @@ function reFreshTable( keyFilter, storeFilter ,  sorting ) {
 			else {
 				keyCell.innerHTML = myObjs[key] ;
 				keyCell.id = "lsKey_"+ myObjs[key] ;
-				localStorgeString = 
+				localStorgeString =
 						localStorage.getItem( ":j35mc:" + myObjs[key] );
 				}
 
@@ -504,7 +506,7 @@ function reFreshTable( keyFilter, storeFilter ,  sorting ) {
 
     	var localStorgeString = localStorage.getItem( key );
     	var keyCell2 = rowNum.insertCell(1);
-		
+
 		if  ( localStorgeString.length <= colwidth ) tailDot = '' ;
         keyCell2.innerHTML = localStorgeString.substring(0,colwidth) + tailDot ;
         keyCell2.id = "lsVal_"+ key.split(":")[3]  ;
@@ -559,9 +561,9 @@ function fromJSON( fromJSON_type, content ){
 
 	var myObjs = [] ;
 	var jsonFeed = content ;
-	
+
 	clearStore();  // need to flush the store to prevent orphan pile-up
-	
+
 	if ( fromJSON_type === '_fromjson' )
 			jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
 
