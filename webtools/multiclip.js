@@ -590,7 +590,8 @@ function box2File() {
 					{type: 'text/plain;charset=utf-8'})
 
 	saveAs( blob , fname);
-    document.getElementById("feed_box").value =
+    // document.getElementById("feed_box").value =
+	alert ("Box content is saved");
 	"(Dump is completed,\n you may clear this message by &#10060; button)";
 
 	}
