@@ -293,6 +293,10 @@ if ( document.getElementById("localStoreKey").value === '_killall' ) {
 
 if 	( document.getElementById("localStoreKey").value.split(":")[0] === '_addPk' ) {
 
+	if (document.getElementById("localStoreKey").value.split(":")[1] === '' ) {
+		alert ("Please specify the KeyID")
+	return;}	
+
 	localStorage.setItem( ":j35mc:_pubKey:"
 			+ document.getElementById("localStoreKey").value.split(":")[1] ,
 			document.getElementById("feed_box").value
@@ -306,6 +310,10 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] === '_addPk' 
 
 if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' ) {
 
+	if (document.getElementById("localStoreKey").value.split(":")[1] === '' ) {
+		alert ("Please specify the KeyID")
+	return;}		
+
 	document.getElementById("feed_box").value =
 		localStorage.getItem( ":j35mc:_pubKey:"
 			+ document.getElementById("localStoreKey").value.split(":")[1] ) ;
@@ -316,6 +324,8 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 
 	localStorage.removeItem( ":j35mc:_pubKey:"
 			+ document.getElementById("localStoreKey").value.split(":")[1]  );
+	
+	readPubKeyCombo();		
 	boxclear("localStoreKey");
 	boxclear("feed_box");
 	
@@ -329,7 +339,10 @@ if 	( document.getElementById("localStoreKey").value === '_help' ) {
 //		+	"_tojsonF : dump content in Box as json file \n"
 //		+	"_fromjsonF : restore content from Box \n"
 //		+	"_lspage : list page(s) (same as click page)\n"
-		+ "_width : set Box Column width <mum> \n \t e.g. _width:10 \n"
+		+ "_width:nn : set Box Column width <mum> \n \t e.g. _width:10 \n"
+		+ "_addPk:KeyID : add Public key under KeyID \n \t e.g. _addPk:SomeKey \n"
+		+ "_rmPk:KeyID : remove the Pulic Key with KeyId \n"
+		
 		;
 		
 	};
