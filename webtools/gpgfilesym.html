@@ -1,19 +1,23 @@
 <html>
 <head>
+  <style>
+  body   { background-color: #0DEADE; }
+  </style>
+  <!-- <link id="favicon" rel="icon" type="image/x-icon" href="./discEnc.ico" /> -->
 </head>
 <body>
 
-passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button 
-onclick="boxclear('symKey')" style="font-size: 18px;">&#10060; </button><button 
+passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button
+onclick="boxclear('symKey')" style="font-size: 18px;">&#10060; </button><button
 onclick="genRan()" style="font-size: 18px;">&#127922;</button>
- 
+
 <br />
 (you may edit the passwd in above box)
 <button onclick="copy2clip('symKey')" style="font-size: 20px; vertical-align: baseline;" >&#128203;</button>
 <!-- <input type="button" style="background-image:url('./res/qr_code.svg')" onclick="qrcode_gen()" /> -->
 <button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img  style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
-<br />  
-<div id="qr"></div> 
+<br />
+<div id="qr"></div>
 
 //==============================================
 <br />
@@ -37,7 +41,7 @@ PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
     <option value="(none)">(none)</option>
     </select> <!-- <input
 	type="button"  value="encBox" onclick=""/>  -->
-<br />	
+<br />
 	Read Original <input type="file"  value="File2gpgPub" id="file2gpgPub" />
 	<span id="read_blksPub">0%</span>
 	<br />
@@ -54,7 +58,7 @@ PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
 
 <!-- <script src="./cdn/qrcode.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
- 
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js"></script> -->
 <!-- https://github.com/cozmo/jsQR   -->
 
@@ -66,7 +70,7 @@ PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
 
 <!-- <script src="./cdn/filereader.js"></script> -->
 <script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
- 
+
 <script src="../webtools/base32.js"></script>
 <script src="./gpgfilesym.js"></script>
 
