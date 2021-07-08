@@ -13,38 +13,41 @@ body   { background-color: #CAEADE; }
 </style>
 </head>
 <body>
-PlainTEXT <button class="mybutton" onclick="box2File('feedtext')">&#8680;&#128190;</button>&#8681;<input 
-type="file"  value="File2Box" id="file2Box" /> <br />
-<textarea id="feedtext" style="width: 540px; height: 200px;" >(Text to Encrypt)</textarea><button 
-class="mybutton" onclick="boxclear('feedtext')">&#10060;</button><button 
-class="mybutton" onclick="copy2clip('feedtext')">&#128203;</button>
+PlainTEXT
+&#8681;<input type="file"  value="File2Box" id="file2Box" /> <br />
+<textarea id="feedtext" style="width: 540px; height: 150px;" >(Text to Encrypt)</textarea><button
+class="mybutton" onclick="boxclear('feedtext')">&#10060;</button><button
+class="mybutton" onclick="copy2clip('feedtext')">&#128203;</button><button
+class="mybutton" onclick="box2File('feedtext')">&#8680;&#128190;</button>
 <br />
 <!-- Encrypt & Save as<input type="file"  value="File2Box" id="file2Buffer" />  -->
-<button onclick="symGnuPG_enc()">&#8595; Enc</button><button 
-onclick="symGnuPG_dec(outtext)"> &#8593; Dec</button>
-passwd:<input type="text" id="symKey"  value="(Press Die button get Passwd)"  size="25" /><button 
-onclick="boxclear('symKey')" style="font-size: 18px;">&#10060;</button><button  class="mybutton"
-onclick="copy2clip('symKey')">&#128203;</button><button onclick="genRan()" style="font-size: 18px;">&#127922;</button><button 
+<button onclick="symGnuPG_enc()">&#8595; Enc</button><button
+onclick="symGnuPG_dec(outtext)"> &#8593; Dec</button> <br />
+passwd:<input type="text" id="symKey"  value="(Press Die button get Passwd)"  size="25" /><button
+onclick="boxclear('symKey')" style="font-size: 18px;">&#10060;</button> <br />
+<button  class="mybutton" onclick="copy2clip('symKey')">&#128203;</button><button
+onclick="genRan()" style="font-size: 18px;">&#127922;</button><button
 onclick="qrcode_gen()" style="vertical-align: sub;" >
-<img  style="vertical-align: baseline;" src="./res/qr_code.svg"> </button> <br /> <!-- GenKey  -->
+<img  style="vertical-align: baseline;" src="./res/qr_code.svg"> </button> <br />
+<div id="qr"></div>
+ <!-- GenKey  -->
 PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
     <option value="(none)">(none)</option>
-    </select><button onclick="pKeyGnuPG_enc()">&#8595; Enc</button> 
-
-<div id="qr"></div>
+    </select><button onclick="pKeyGnuPG_enc()">&#8595; Enc</button>
 <br />
-Encrypted Text: <button class="mybutton" onclick="box2File('outtext')">&#8680;&#128190;</button>&#8681;<input 
-type="file"  value="File2Box" id="file2Enc" /><br /> 
-<textarea id="outtext" style="width: 540px; height: 200px;">(Press Enc to get the OUTPUT)</textarea><button 
-class="mybutton" onclick="boxclear('outtext')">&#10060;</button><button 
-class="mybutton" onclick="copy2clip('outtext')">&#128203;</button> 
+Encrypted Text:
+&#8681;<input type="file"  value="File2Box" id="file2Enc" /><br />
+<textarea id="outtext" style="width: 540px; height: 150px;">(Press Enc to get the OUTPUT)</textarea><button
+class="mybutton" onclick="boxclear('outtext')">&#10060;</button><button
+class="mybutton" onclick="copy2clip('outtext')">&#128203;</button><button
+class="mybutton" onclick="box2File('outtext')">&#8680;&#128190;</button>
 <br />
 <!-- <button onclick="cutHead()">CutHeader</button> -->
 
 <p style="font-family:Arial;font-size:12px" >
 (Disclaimer:  The encryption is done locally on your browser via Javascript,<br />
 and the content will NOT send over internet.  (You may check the
-<a href="./symgpg.js">source</a> &#128540; ) 
+<a href="./symgpg.js">source</a> &#128540; )
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
