@@ -21,10 +21,10 @@ class="mybutton" onclick="copy2clip('feedtext')">&#128203;</button><button
 class="mybutton" onclick="box2File('feedtext')">&#8680;&#128190;</button>
 <br />
 <!-- Encrypt & Save as<input type="file"  value="File2Box" id="file2Buffer" />  -->
-<button onclick="symGnuPG_enc()">&#8595; Enc</button><button
-onclick="symGnuPG_dec(outtext)"> &#8593; Dec</button> <br />
+<button onclick="symGnuPG_enc()"> &#8681; Enc</button><button
+onclick="symGnuPG_dec(outtext)"> &#8679; Dec</button> <br />
 passwd:<input type="text" id="symKey"  value="(Press Die button get Passwd)"  size="25" /><button
-onclick="boxclear('symKey')" style="font-size: 18px;">&#10060;</button> <br />
+onclick="boxclear('symKey') ; kill_qr() " style="font-size: 18px;">&#10060;</button> <br />
 <button  class="mybutton" onclick="copy2clip('symKey')">&#128203;</button><button
 onclick="genRan()" style="font-size: 18px;">&#127922;</button><button
 onclick="qrcode_gen()" style="vertical-align: sub;" >

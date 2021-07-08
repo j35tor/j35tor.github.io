@@ -3,7 +3,7 @@ function onReady() {
 		readPubKeyCombo();
 
 		var cellWidth = document.documentElement.clientWidth - 20;
-	
+
 		document.getElementById("feedtext").style.width = cellWidth ;
 		document.getElementById("outtext").style.width =  cellWidth ;
 		}
@@ -54,15 +54,15 @@ async function symGnuPG_enc()	{
 	}
 
 async function pKeyGnuPG_enc() {
-	
+
 	if ( document.getElementById("pubKey").value === "(none)" ) {
 		alert ("Please select the PubKey") ; return ;
 			}
 	var StoredKey = localStorage.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value );
 	var feedintext2 = document.getElementById("feedtext").value;
-	
+
 	let armored = await openpgp.key.readArmored(StoredKey);
-	/* // DEBUG to check userId in the pubKeys 
+	/* // DEBUG to check userId in the pubKeys
 	Object.keys( armored.keys ).forEach( function(myIt) {
 					console.log (  armored.keys[myIt].users[0].userId.userid ) } );
 	*/
@@ -72,14 +72,14 @@ async function pKeyGnuPG_enc() {
 		armor : true
 		}
 
-	try { 
+	try {
 		var encText = await window.openpgp.encrypt(options);
 		document.getElementById("outtext").value = encText.data ;
 		return (encText)
-					
+
 		} catch (error) { alert(error) };
 
-			
+
 }
 
 
@@ -90,7 +90,7 @@ async function symGnuPG_dec(feedintext)
 	//// DEBUG:   console.log(feedintext2);
 	const options = {
        message : await openpgp.message.readArmored(feedintext.value) ,
-       passwords : feed 
+       passwords : feed
 	   }
 
     try { var outText = await window.openpgp.decrypt(options) ;
@@ -128,21 +128,21 @@ function qrcode_gen() {
     document.getElementById('qr').innerHTML =  qr.createImgTag();
 	}
 
-
-function boxclear(myElementId) { 
+function boxclear(myElementId) {
 	document.getElementById(myElementId).value = '';
 	}
 
+function kill_qr() {  document.getElementById('qr').innerHTML = '' }
 
 function box2File(myElementId) {
-	
+
 	let fname = window.prompt("Save as...");
-	const blob = new Blob([ document.getElementById(myElementId).value ], 
+	const blob = new Blob([ document.getElementById(myElementId).value ],
 					{type: 'text/plain;charset=utf-8'})
-	
+
 	saveAs( blob , fname );
-	
-    //  document.getElementById("outtext").value = 
+
+    //  document.getElementById("outtext").value =
 	// "(FileSave is completed,\n you may clear this message by clear button)";
 	alert ("FileSave is completed");
 	}
@@ -152,14 +152,14 @@ function cutHead() {
 		// const wip = swapTXT.split(/\r*\n/);
 		const wip = swapTXT.split('\n');
 		document.getElementById("outtext").value = wip.slice( 4 , ( wip.length-1 ) ) ;
-		
+
 		/*
 		var i;
 			for (i = 0; i < cars.length; i++) {
 			text += cars[i] + "<br>";
 		} */
-		
-		
+
+
 		}
 
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
@@ -167,7 +167,7 @@ FileReaderJS.setupInput(document.getElementById('file2Box'), {
     on: {
       load: function (event, file) {
 		document.getElementById("feedtext").value = event.target.result ;
-		// fromJSON( "fromDump", event.target.result );		
+		// fromJSON( "fromDump", event.target.result );
       }
     }
   })
@@ -178,26 +178,26 @@ FileReaderJS.setupInput(document.getElementById('file2Enc'), {
     on: {
       load: function (event, file) {
 		document.getElementById("outtext").value = event.target.result ;
-		// fromJSON( "fromDump", event.target.result );		
+		// fromJSON( "fromDump", event.target.result );
       }
     }
-  })  
+  })
 
-  
-/*  TEMP disable Direct encrypt and save  
+
+/*  TEMP disable Direct encrypt and save
 FileReaderJS.setupInput(document.getElementById('file2Buffer'), {
     readAsDefault: 'ArrayBuffer',
     on: {
       load: function (event, file) {
 		// alert ("FileReading completed " // );
 		//  +  XXH.h32().update( event.target.result ).digest().toString(16)  ) ;
-		
+
 		var feed = document.getElementById("symKey").value;
 		//// DEBUG:  console.log(feed);
 
 		// var feedintext2 = document.getElementById("feedtext").value;
 		//  document.getElementById("outtext").value = '';
-		
+
 		var uint8View = new Uint8Array( event.target.result );
 		//// DEBUG:   console.log(feedintext2);
 		const options = {
@@ -209,20 +209,18 @@ FileReaderJS.setupInput(document.getElementById('file2Buffer'), {
 
 		///===
 		var encOut = window.openpgp.encrypt(options) ;
-		
-		Promise.resolve( encOut ).then ( val => { 
+
+		Promise.resolve( encOut ).then ( val => {
 			document.getElementById("outtext").value = val.data ;
-			let fname = window.prompt("Save as...");	
-			const blob = new Blob([ val.data  ], 
+			let fname = window.prompt("Save as...");
+			const blob = new Blob([ val.data  ],
 					{type: 'text/plain;charset=utf-8'}) ;
-			saveAs(blob, fname);		
-			
-			} );	
-			
-		
+			saveAs(blob, fname);
+
+			} );
+
+
       }
     }  // eo read event
-  })  
-*/  
-  
-  
+  })
+*/

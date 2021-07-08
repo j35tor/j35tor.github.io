@@ -37,20 +37,20 @@ async function symGnuPG_decF( myvalue ) {
 	const options = {
 		message: await openpgp.message.readArmored(myvalue) ,
 		passwords: passwd ,
-		format: 'binary' 
+		format: 'binary'
 		}
-		
-    try { 
+
+    try {
 		var outText = await window.openpgp.decrypt(options) ;
-			
+
 		let fname = window.prompt("Save as...");
-		const blob = new Blob([ outText.data ], 
+		const blob = new Blob([ outText.data ],
 					// {type: 'application/octet-stream'}
-					{type: 'application/x-binary' }  
+					{type: 'application/x-binary' }
 					)
-	
+
 		saveAs( blob , fname );
-		   
+
 		return (outText);
 		}
     catch  (err) { alert (err.message )  }
@@ -93,113 +93,113 @@ function qrcode_gen()
 }
 
 
-function boxclear(myElementId) { 
+function boxclear(myElementId) {
 	document.getElementById(myElementId).value = '';
 	}
 
-
+function kill_qr() {  document.getElementById('qr').innerHTML = '' }
   
 FileReaderJS.setupInput(document.getElementById('file2gpgPub'), {
     readAsDefault: 'ArrayBuffer',
     on: {
       load: function (event, file) {
 
-		if (  document.getElementById("pubKey").value === '(none)' )  { 
+		if (  document.getElementById("pubKey").value === '(none)' )  {
 			alert ("PubKey is missing"); return  }
 
-		document.getElementById("inFilePub").innerHTML = "xxh32 checksum:" 
-					+  XXH.h32().update( event.target.result ).digest().toString(16) ; 
-		
+		document.getElementById("inFilePub").innerHTML = "xxh32 checksum:"
+					+  XXH.h32().update( event.target.result ).digest().toString(16) ;
+
 		//  var feed = document.getElementById("PubKey").value;
-		
+
 		document.getElementById("symKey").setAttribute("myNewvalue","aaaa" );
-		
+
 		var StoredKey = localStorage.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value );
-		
+
 		//  alert (StoredKey);
 		//  var pubkey = openpgp.key.readArmored(StoredKey);
 		const readKey = async () => {
 				let armored = await openpgp.key.readArmored(StoredKey);
-				
+
 				Object.keys( armored.keys ).forEach( function(myIt) {
 					console.log (  armored.keys[myIt].users[0].userId.userid ) } );
 				//  console.log( armored.keys[1].users[0].userId.userid  );
-				
-				var uint8View = new Uint8Array( event.target.result );		
+
+				var uint8View = new Uint8Array( event.target.result );
 				const options = {
 						message : window.openpgp.message.fromBinary(  uint8View  ) ,
 						publicKeys: armored.keys ,
 						armor : true
 						}
 
-					try { 
+					try {
 						var encOut = window.openpgp.encrypt(options) ;
-						Promise.resolve( encOut ).then ( val => { 
+						Promise.resolve( encOut ).then ( val => {
 						//  console= val.data ;
-						let fname = window.prompt("Save as...");	
-						const blob = new Blob([ val.data  ], 
+						let fname = window.prompt("Save as...");
+						const blob = new Blob([ val.data  ],
 									{type: 'text/plain;charset=utf-8'}) ;
-						saveAs(blob, fname);		
-						} );  // eo Promise	
-			
-						} catch (error) { alert(error) };	
-				};
-		
-			readKey();
-		
+						saveAs(blob, fname);
+						} );  // eo Promise
 
-		}, // eo on load 
-	
-	  progress: function (event, file) { 
-	  
+						} catch (error) { alert(error) };
+				};
+
+			readKey();
+
+
+		}, // eo on load
+
+	  progress: function (event, file) {
+
 			//====
-			
+
 			if (event.lengthComputable)  {
 					var percentLoaded = Math.round((event.loaded / event.total) * 100);
 					// Increase the progress bar length.
 					if (percentLoaded < 100) {
-						document.getElementById("read_blksPub").innerHTML 
+						document.getElementById("read_blksPub").innerHTML
 									=  percentLoaded + '%' ;  } }
-			
-			
-			//=====
-	  
-		}, // eo on progress
-		
-	  loadend: function(e, file) { 
-			document.getElementById("read_blksPub").innerHTML = "100%";
-		} ,	
 
-	  error: function (event, file) { 
+
+			//=====
+
+		}, // eo on progress
+
+	  loadend: function(e, file) {
+			document.getElementById("read_blksPub").innerHTML = "100%";
+		} ,
+
+	  error: function (event, file) {
 			alert ("Error on reading file: " + event.err );
 		}, // eo on errot
-	  
+
     }  // eo read event
-  })  
+  })
 
 
 
 
 
-  
+
 FileReaderJS.setupInput(document.getElementById('file2gpg'), {
     readAsDefault: 'ArrayBuffer',
     on: {
       load: function (event, file) {
 
-		document.getElementById("inFile").innerHTML = "xxh32 checksum:" 
-					+  XXH.h32().update( event.target.result ).digest().toString(16) ; 
+		document.getElementById("inFile").innerHTML = "xxh32 checksum:"
+					+  XXH.h32().update( event.target.result ).digest().toString(16) ;
 		var feed = document.getElementById("symKey").value;
-		
+
 		document.getElementById("symKey").setAttribute("myNewvalue","aaaa" );
-		
-		
-		/* alert ( "Checked ->" 
-				//  + document.getElementById("symKey").getAttribute("Id")  
-				+ document.getElementById("symKey").getAttribute("myNewvalue") 
+
+
+		/* alert ( "Checked ->"
+				//  + document.getElementById("symKey").getAttribute("Id")
+				+ document.getElementById("symKey").getAttribute("myNewvalue")
 				) ; */
-		
-		if ( (! feed ) || feed === '(Press GenKey)' )  { 
+
+		if ( (! feed ) || feed === '(Press GenKey)' )  {
 			alert ("passwd missing"); return  }
 
 		var uint8View = new Uint8Array( event.target.result );
@@ -210,51 +210,51 @@ FileReaderJS.setupInput(document.getElementById('file2gpg'), {
 			armor : true
 			}
 
-		try { 
-		
+		try {
+
 			var encOut = window.openpgp.encrypt(options) ;
-		
-			Promise.resolve( encOut ).then ( val => { 
+
+			Promise.resolve( encOut ).then ( val => {
 			//  console= val.data ;
-			let fname = window.prompt("Save as...");	
-			const blob = new Blob([ val.data  ], 
+			let fname = window.prompt("Save as...");
+			const blob = new Blob([ val.data  ],
 					{type: 'text/plain;charset=utf-8'}) ;
-			saveAs(blob, fname);		
-			
-			} );  // eo Promise	
-			
+			saveAs(blob, fname);
+
+			} );  // eo Promise
+
 		}
-		
-		catch (error) { alert(error) };		
-		
-		}, // eo on load 
-	
-	  progress: function (event, file) { 
-	  
+
+		catch (error) { alert(error) };
+
+		}, // eo on load
+
+	  progress: function (event, file) {
+
 			//====
-			
+
 			if (event.lengthComputable)  {
 					var percentLoaded = Math.round((event.loaded / event.total) * 100);
 					// Increase the progress bar length.
 					if (percentLoaded < 100) {
-						document.getElementById("read_blks").innerHTML 
+						document.getElementById("read_blks").innerHTML
 									=  percentLoaded + '%' ;  } }
-			
-			
-			//=====
-	  
-		}, // eo on progress
-		
-	  loadend: function(e, file) { 
-			document.getElementById("read_blks").innerHTML = "100%";
-		} ,	
 
-	  error: function (event, file) { 
+
+			//=====
+
+		}, // eo on progress
+
+	  loadend: function(e, file) {
+			document.getElementById("read_blks").innerHTML = "100%";
+		} ,
+
+	  error: function (event, file) {
 			alert ("Error on reading file: " + event.err );
 		}, // eo on errot
-	  
+
     }  // eo read event
-  })  
+  })
 
 
 
@@ -267,41 +267,36 @@ FileReaderJS.setupInput(document.getElementById('file2dec'), {
 		let gen_checksum = XXH.h32().update( event.target.result ).digest().toString(16);
 		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
 
-		document.getElementById("outFile").innerHTML = "xxh32 checksum :" + gen_checksum ; 
-		
+		document.getElementById("outFile").innerHTML = "xxh32 checksum :" + gen_checksum ;
+
 		var feed = document.getElementById("symKey").value;
-		
-		if ( (! feed ) || feed === '(Press GenKey)' )  { 
-			alert ("passwd missing"); return  
+
+		if ( (! feed ) || feed === '(Press GenKey)' )  {
+			alert ("passwd missing"); return
 			}
-		
+
 		try {symGnuPG_decF( event.target.result ) }
 			catch  (err) { alert (err.message )  }
       } ,
-	  
-	progress: function (event, file) { 
-	  
+
+	progress: function (event, file) {
+
 			//====
-			
+
 			if (event.lengthComputable)  {
 					var percentLoaded = Math.round((event.loaded / event.total) * 100);
 					// Increase the progress bar length.
 					if (percentLoaded < 100) {
-						document.getElementById("read_blks_dec").innerHTML 
+						document.getElementById("read_blks_dec").innerHTML
 									=  percentLoaded + '%' ;  } }
-			
-			
+
+
 			//=====
-	  
+
 		}, // eo on progress
-	loadend: function(e, file) { 
+	loadend: function(e, file) {
 			document.getElementById("read_blks_dec").innerHTML = "100%";
-		} ,	  
-	  
+		} ,
+
     }
-  })  
-
-
-
-
-  
+  })
