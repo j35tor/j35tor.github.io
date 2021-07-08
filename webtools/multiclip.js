@@ -9,6 +9,11 @@ function onReady() {
 		box_width = box_width + "px";
 		document.getElementById('feed_box').style.width = box_width ;
 		
+		var inp_width =  document.documentElement.clientWidth / 3 ;
+		document.getElementById('encKey').style.width = inp_width + 'px' ;
+
+
+
 		
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
