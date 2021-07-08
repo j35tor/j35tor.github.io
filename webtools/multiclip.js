@@ -4,6 +4,12 @@ function onReady() {
 		var searchParams = new URLSearchParams(window.location.search);
 		//  var initPage = searchParams.get("page");
 		//  document.getElementById("localStoreKeyPage").value = initPage;
+		
+		var box_width = document.documentElement.clientWidth - 20;
+		box_width = box_width + "px";
+		document.getElementById('feed_box').style.width = box_width ;
+		
+		
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
 		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
