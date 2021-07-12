@@ -18,11 +18,13 @@ PlainTEXT
 <textarea id="feedtext" style="width: 540px; height: 150px;" >(Text to Encrypt)</textarea><button
 class="mybutton" onclick="boxclear('feedtext')">&#10060;</button><button
 class="mybutton" onclick="copy2clip('feedtext')">&#128203;</button><button
-class="mybutton" onclick="box2File('feedtext')">&#8680;&#128190;</button>
+class="mybutton" onclick="box2File('feedtext')">&#8680;&#128190;</button><button 
+class="mybutton" onclick="symGnuPG_enc()"> &#8681; Enc</button>
+
+
 <br />
 <!-- Encrypt & Save as<input type="file"  value="File2Box" id="file2Buffer" />  -->
-<button onclick="symGnuPG_enc()"> &#8681; Enc</button><button
-onclick="symGnuPG_dec(outtext)"> &#8679; Dec</button> <br />
+<br />
 passwd:<input type="text" id="symKey"  value="(Press Die button get Passwd)"  size="25" /><button
 onclick="boxclear('symKey') ; kill_qr() " style="font-size: 18px;">&#10060;</button> <br />
 <button  class="mybutton" onclick="copy2clip('symKey')">&#128203;</button><button
@@ -34,13 +36,15 @@ onclick="qrcode_gen()" style="vertical-align: sub;" >
 PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
     <option value="(none)">(none)</option>
     </select><button onclick="pKeyGnuPG_enc()">&#8595; Enc</button>
-<br />
+<br /><br />
 Encrypted Text:
 &#8681;<input type="file"  value="File2Box" id="file2Enc" /><br />
 <textarea id="outtext" style="width: 540px; height: 150px;">(Press Enc to get the OUTPUT)</textarea><button
 class="mybutton" onclick="boxclear('outtext')">&#10060;</button><button
 class="mybutton" onclick="copy2clip('outtext')">&#128203;</button><button
-class="mybutton" onclick="box2File('outtext')">&#8680;&#128190;</button>
+class="mybutton" onclick="box2File('outtext')">&#8680;&#128190;</button><button
+class="mybutton" onclick="symGnuPG_dec(outtext)"> &#8679; Dec</button> 
+
 <br />
 <!-- <button onclick="cutHead()">CutHeader</button> -->
 
@@ -50,14 +54,14 @@ and the content will NOT send over internet.  (You may check the
 <a href="./symgpg.js">source</a> &#128540; )
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<!-- <script src="./cdn/qrcode.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js"></script>
-<!-- <script src="./cdn/openpgp.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/filesaver.js-npm@1.0.1/FileSaver.min.js"></script>
-<!-- <script src="./cdn/FileSaver.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/file-reader-wrapper@0.9.10/filereader.js"></script>
-<!-- <script src="./cdn/filereader.js"></script> -->
+<!-- https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js  -->
+<script src="./cdn/qrcode.min.js"></script>
+<!-- https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js  --> 
+<script src="./cdn/openpgp.min.js"></script>
+<!-- https://cdn.jsdelivr.net/npm/filesaver.js-npm@1.0.1/FileSaver.min.js  --> 
+<script src="./cdn/FileSaver.min.js"></script>
+<!-- https://cdn.jsdelivr.net/npm/file-reader-wrapper@0.9.10/filereader.js --> 
+<script src="./cdn/filereader.min.js"></script>
 <script src="./base32.js"></script>
 <script src="./symgpg2way.js"></script>
 </body>
