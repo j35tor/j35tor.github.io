@@ -5,7 +5,7 @@ function onReady() {
 		//  var initPage = searchParams.get("page");
 		//  document.getElementById("localStoreKeyPage").value = initPage;
 		
-		var box_width = document.documentElement.clientWidth - 20;
+		var box_width = document.documentElement.clientWidth - 40;
 		box_width = box_width + "px";
 		document.getElementById('feed_box').style.width = box_width ;
 		
@@ -776,9 +776,12 @@ function encBox(inputTXT) {
 
 	var encTXT = symGnuPG_enc( inputTXT.value , document.getElementById("encKey").value  );
 
+	
 	Promise.resolve( encTXT ).then ( val => {
 			document.getElementById("feed_box").value = val.data ;
 			} );
+	
+
 }
 
 function encBoxPub( inputTXT ) {
@@ -803,10 +806,12 @@ function boxDec ( inputTXT ) {
 
 	var encTXT = symGnuPG_dec( inputTXT.value );
 
+
 	Promise.resolve( encTXT ).then ( val => {
 		document.getElementById("feed_box").value = val ;
 		// alert (val);
 		});
+	
 }
 
 
@@ -862,15 +867,19 @@ async function symGnuPG_dec( inputTXT ) {
 		alert ("Encrypt passwd is mssing");
 		return;
 		} ;
-  var feed = document.getElementById("encKey").value;
-  //// DEBUG:   console.log(feed);
-  //// DEBUG:   console.log(feedintext2);
+	var feed = document.getElementById("encKey").value;
+	//// DEBUG:   console.log(feed);
+	//// DEBUG:   console.log(feedintext2);
 
-  const options = {
+
+   
+    const options = {
        message : await openpgp.message.readArmored( inputTXT ) ,
        passwords : feed //,
        // armor : true
-   }
+		}
+   
+   
 
     try { var outText = await window.openpgp.decrypt(options) ;
            // document.getElementById("feed_box").value = outText.data ;

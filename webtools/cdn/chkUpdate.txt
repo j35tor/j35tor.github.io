@@ -1,0 +1,14 @@
+
+## https://cdnjs.com/api  ## help on API
+
+## check version via API
+## https://api.cdnjs.com/libraries/openpgp?fields=filename,sri,version
+## https://api.cdnjs.com/libraries/openpgp?fields=filename,latest
+
+
+## https://github.com/jsdelivr/data.jsdelivr.com   ## help of API
+
+## check version via API  
+## https://data.jsdelivr.com/v1/package/npm/xxhash
+## https://data.jsdelivr.com/v1/package/npm/filesaver.js-npm
+## https://data.jsdelivr.com/v1/package/npm/file-reader-wrapper
