@@ -4,17 +4,17 @@ function onReady() {
 		var searchParams = new URLSearchParams(window.location.search);
 		//  var initPage = searchParams.get("page");
 		//  document.getElementById("localStoreKeyPage").value = initPage;
-		
+
 		var box_width = document.documentElement.clientWidth - 40;
 		box_width = box_width + "px";
 		document.getElementById('feed_box').style.width = box_width ;
-		
+
 		var inp_width =  document.documentElement.clientWidth / 3 ;
 		document.getElementById('encKey').style.width = inp_width + 'px' ;
 
 
 
-		
+
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
 		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
@@ -34,6 +34,12 @@ if (document.readyState !== "loading") {
 
 document.getElementById("pageTag").addEventListener("change", () => {
 			if (!document.getElementById("swapPageClear").checked ) {
+
+					if ( (document.getElementById("feed_box").value != '') ||
+								(document.getElementById("localStoreKey").value != '') ) {
+						   let sure2swap = window.confirm( "Swaping page will clear Key/Data in Box, OK?");
+							 				if ( ! sure2swap )  return  ;
+							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
 					}
@@ -776,11 +782,11 @@ function encBox(inputTXT) {
 
 	var encTXT = symGnuPG_enc( inputTXT.value , document.getElementById("encKey").value  );
 
-	
+
 	Promise.resolve( encTXT ).then ( val => {
 			document.getElementById("feed_box").value = val.data ;
 			} );
-	
+
 
 }
 
@@ -811,7 +817,7 @@ function boxDec ( inputTXT ) {
 		document.getElementById("feed_box").value = val ;
 		// alert (val);
 		});
-	
+
 }
 
 
@@ -872,14 +878,14 @@ async function symGnuPG_dec( inputTXT ) {
 	//// DEBUG:   console.log(feedintext2);
 
 
-   
+
     const options = {
        message : await openpgp.message.readArmored( inputTXT ) ,
        passwords : feed //,
        // armor : true
 		}
-   
-   
+
+
 
     try { var outText = await window.openpgp.decrypt(options) ;
            // document.getElementById("feed_box").value = outText.data ;
