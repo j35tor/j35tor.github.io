@@ -17,7 +17,7 @@ Key: <input id="localStoreKey" type="text" size="10" >
 onmouseover="clearKeyOver()"/>
 
   <br />
-<span style="color: blue;">Box:</span> 
+<span style="color: blue;">Box:</span>
 &#8681;<input type="file" value="File2Box" id="file2Box" width="5" /><br />
 
 <textarea id="feed_box" style="height: 200px;" ></textarea><input
@@ -27,13 +27,13 @@ type="button"  value="&#128452; &#8681;" onclick="storeValue()"/><span class="te
 type="button"  value="&#8680;&#128190;" onclick="box2File()"/> </span>
 
 <br />
-<span  class="text">Passwd Enc: </span><input
+<span  class="text">Passwd:</span><input
 id="encKey" type="text" size="15" ><input
 type="button"  value="&#10060;" onclick="boxclear('encKey')" /><input
 class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
 class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" />
 
-<br />												
+<br />
 
 
 PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
@@ -67,22 +67,26 @@ OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
 
 <table>
     <tr>
-      <td>Export &#128452;</td>
+      <td>&#128452; &#8680; <input
+        type="button" id="dump2file" value="select file"  onclick="dump2file()" />
+        <span id="saveFileName" style="font-size: 13px;">no file selected</span>  </td>
+
+      </td>
     </tr>
     <tr>
 
-        <td>         
+        <td>
 		<!-- Sync2Cloud will be implemented when the support from KickStart is available
 		<input
         class="bluebox" type="button" id="dump2box" value="&#8680;Box"  onclick="dump2box()" />
         <input type="button" id="dump2cloud" value="&#8680;&#127781;"  onclick="dump2cloud()" />
-         -->
+
         <input type="button" id="dump2file" value="選擇檔案"  onclick="dump2file()" />
           <span id="saveFileName" style="font-size: 13px;">未選擇任何檔案</span>  </td>
-          <!-- &#128452;&#8680;   -->
+          &#128452;&#8680;   -->
     </tr>
     <tr>
-        <td>Import &#128452;</td>
+        <td>&#128452; &#8678; <input type="file" id="loadDocument" value="Load"/></td>
     </tr>
     <tr>
 
@@ -91,9 +95,9 @@ OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
 		<input
         class="bluebox" type="button" id="box2Store" value="&#8678;Box"  onclick="box2Store()" />
         <input type="button" id="cloudfeed" value="&#8678;&#127781;"  onclick="cloudfeed()" />
-        </td> -->
+        </td>
         <input type="file" id="loadDocument" value="Load"/></td>
-        <!-- &#128452;&#8678;  -->
+        &#128452;&#8678;  -->
 </table>
 <br />
 </body>
