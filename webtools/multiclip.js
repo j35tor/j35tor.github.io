@@ -289,8 +289,6 @@ function storeChkSum () {
 	document.getElementById("xxh32sum").style.color = "black";
 	}
 
-function clearKeyOver(){ }
-
 function clearStore(){
 		Object.keys( localStorage ).forEach(
 		function(key) {
@@ -676,6 +674,9 @@ function store2json() {
 
 	return jsonFeed ;
 	} // eo store2json()
+
+
+
 
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
     readAsDefault: 'Text',
