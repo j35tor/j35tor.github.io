@@ -6,15 +6,10 @@ function onReady() {
 		//  document.getElementById("localStoreKeyPage").value = initPage;
 
 		var box_width = document.documentElement.clientWidth - 40;
-		box_width = box_width + "px";
-		document.getElementById('feed_box').style.width = box_width ;
-
+		document.getElementById('feed_box').style.width = box_width + 'px' ;
 		// var inp_width =  document.documentElement.clientWidth / 3 ;
 		var inp_width =  document.documentElement.clientWidth - 200 ;
 		document.getElementById('encKey').style.width = inp_width + 'px' ;
-
-
-
 
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
@@ -32,6 +27,15 @@ if (document.readyState !== "loading") {
 } else {
     document.addEventListener("DOMContentLoaded", onReady);
 }
+
+window.addEventListener('resize', () => {
+
+	var box_width = document.documentElement.clientWidth - 40;
+	document.getElementById('feed_box').style.width = box_width + 'px';
+	var inp_width =  document.documentElement.clientWidth - 200 ;
+	document.getElementById('encKey').style.width = inp_width + 'px' ;
+
+} );
 
 document.getElementById("pageTag").addEventListener("change", () => {
 			if (!document.getElementById("swapPageClear").checked ) {
