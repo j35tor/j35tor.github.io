@@ -358,9 +358,14 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 	readPubKeyCombo();
 	boxclear("localStoreKey");
 	boxclear("feed_box");
-
 	}
 
+if 	( document.getElementById("localStoreKey").value === '_fromjsonF' ) {
+			fromJSON( "_fromjsonF", document.getElementById("feed_box").value )
+			boxclear("localStoreKey");
+			boxclear("feed_box");
+			return ;
+		}
 
 if 	( document.getElementById("localStoreKey").value === '_help' ) {
 	document.getElementById("feed_box").value =
