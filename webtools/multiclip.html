@@ -23,14 +23,18 @@ Key: <input id="localStoreKey" type="text" size="10" >
 type="button"  value="&#10060;" onclick="boxclear('feed_box')" /><input
 type="button"  value="&#128203;" onclick="copyTo()" /><input
 type="button"  value="&#128452; &#8681;" onclick="storeValue()"/><span class="text"><input
-id="box2File" type="button"  value="&#8680;&#128190;" onclick="box2File()"/> </span>
+id="box2File" type="button"  value="&#8680;&#128190;" onclick="box2File()"/><input
+class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
+class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" /> 
+
+
+
+</span>
 
 <br />
 <span  class="text">Passwd:</span><input
 id="encKey" type="text" size="15" ><input
-type="button"  value="&#10060;" onclick="boxclear('encKey')" /><input
-class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
-class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" />
+type="button"  value="&#10060;" onclick="boxclear('encKey')" />
 
 <br />
 
@@ -66,37 +70,20 @@ OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
 
 <table>
     <tr>
-      <td>EX:&#128452; &#8680; <input
+      <td>EX:&#128452; &#8680; </td>
+	  <td>
+		<input
         type="button" id="dump2file" value="Choose File"  onclick="dump2file()" />
-        <span id="saveFileName" style="font-size: 13px;">no file chosen</span>  </td>
-
+        <span id="saveFileName" style="font-size: 13px; font-family: Arial;">No file chosen</span>
       </td>
     </tr>
+
     <tr>
-
-        <td>
-		<!-- Sync2Cloud will be implemented when the support from KickStart is available
-		<input
-        class="bluebox" type="button" id="dump2box" value="&#8680;Box"  onclick="dump2box()" />
-        <input type="button" id="dump2cloud" value="&#8680;&#127781;"  onclick="dump2cloud()" />
-
-        <input type="button" id="dump2file" value="選擇檔案"  onclick="dump2file()" />
-          <span id="saveFileName" style="font-size: 13px;">未選擇任何檔案</span>  </td>
-          &#128452;&#8680;   -->
+        <td>IM:&#128452; &#8678; </td>
+		<td>
+		<input type="file" id="loadDocument" value="Load"/></td>
     </tr>
-    <tr>
-        <td>IM:&#128452; &#8678; <input type="file" id="loadDocument" value="Load"/></td>
-    </tr>
-    <tr>
-
-        <td>
-		<!-- Sync2Cloud will be implemented when the support from KickStart is available
-		<input
-        class="bluebox" type="button" id="box2Store" value="&#8678;Box"  onclick="box2Store()" />
-        <input type="button" id="cloudfeed" value="&#8678;&#127781;"  onclick="cloudfeed()" />
-        </td>
-        <input type="file" id="loadDocument" value="Load"/></td>
-        &#128452;&#8678;  -->
+    
 </table>
 <br />
 </body>
