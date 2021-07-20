@@ -10,7 +10,7 @@ function onReady() {
 		document.getElementById('feed_box').style.width = box_width ;
 
 		// var inp_width =  document.documentElement.clientWidth / 3 ;
-		var inp_width =  document.documentElement.clientWidth - 250 ;
+		var inp_width =  document.documentElement.clientWidth - 200 ;
 		document.getElementById('encKey').style.width = inp_width + 'px' ;
 
 
