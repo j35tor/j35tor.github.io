@@ -25,7 +25,8 @@ type="button"  value="&#128203;" onclick="copyTo()" /><input
 type="button"  value="&#128452; &#8681;" onclick="storeValue()"/><span class="text"><input
 id="box2File" type="button"  value="&#8680;&#128190;" onclick="box2File()"/><input
 class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
-class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" /> 
+class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" />
+<span id="boxUpdate">&#128309;</span>
 
 
 
@@ -53,7 +54,8 @@ class="bluebox" type="button"  value="encBox" onclick="encBoxPub( feed_box )"/>
     <input type="checkbox" id="swapPageClear" name="swapPageClear"
     unchecked onchange="swapPageClearChange()"/><span id="swapPageClearLock">&#128275;</span>
     Key/<span
-    style="color: blue;">Box</span>
+    style="color: blue;">Box</span> &#9889;Swap<input
+    type="checkbox" id="quickSwap" name="quickSwap" unchecked onchange="quickSwapChange()"/>
 
 <br />
 
@@ -62,7 +64,7 @@ class="bluebox" type="button"  value="encBox" onclick="encBoxPub( feed_box )"/>
 </table>
 <span class="text" >
 <input type="button"  value="&#10060; Pair" onclick="delPair()">
-OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
+OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" onchange="delConfirmChange()"/>
 <input type="button"  value="Chk&#128452;" onclick="storeChkSum()"><span id="xxh32sum"></span>
 </span>
 <br/>
@@ -83,7 +85,7 @@ OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" />
 		<td>
 		<input type="file" id="loadDocument" value="Load"/></td>
     </tr>
-    
+
 </table>
 <br />
 </body>

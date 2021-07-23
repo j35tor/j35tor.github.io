@@ -11,6 +11,11 @@ function onReady() {
 		var inp_width =  document.documentElement.clientWidth - 200 ;
 		document.getElementById('encKey').style.width = inp_width + 'px' ;
 
+		if ( localStorage.getItem( ":j35mc:_boxChanged" ) === null )
+					localStorage.setItem( ":j35mc:_boxChanged", "" );
+		if ( localStorage.getItem( ":j35mc:_boxChanged" ) != "" )
+								localStorage.setItem( ":j35mc:_boxChanged", "" );
+		localStorage.setItem( ":j35mc:_starTrack", "" );
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
 		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
@@ -22,11 +27,13 @@ function onReady() {
 		reFreshTable("","", 1 )
 		}
 
-if (document.readyState !== "loading") {
-    onReady(); // Or setTimeout(onReady, 0); if you want it consistently async
-} else {
-    document.addEventListener("DOMContentLoaded", onReady);
-}
+
+		if (document.readyState !== "loading") {
+    		onReady(); // Or setTimeout(onReady, 0); if you want it consistently async
+			} else {
+    				document.addEventListener("DOMContentLoaded", onReady);
+				   	}
+
 
 window.addEventListener('resize', () => {
 
@@ -37,13 +44,34 @@ window.addEventListener('resize', () => {
 
 } );
 
-document.getElementById("pageTag").addEventListener("change", () => {
-			if (!document.getElementById("swapPageClear").checked ) {
 
-					if ( (document.getElementById("feed_box").value != '') ||
-								(document.getElementById("localStoreKey").value != '') ) {
-						   let sure2swap = window.confirm( "Swaping page will clear Key/Data in Box, OK?");
-							 				if ( ! sure2swap )  return  ;
+document.getElementById("pageTag").addEventListener("change", () => {
+
+	if ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' ) {
+		alert ("Unsaved Changes detected !! \nPlease update changes BEFORE swap to new Page\n"
+		+ "Or click on the red dot to DISCARD the changes" );
+
+		document.getElementById('pageTag').value =
+		 	localStorage.getItem( ":j35mc:_boxChanged" ).split(":")[0] ;
+		return ;
+		}
+
+	if ( document.getElementById("quickSwap").checked ) {
+		boxclear("localStoreKey");
+		boxclear("feed_box");
+		localStorage.setItem( ":j35mc:_boxChanged" , '' );
+		reFreshTable ("","", 1 );
+		return ;
+		}
+
+	if ( !document.getElementById("swapPageClear").checked )   {
+
+		if ( ( document.getElementById("feed_box").value != '' )    ||
+			 ( document.getElementById("localStoreKey").value != '' ) ||
+			 ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' )   ){  // ||
+			 // ( ! document.getElementById("quickSwap").checked )       ){
+					let sure2swap = window.confirm( "Swaping page will clear Key/Data in Box, OK?");
+							 if ( ! sure2swap )  return  ;
 							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
@@ -53,18 +81,125 @@ document.getElementById("pageTag").addEventListener("change", () => {
 
 } )
 
-function swapPageClearChange()
-{
 
-		if  (document.getElementById("swapPageClear").checked )
-				 { document.getElementById("swapPageClearLock").innerHTML="&#128274;"; }
-				else { document.getElementById("swapPageClearLock").innerHTML="&#128275;"; }
+function swapPageClearChange() {
+	if  (document.getElementById("swapPageClear").checked ) { 
+		document.getElementById("swapPageClearLock").innerHTML="&#128274;"; }
+		else { document.getElementById("swapPageClearLock").innerHTML="&#128275;"; }
 
-}
+		}
+
+
+function quickSwapChange() {
+
+	if ( document.getElementById("quickSwap").checked === true ) {
+		// document.getElementById("quickSwap").checked = true ;
+		alert ( "You are enabling quickSwap\n"
+					+ "Page swaping will be done *EVEN* Box is filled with content \n"
+					+ "You have be warned !!\n"
+					+ "If you like to play safe, please disable this feature" );
+				return; }
+
+		alert ( "quickSwap diabled; \n"
+					+"(Pls Don't complaint for too much pop-up boxes during page swaping) " );
+
+	}
+
+
+function delConfirmChange () {
+
+	if ( document.getElementById("delConfirm").checked === true ) {
+		// document.getElementById("quickSwap").checked = true ;
+		alert ( "You are enabling OneKey Delete\n"
+					+ "Key/Box pair will be DELETE without confirmation\n"
+					+ "You have be warned !!\n"
+					+ "If you like to play safe, please disable this feature" );
+				return; }
+
+		alert ( "OneKey delete diabled; \n"
+					+"(Pls Don't complaint for too much pop-up boxes when deleting Key/Box pairs) " );	
+	
+	
+	}
+
+
+function checkBoxUpdate () {
+	// console.log (evt.path[0].value);
+	// console.log (evt.eventPhase);
+	if ( document.getElementById("feed_box") === '' ) return 0;
+	if ( document.getElementById("localStoreKey").value === '' ) return 0;
+
+	if ( document.getElementById("pageTag").value === "(new)" ) return 0 ;
+	if ( document.getElementById("pageTag").value === "*" ) {
+				alert ("Please do the Box's amendment in corresponding Page" );
+			 // document.getElementById("feed_box").value =
+			 //		localStorage.getItem( ":j35mc:" + localStorage.getItem( ":j35mc:_starTrack" )) ;
+			 document.getElementById("localStoreKey").value =
+			 		localStorage.getItem( ":j35mc:_starTrack" ).split(":")[1] ;
+			 document.getElementById("pageTag").value =
+					localStorage.getItem( ":j35mc:_starTrack" ).split(":")[0] ;
+
+			reFreshTable ("","",1);
+			checkBoxUpdate();
+
+			return 0; } ;
+
+	if ( document.getElementById("feed_box").value !=
+		localStorage.getItem( ":j35mc:" + document.getElementById("pageTag").value + ":"
+					+ document.getElementById("localStoreKey").value) ) {
+
+					localStorage.setItem( ":j35mc:_boxChanged" ,
+							document.getElementById("pageTag").value + ":"
+								+ document.getElementById("localStoreKey").value )
+					document.getElementById("boxUpdate").innerHTML = "&#128308;" ;
+
+			return 1;
+			}
+		localStorage.setItem( ":j35mc:_boxChanged" , "" )
+		document.getElementById("boxUpdate").innerHTML = "&#128309;" ;
+		return 0;
+	}
+
+
+document.getElementById("feed_box").addEventListener("change", checkBoxUpdate ) ;
+
+
+document.getElementById("boxUpdate").addEventListener("click", () => {
+
+	let dropChange = window.confirm( "Really drop the changes ?" );
+	if ( ! dropChange ) return ;
+
+	document.getElementById("feed_box").value =
+		localStorage.getItem( ":j35mc:" +  localStorage.getItem(":j35mc:_boxChanged" ) );
+
+	document.getElementById("localStoreKey").value =
+		localStorage.getItem(":j35mc:_boxChanged").split(":")[1];
+
+	document.getElementById("pageTag").value =
+				localStorage.getItem(":j35mc:_boxChanged").split(":")[0];
+
+	localStorage.setItem( ":j35mc:_boxChanged" , "" );
+	document.getElementById("boxUpdate").innerHTML = "&#128309;" ;
+
+
+} );
 
 
 document.getElementById("mylocalStore").addEventListener("click",function() {
-    var my_table_node = document.getElementById(event.target.id).parentElement.parentElement.children ;
+
+	if ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' ) {
+		alert ("Unsaved Changes detected !! \nPlease update changes BEFORE swap to new key\n"
+		+ "Or click on the red dot to DISCARD the changes" );
+		return ;
+		}
+		// DEBUG: console.log ("evt_bubbles: " + event.bubbles ); //QQQQQ
+		if (document.getElementById("pageTag").value === "*" ) {
+			 localStorage.setItem( ":j35mc:_starTrack" , event.target.id.split("_")[1] );
+
+		 }
+
+    var my_table_node = document.getElementById(event.target.id)
+						.parentElement.parentElement.children ;
 
     for ( var i=0 ; i < my_table_node.length; i++)
       { my_table_node[i].firstElementChild.style.color = "black";
@@ -140,6 +275,7 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 	};
 });
 
+
 function delPair()  {
 
 	if ( document.getElementById("pageTag").value === "*" ) {
@@ -159,6 +295,7 @@ function delPair()  {
 	// document.getElementById("delConfirm").checked = false ;
 	reFreshTable("", "", 1 );
 	}
+
 
 function readPageCombo() {
 	var myObjs = [] ;
@@ -185,7 +322,9 @@ function readPageCombo() {
 		wildCardOption.text =  "*" ;
 		wildCardOption.value =  "*" ;
 		list.add(wildCardOption);
+		//  location.reload(); //QQQQ
 		}
+
 
 function readPubKeyCombo() {
 	var myObjs = [] ;
@@ -244,11 +383,15 @@ function storeValue() {
 		someid1 = ":j35mc:" + newPage + ":"
 				+ document.getElementById("localStoreKey").value ;
 		localStorage.setItem( someid1, document.getElementById("feed_box").value );
+		alert ("New page :" + newPage + " created" );
 
-		location.reload();
+		//  readPageCombo_cb( newPage, reFreshTable ) ;   // QQQ
+
 		readPageCombo();
+		location.reload();
 		document.getElementById("pageTag").value = newPage ;
 		reFreshTable("","", 1 );
+		// alert ("QQQQQ" + document.getElementById("pageTag").value);
 		return;
 	}
 
@@ -263,12 +406,16 @@ function storeValue() {
 							if ( ! window.confirm( "Overwrite old value ?") ) return;  //Check Overwrite
 							// if user confirmed to Overwrite TextBox
 							localStorage.setItem( someid1, document.getElementById("feed_box").value );
+
+							checkBoxUpdate();
 							reFreshTable("","",1); return;
 							} ;
 						alert ("Same value in Box has been found");
 						return ; //	 skip when new value is equal stored value
 						}
+	  // stored intto a new Key
       localStorage.setItem( someid1, document.getElementById("feed_box").value );
+	  checkBoxUpdate();
       reFreshTable("","",1 );
 	  }
 
@@ -278,6 +425,7 @@ function storeValue() {
 function boxclear(myElementId) {
 	document.getElementById(myElementId).value = '';
 	}
+
 
 function storeChkSum () {
 	var nowjson = store2json();
@@ -293,6 +441,7 @@ function storeChkSum () {
 
 	document.getElementById("xxh32sum").style.color = "black";
 	}
+
 
 function clearStore(){
 		Object.keys( localStorage ).forEach(
@@ -425,7 +574,6 @@ function html_table_header(localID) {
 	}
 
 
-
 function reFreshTable( keyFilter, storeFilter ,  sorting ) {
 
 	var mylocalStore = document.getElementById("mylocalStore");
@@ -540,7 +688,7 @@ function reFreshTable( keyFilter, storeFilter ,  sorting ) {
   } ;  // eo function reFreshTable;
 
 
-function  check_version() {
+function check_version() {
 var myversion = localStorage.getItem(":j35mc:_version");
 
 if (  ( myversion === null )  &&  localStorage.length >= 1    ) {
@@ -577,6 +725,7 @@ if ( myversion === "2.0" )
 //alert ( "Version Checked" ) ;
 };
 
+
 function switchPage()  {
 	var someid1 = document.getElementById("pageTag").value ;
 	reFreshTable("","", 1 ); }
@@ -608,13 +757,12 @@ function fromJSON( fromJSON_type, content ){
 		localStorage.setItem( ":j35mc:" + myObjs[key].Key , myObjs[key].Value );
 		} );
 
-	document.getElementById("feed_box").value =
-		"(Restore is completed,\n Please REMEMBER press 'Refresh' buttom reload page )";
+	alert ( '(Restore is completed,\nPlease refresh the page by reload key on browser' );
+	location.reload();
+	// document.getElementById("feed_box").value =
+	//	"(Restore is completed,\n Please REMEMBER press 'Refresh' buttom reload page )";
 	reFreshTable("","",1 );
 	}
-
-
-// function toJSON() {}
 
 
 function box2File() {
@@ -630,6 +778,7 @@ function box2File() {
 	// "(Dump is completed,\n you may clear this message by &#10060; button)";
 
 	}
+
 
 function dump2box () {
 
@@ -686,8 +835,6 @@ function store2json() {
 	} // eo store2json()
 
 
-
-
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
     readAsDefault: 'Text',
     on: {
@@ -697,6 +844,7 @@ FileReaderJS.setupInput(document.getElementById('file2Box'), {
       }
     }
   })
+
 
 FileReaderJS.setupInput(document.getElementById('loadDocument'), {
     readAsDefault: 'Text',
@@ -710,16 +858,15 @@ FileReaderJS.setupInput(document.getElementById('loadDocument'), {
 					fromJSON( "_fromjsonF" , val );
 					});
 				return;
-			};
+				};
 		if ( event.target.result.substr(0,8) != '[{"Key":' ) {
 		 alert ("Invalid file format!" ); return; };
 
 		fromJSON( "_fromjsonF" , event.target.result );
-      }
+		}
     }
   });
 
-// document.getElementById('saveDocument').onclick = function () {}
 
 function dump2file() {
 
@@ -752,37 +899,47 @@ function dump2file() {
 							{type: 'application/json;charset=utf-8'})
 
 			saveAs(blob, fname);
-			document.getElementById("feed_box").value =
-				'(Dump is completed,\n you may clear this message by clear button "X" )';
+			
+			alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
+			location.reload();
+			// document.getElementById("feed_box").value =
+			//	'(Dump is completed,\n you may clear this message by clear button "X" )';
 			} );
-			localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
-			return ;
-			} else if ( document.getElementById("pubKey").value != '' ) {
+		
+		localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
+		return ;
+		} else if ( document.getElementById("pubKey").value != '' ) {
 
-				var encTXT = pKGnuPG_enc( store , localStorage
-					.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value ) );
+			var encTXT = pKGnuPG_enc( store , localStorage
+				.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value ) );
 
-				Promise.resolve( encTXT ).then ( val => {
+			Promise.resolve( encTXT ).then ( val => {
 				const blob = new Blob( [ val.data ],
 							{type: 'application/json;charset=utf-8'})
 
 				saveAs(blob, fname);
-				document.getElementById("feed_box").value =
-				'(Dump is completed,\n you may clear this message by clear button "X" )';
+				
+				alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
+				location.reload();
+				// document.getElementById("feed_box").value =
+				// '(Dump is completed,\n you may clear this message by clear button "X" )';
+				
 				} ) ;
-				localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
-				return ;
-		}
+			localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
+			return ;
+			}
 
 	const blob = new Blob([ store ],
 			{type: 'application/json;charset=utf-8'})
 
     saveAs(blob, fname);
-	document.getElementById("feed_box").value =
-	'(Dump is completed,\n you may clear this message by clear button "X" )';
+	alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
+	location.reload();
+	// document.getElementById("feed_box").value =
+	// '(Dump is completed,\n you may clear this message by clear button "X" )';
 }
- //
 
+ 
 function encBox(inputTXT) {
 	//alert (inputTXT.value);
 
@@ -801,6 +958,7 @@ function encBox(inputTXT) {
 
 }
 
+
 function encBoxPub( inputTXT ) {
 	if ( document.getElementById("pubKey").value  === '' ) {
 		alert ("PubKey is mssing");
@@ -814,6 +972,7 @@ function encBoxPub( inputTXT ) {
 			document.getElementById("feed_box").value = val.data ;
 			} );
 			}
+
 
 function boxDec ( inputTXT ) {
 	if ( document.getElementById("encKey").value  === '' ) {
@@ -831,8 +990,6 @@ function boxDec ( inputTXT ) {
 
 }
 
-
-// async function symGnuPG_enc( inputTXT ) {
 
 async function symGnuPG_enc( inputTXT, Key ) {
 	// if ( document.getElementById("encKey").value  === '' ) {
