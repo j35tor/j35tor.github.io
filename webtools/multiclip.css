@@ -13,6 +13,8 @@ body   { font-family:"Times New Roman";
 
 .bluebox { color: blue; }
 
+img {max-width: 100%;}
+
 @media screen and (min-width : 400px)
 { body, .textarea, .input, .selectBox  { font-size: 20px; };
 	.text { font-size: 16 px;}
