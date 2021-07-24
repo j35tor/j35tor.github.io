@@ -695,7 +695,7 @@ if (  ( myversion === null )  &&  localStorage.length >= 1    ) {
 
 		alert ('Your stored data will be put under "page1" ');
 		Object.keys( localStorage ).forEach( function(key,value) {
-				if (key.substring(0, 6) != ":j35mc:") {
+				if (key.substring(0, 7) != ":j35mc:") {
 					//alert ( "upgrade " + key );
 					var swap_value = localStorage.getItem( key );
 					localStorage.setItem( ":j35mc:page1:"+key, swap_value );
