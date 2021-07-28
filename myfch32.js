@@ -14,38 +14,67 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-document.getElementById("filetoRead").addEventListener("change",function() {
-  var file = this.files[0];
-  if (file) {
-    var reader = new FileReader();
-    reader.onprogress = updateProgress;
+document.getElementById("filetoRead").addEventListener("change",function( evt ) {
+	var file = this.files[0];
+
+	// alert ("len->" + evt.target.formAction );
+	 	 
+	if (file) {
+		var reader = new FileReader();
+		reader.onprogress = updateProgress;
 
     reader.onload = function (evt) {
         var arrayBuffer = reader.result;
-    //  var gen_checksum = sha1(arrayBuffer);
-		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
+		// var gen_checksum = sha1(arrayBuffer);
+		// var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
 		
-		/* 
+		
 		// This code block is opt out as the stack overflow issue of String.apply()
 		// It segement can work if the arrayBuffer.length is short
 		const { h32, h64, h32Raw, h64Raw } = xxhash();
 		
 		xxhash().then( hasher => {
-			var gen_checksum1 = hasher.h32( String.fromCharCode.apply(null, new Uint8Array( arrayBuffer ) ) );
+			// var gen_checksum1 = hasher.h32( String.fromCharCode.apply(null, new Uint8Array( arrayBuffer ) ) );
+			var gen_checksum1 = ( hasher.h32Raw( new Uint8Array( arrayBuffer ) ) ).toString(16) ;
+			
 			gen_checksum1 = ( "00000000" + gen_checksum1 ).slice(-8) ;
-			alert ( "Check " + 	gen_checksum1 );
+			// alert ( "Check " + 	gen_checksum1 );
+			document.getElementById("checksumOut").innerHTML =  gen_checksum1 ;
+			
+			var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
+
+			document.getElementById("read_blks").innerHTML = '100 %' ;
+			
+			document.getElementById("feedChecksum").innerHTML =  feedChecksum ;
+			document.getElementById("checksumOut").style.border="2px solid black";
+
+			if   ( gen_checksum1 === feedChecksum ) {
+				document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
+				document.getElementById("ok").style.color="#00b300";
+				document.getElementById("feedChecksum").style.border="2px solid black"; }
+
+			else if ( document.getElementById("checksum").value.trim() != "" ) {
+				document.getElementById("ok").innerHTML = "CheckSum Mismatch !! &#10060;"
+				document.getElementById("ok").style.color="#FF4000";
+				document.getElementById("feedChecksum").style.border="2px solid black";  }
+
+			else {  document.getElementById("feedChecksum").innerHTML = "(missing)" }			
+			
+			
         });
-		*/
-		
-		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
 	
+
+
+		/*
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 
 		document.getElementById("read_blks").innerHTML = '100 %' ;
-		document.getElementById("checksumOut").innerHTML =  gen_checksum ;	
-				
+		//  document.getElementById("checksumOut").innerHTML =  gen_checksum ;	
+
+		//  var gen_checksum =  document.getElementById("checksumOut").innerHTML  ;			
 		document.getElementById("feedChecksum").innerHTML =  feedChecksum ;
 		document.getElementById("checksumOut").style.border="2px solid black";
+
 		if   ( gen_checksum === feedChecksum ) {
 			document.getElementById("ok").innerHTML = "CheckSum Matched! &#10004;" ;
             document.getElementById("ok").style.color="#00b300";
@@ -57,10 +86,13 @@ document.getElementById("filetoRead").addEventListener("change",function() {
 			document.getElementById("feedChecksum").style.border="2px solid black";  }
 
 			else {  document.getElementById("feedChecksum").innerHTML = "(missing)" }
+		*/	
 		};
 
 	reader.onerror = function (evt) {
-      console.error("An error ocurred reading the file",evt); };
+			console.error("An error ocurred reading the file",evt); 
+			};
+			
     reader.readAsArrayBuffer(file);
     }
 
@@ -70,15 +102,15 @@ document.getElementById("filetoRead")
         .addEventListener('dragover', handleDragOver, false);
 
 function updateProgress(evt) {
-// evt is an ProgressEvent.
-if (evt.lengthComputable)
-{
-var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
-// Increase the progress bar length.
-if (percentLoaded < 100)
-{ document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ;  }
-}
-}
+		// evt is an ProgressEvent.
+		if (evt.lengthComputable) {
+			var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+			// Increase the progress bar length.
+			if (percentLoaded < 100) { 
+				document.getElementById("read_blks").innerHTML =  percentLoaded + '%' ; 
+				}
+			}
+		}
 
 
 function handleDragOver(evt) {
