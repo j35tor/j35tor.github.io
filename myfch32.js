@@ -22,29 +22,28 @@ document.getElementById("filetoRead").addEventListener("change",function() {
 
     reader.onload = function (evt) {
         var arrayBuffer = reader.result;
-        // var gen_checksum = sha1(arrayBuffer);
+    //  var gen_checksum = sha1(arrayBuffer);
 		var gen_checksum = XXH.h32().update( arrayBuffer ).digest().toString(16);
-
-    const { h32, h64, h32Raw, h64Raw } = xxhash();
-
-    xxhash().then(hasher => {
-        const input = "The string that is being hashed";
-        // 32-bit version
-//         alert ( "=>" + hasher.h32(input) ); // ee563564
-//         alert ( "==>" + hasher.h32(arrayBuffer) ); // ee563564
-        // 64-bit version
-//QQ        hasher.h64(input); // 502b0c5fc4a5704c
+		
+		/* 
+		// This code block is opt out as the stack overflow issue of String.apply()
+		// It segement can work if the arrayBuffer.length is short
+		const { h32, h64, h32Raw, h64Raw } = xxhash();
+		
+		xxhash().then( hasher => {
+			var gen_checksum1 = hasher.h32( String.fromCharCode.apply(null, new Uint8Array( arrayBuffer ) ) );
+			gen_checksum1 = ( "00000000" + gen_checksum1 ).slice(-8) ;
+			alert ( "Check " + 	gen_checksum1 );
         });
-
-
-    // gen_checksum = h32(arrayBuffer);
-
-		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
-
+		*/
+		
+		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
+	
 		var feedChecksum = document.getElementById("checksum").value.trim().toLowerCase();
 
 		document.getElementById("read_blks").innerHTML = '100 %' ;
-		document.getElementById("checksumOut").innerHTML =  gen_checksum ;
+		document.getElementById("checksumOut").innerHTML =  gen_checksum ;	
+				
 		document.getElementById("feedChecksum").innerHTML =  feedChecksum ;
 		document.getElementById("checksumOut").style.border="2px solid black";
 		if   ( gen_checksum === feedChecksum ) {
