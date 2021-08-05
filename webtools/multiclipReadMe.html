@@ -62,49 +62,69 @@ Since your info will be stored as plain characters in your storage, if someone c
 You may also found a combo box called PubKey, that is for the storage Public keys for asymmetric encryption.  If you already know about GnuPG you will know how to work with it.  If you don't, just skip it at the present moment and come back to this features when you are ready; you can also start to google this keyword on web & start your self-learning about GnuPG asymmetric encryption.<p />
 
 <h3 id='how2play'>How to play with this app</h3>
+(This part of document has been revised to fit the non-technical peoples for their ease to kick start). <br />
+Just three simple steps to kick start.
 
-<ul>
-<li>First, input the Key on the box on the top left.</li>
+<ol>
+<li>Type your stored contents in the bigger box</li>
 <br />
-<img src="./res/step1a.png"/>
-<li>Second, typing your contents in the bigger box underneath,</li>
-<img src="./res/step2a.png"/>
+<img src="./res/sterp1a.png"/>
+<br />
+<li>Input the Key/handle on the box on the top left.</li>
+<br />
+<img src="./res/sterp2a.png"/>
+<li>Just press the cabinet key &#128452;&#8681; / <img  style="vertical-align: text-bottom;" src="./res/store3.png" />to store your typing.</li>
+<br />That's it.
+</ol>
+<ul>
+<li>
+If page combo is pointed to (new page) <img style="vertical-align: middle;" src="./res/pageCom.png"/>  , the app will prompt ask the page name.  Once the page is confirm, you input will be shown the table underneath.
+</li>
+</ul>
+<h3>More functions offered by this app</h3>
+<ul>
 <li>You may aware that a button is staying the top of the bigger box; <br />
 <img src="./res/Box_read.png"/><br />
 when you click it, it popup a file selection box and you can pick a file, then this web app will read the file and load the content in the box. (If you try to load a non text file (say .jpg/.pdf files), the box will show some rubbish and you can clear the box with clear button (a red cross button &#10060;) on the right-down corner.</li>
 <img src="./res/mob_1a.png"/><br />
 <li>The button near to the clear button is a copy button (icon of a clipboard &#128203; ), it will select and copy the box content.</li>
 <img src="./res/mob_1b.png"/><br >
-<li>The store button (icon of cabinet &#128452;), it will store your typed contents into data store;</li><br />
-<img src="./res/mob_1c.png"/><br >
-<li>Since no Page is existed in the first usage, and Page combo box will stay at (new), and it means that you will need to input the page name for that.<br />
 
-You may ask: if some thing already existed in the cabinet under the same Key, what will happen; the app will confirm with you whether OK to overwrite it.</li><br />
 
-<li>The arrow disc &#8680;&#128190; button is for save/export the box content into an external text file,
+<li>The arrow disc &#8680;&#128190; button is for save/export the box content into an external text file, <br />
 <img src="./res/mob_1d.png"/><br >
 when click it your browser will prompt you for a filename, and you will 'Download' a text file with the typed content in the box to Download directory of the browser. </li><br />
 
-<li>Now we come to password encryption part, after you feed the password into the passwd box,
+<li>The blue dot &#128309;, is the indicator for unsaved modification <br/>
+<img src="./res/mob_1fa.png"/><br />
+this dot will turn <span class="red">RED</span> &#128308; if you change the typed content in the <span class="blue">Box</span>, and it will remain you to store the changes when you go elsewhere.  You may discard the changed content by click on the RED dot &#128308;  and confirm your intension by confirmation in popup box.</li>
+
+<h3>Using password/encryption to protect your data</h3>
+
+<li>Toggling the dice button will show/hide the encryption functionality of this app.
+</li>
+<img src="./res/mob_1g.png"/><br />
+
+
+<li>When you like to protect the data by password, feed the password into the passwd box,<br /><br />
 <img src="./res/mob_pw.png"/><br />
 you can press <span class="blue">encBox</span> button to encrypt the box content,<br />
-<img src="./res/mob_1e.png"/><br />
+<img src="./res/mob_1h.png"/><br />
 you will see your contents covert to a block of random characters; you can reverse the action by pressing <span class="blue">decBox</span> key.<br /><br />
-For this encrypted block of random characters, you can either store it in the cabinet/data store, or using arrow disc &#8680;&#128190; button save it as another file.</li><br/>
+For this encrypted block of random characters, you can either store it in the cabinet/data store &#128452;&#8681;, or using arrow disc &#8680;&#128190; button save it as another file.</li><br/>
 
-<li>Next to encBox/decBox buttons pair is a blue dot  &#128309;,
-<img src="./res/mob_1fa.png"/><br />
-this dot will turn <span class="red">RED</span> &#128308; if you change the typed content in the <span class="blue">Box</span>, and it will remain you to store the changes when you go elsewhere.  You may discard the changed content by click on the RED dot &#128308;  and confirm your intension by confirmation in popup box.</li> </ul>
+ 
+</ul>
 
 <h3>How the stored data organized</h3>
 
 The stored items will show as a two column table, since you stored item can very long, and shown contents will be trimmed by "...", this adjustment is only done for display purpose, the actual contents will NOT be modified in any way.  The length of characters shown is adjustable with an internal command '_width:' and we will discuss it later.<p />
-<img src="./res/mob_col1.png"/>
+<img src="./res/mob_col1.png"/> <br />
 You can also see boxes stated as <span class="red">Filter</span> with red fonts, it help you further narrow down you search (especially when you keys on the same Page has been growth to very long), just click the corresponding boxes and key in the characters you are looking for.<p />
 
 Now come to part I like most: it is the clicking on the data store table,  when you click it the corresponding row will lite with <span class="blue">blue color</span>.  And both of Key/Box will be update with your selection; whether you click the left side (Key) or Right (<span class="blue">Box</span>) will have one slight but useful difference: the content will be auto-copy to your clip-broad when you can on the right-column (<span class="blue">Box</span>).<p />
 
-<img src="./res/mob_col2.png"/>
+<img src="./res/mob_col2.png"/> <br />
 At the bottom data store table, that is Delete &#10060; pair button. It will delete the selected/highlighted row.  Be relaxed, the app will prompt for your confirmation before the actual action, unless you enable the OneKey delete checkbox near to it, so use your power wisely.<p />
 
 The third button is an interesting one, it will generate the xxh32 checksum of your data store, it will be an inevitable part to keep the sync of multi copies between devices.  And checksum will also turn <span class="red">red</span> to remind you if there is any data changed in store after you last export.<p />
