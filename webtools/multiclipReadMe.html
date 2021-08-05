@@ -13,12 +13,12 @@
 
 <body>
 <h3>Background</h3>
-<a href="#how2play">(If you are impatient, just click here to jump directly to how to play)</a><br />
+<a href="#how2play">(If you are impatient, just click here to jump directly to "how to play")</a><br />
 This app is started as a gadget-ware and considered as a play-thing to sharpen my JavaScript skills.  The user-interface may look primitive, so please feel free to fork this project and get a more sophisticated layout.<p />
 
 Besides, if you got an idea to add new feature, please create an issue on github and I will investigate the possibility to get it done.<p />
 
-Some User Interface experts may prefer using a JavaScript front-end framework like ReactJS or AngularJS to implement a solution similar to this, but I prefer to keep the dependency as minimum as possible and only include necessary external JavaScript for corresponding functionality; besides using those great frameworks for a simple task like this is an overkill.
+Some User Interface experts may prefer using a JavaScript front-end framework like ReactJS or AngularJS to implement a solution similar to this, but I prefer to keep the dependency as minimum as possible and only include necessary external JavaScript for corresponding functionality; besides, using those great frameworks for a simple task like this is an overkill.
 
 <h3>Typical use cases of this web app</h3>
 
@@ -40,7 +40,7 @@ Some User Interface experts may prefer using a JavaScript front-end framework li
 
 <ul>
 
-<li>No un-do functionality (or ctrl-Z), it will would be pretty nasty if you select a big block of typing and accidentally hit another key on the keyboard, your hard work of typing will just replace by a single character. So store you typing work often;
+<li>No un-do functionality (or ctrl-Z), it would be pretty nasty if you select a big block of typing and accidentally hit another key on the keyboard, your hard work of typing will just replace by a single character. So store you typing work often;
 </li>
 <br />
 <li>There is an ultimate conflict between the ease of usage and protection of personal data, and this app will also suffer from the same pain-point.<br />
@@ -50,12 +50,12 @@ If you just store your typing in the textbox as plaintext, some nosy eyes may se
 
 <h3>The nuts-and-bolts/internal of this app</h3>
 
-In most of the modern age browser, there is a storage space in local browser to keep setting of individual web-site/URL.  And in normal circumstance this storage isolated from site to site with a size of storage is 5 MB.  This number may seems not too much in today's technology standard(a single file of photo image with 21 megapixels in raw format will take up 25M), but if it is counted as plain ASCII characters. It can store the King James Authorized Bible with 783,137 words (consider average characters per word is 6). <p />
+In most of the modern age browsers, there is a storage space in local browser to keep setting of individual web-site/URL.  And in normal circumstance this storage isolated from site to site with a storage size of 5 MB.  This number may seems not too much in today's technology standard(a single file of photo image with 21 megapixels in raw format will take up 25M), but if it is counted as plain ASCII characters. It can store the King James Authorized Bible with 783,137 words (consider average characters per word is 6). <p />
 
 This local storage is organized as a Key-Value pair. And this also the foundation of how this app stored your input information.  Please also be aware that in Private/incognito mode your browser will dump all the local storage when page is closed and you better export the content before you close the page (we will come to the point about export later).<br />
 But if you just use this app in normal/non private browsing, your stored content will be kept in the browser unless to clear it out on purpose.<p />
 
-Back to the discussion about how the Key-Value pairs is stored in your browser, you can imagine a picture: when you keep on feeding your info into of this local storage basket, you will come to a situation that too much Keys will be needed to browse thro' when your need to grab particular stored values/items.  So that why we added "Page" to keep your Keys organized.<p />
+Back to the discussion about how the Key-Value pairs is stored, you can imagine a picture: when you keep on feeding your info into of this local storage basket, you will come to a situation that too much Keys will be needed to browse thro' when your need to grab particular stored values/items.  So that why we added "Page" to keep your Keys organized.<p />
 
 Since your info will be stored as plain characters in your storage, if someone can popup the browser on your device and navigate to this site, this Mr Stranger will read all the stored info.  And that is how the password encryption can help you out.  But a word of caution, the GnuPG is a robust encryption method, and <span class="red">THERE IS NOT WAY</span> to decrypt back to plain text if you forgot the password.<p />
 
@@ -63,10 +63,10 @@ You may also found a combo box called PubKey, that is for the storage Public key
 
 <h3 id='how2play'>How to play with this app</h3>
 (This part of document has been revised to fit the non-technical peoples for their ease to kick start). <br />
-Just three simple steps to kick start.
+Just &#9314; simple steps to kick start.
 
 <ol>
-<li>Type your stored contents in the bigger box</li>
+<li>Type your stored content in the bigger box</li>
 <br />
 <img src="./res/sterp1a.png"/>
 <br />
@@ -78,7 +78,7 @@ Just three simple steps to kick start.
 </ol>
 <ul>
 <li>
-If page combo is pointed to (new page) <img style="vertical-align: middle;" src="./res/pageCom.png"/>  , the app will prompt ask the page name.  Once the page is confirmed, you input will be shown the table underneath.
+If page combo is pointed to (new page) <img style="vertical-align: middle;" src="./res/pageCom.png"/>, the app will prompt ask the page name.  Once the page is confirmed, you input will be shown the table underneath.
 </li>
 </ul>
 <h3>More functions offered by this app</h3>
@@ -168,7 +168,7 @@ If you like to &#9762;nuke&#9762; all the stored content, use "_killall".   The 
 
 <h3>Something before the class dismissed</h3>
 
-Acknowledgment: This app has used the services provided by following JavaScript and I would like to thanks the peoples behind these projects; or this app will not be that useful.
+Acknowledgment: This app has used the services provided by following JavaScript and I would like to thank the peoples behind these projects; or this app will not be that useful.
 <ul>
 <li> <a href="https://openpgpjs.org">openpgpjs.org</a> to provide encryption functionality</li>
 <li> <a href="https://github.com/pierrec/js-xxhash/">js-xxhash</a> to help generate the xxh32 hash</li>
