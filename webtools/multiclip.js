@@ -103,7 +103,8 @@ document.getElementById("pageTag").addEventListener("change", () => {
 		}
 
 
-	if ( document.getElementById("quickSwap").checked ) {
+	if ( document.getElementById("quickSwap").checked &&
+				(! document.getElementById("swapPageClear").checked )	) {
 				boxclear("localStoreKey");
 				boxclear("feed_box");
 				localStorage.setItem( ":j35mc:_boxChanged" , '' );
@@ -114,7 +115,13 @@ document.getElementById("pageTag").addEventListener("change", () => {
 
 			  if( document.getElementById("keyCombo").hidden === false )  reFreshItemCom();
 		return ;
-		}
+	} else {
+				alert ("Key/Box LOCK and Quick Swap can not be used at the same time\n"
+							+ "Please un-selected one of these options (at least temporary)");
+				 document.getElementById("pageTag").value =  localStorage.getItem(":j35mc:_pageTagB4") ;
+				return;
+
+	}
 
 
 
@@ -133,7 +140,7 @@ document.getElementById("pageTag").addEventListener("change", () => {
 							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
-					}	
+					}
 
 
 
@@ -158,7 +165,7 @@ function toggleEnc() {
 		document.getElementById("encClear").hidden = false ;
 		document.getElementById("pubKey").hidden = false ;
 		document.getElementById("pubEncBu").hidden = false ;
-		document.getElementById("PubKeyTXT").hidden = false ;	
+		document.getElementById("PubKeyTXT").hidden = false ;
 		return;
 		}
 	document.getElementById("encBox" ).hidden = true ;
