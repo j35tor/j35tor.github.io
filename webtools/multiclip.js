@@ -171,6 +171,8 @@ function toggleEnc() {
 	document.getElementById("PubKeyTXT").hidden = true ;
 }
 
+
+
 function swapPageClearChange() {
 	if  (document.getElementById("swapPageClear").checked ) {
 		document.getElementById("swapPageClearLock").innerHTML="&#128274;"; }
