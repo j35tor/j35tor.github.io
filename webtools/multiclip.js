@@ -14,26 +14,33 @@ function onReady() {
 		if ( localStorage.getItem( ":j35mc:_boxChanged" ) === null )
 					localStorage.setItem( ":j35mc:_boxChanged", "" );
 		if ( localStorage.getItem( ":j35mc:_boxChanged" ) != "" )
-								localStorage.setItem( ":j35mc:_boxChanged", "" );
+					localStorage.setItem( ":j35mc:_boxChanged", "" );
+
 		localStorage.setItem( ":j35mc:_starTrack", "" );
+		localStorage.setItem( ':j35mc:_pageTagMax', 0 );
+		localStorage.setItem( ':j35mc:_keyMax', 0 );
+
+
+		if  ( localStorage.getItem(':j35mc:_quickSwap') === '1' )
+				document.getElementById("quickSwap").checked = true;
+
+
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
 		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
 		readPageCombo();
 		readPubKeyCombo();
-		// reFreshTable( keyFilter , valueFilter);
+
 		setColwidth();
 
-		reFreshTable("","", 1 )
+		reFreshTable("","");
 		}
 
-
-		if (document.readyState !== "loading") {
-    		onReady(); // Or setTimeout(onReady, 0); if you want it consistently async
-			} else {
-    				document.addEventListener("DOMContentLoaded", onReady);
-				   	}
-
+if (document.readyState !== "loading") {
+    	onReady(); // Or setTimeout(onReady, 0); if you want it consistently async
+		} else {
+    		document.addEventListener("DOMContentLoaded", onReady);
+			}
 
 window.addEventListener('resize', () => {
 
@@ -44,10 +51,49 @@ window.addEventListener('resize', () => {
 
 } );
 
+document.getElementById("keyComboBox").addEventListener("focus", () => {
+	localStorage.setItem(":j35mc:_keyComboBoxB4",
+		document.getElementById("keyComboBox").value )
+});
+
+document.getElementById("keyComboBox").addEventListener("change", () => {
+
+	if ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' ) {
+		alert ("Unsaved Changes detected !! \nPlease save changes BEFORE swap to another Key\n"
+					+ "Or click on the red dot to DISCARD the changes" );
+		document.getElementById("keyComboBox").value =
+			localStorage.getItem( ":j35mc:_keyComboBoxB4" );
+	return ;
+	}
+
+
+	document.getElementById("localStoreKey").value =
+					document.getElementById("keyComboBox").value ;
+
+	if ( document.getElementById("pageTag").value === '*' )	{
+		document.getElementById("feed_box").value =
+			localStorage.getItem( ":j35mc:"
+					+ document.getElementById("localStoreKey").value );
+	}	else {
+	document.getElementById("feed_box").value =
+		localStorage.getItem( ":j35mc:"
+			+ document.getElementById("pageTag").value
+			+ ":" + document.getElementById("keyComboBox").value );
+	  };
+
+
+
+	if ( localStorage.getItem(":j35mc:_autoCopy") === '1' ) copyTo();
+} );
+
+document.getElementById("pageTag").addEventListener("focus", () => {
+			localStorage.setItem(":j35mc:_pageTagB4", document.getElementById("pageTag").value ) ;
+
+		})
 
 document.getElementById("pageTag").addEventListener("change", () => {
 
-	if ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' ) {
+		if ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' ) {
 		alert ("Unsaved Changes detected !! \nPlease update changes BEFORE swap to new Page\n"
 		+ "Or click on the red dot to DISCARD the changes" );
 
@@ -56,39 +102,81 @@ document.getElementById("pageTag").addEventListener("change", () => {
 		return ;
 		}
 
+
 	if ( document.getElementById("quickSwap").checked ) {
-		boxclear("localStoreKey");
-		boxclear("feed_box");
-		localStorage.setItem( ":j35mc:_boxChanged" , '' );
-		reFreshTable ("","", 1 );
+				boxclear("localStoreKey");
+				boxclear("feed_box");
+				localStorage.setItem( ":j35mc:_boxChanged" , '' );
+
+				if( document.getElementById("mylocalStore").hidden === false  ) {
+						reFreshTable("","");  return;
+						}
+
+			  if( document.getElementById("keyCombo").hidden === false )  reFreshItemCom();
 		return ;
 		}
+
+
+
 
 	if ( !document.getElementById("swapPageClear").checked )   {
 
 		if ( ( document.getElementById("feed_box").value != '' )    ||
 			 ( document.getElementById("localStoreKey").value != '' ) ||
-			 ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' )   ){  // ||
-			 // ( ! document.getElementById("quickSwap").checked )       ){
+			 ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' )  ) { //  ||
+			   //  ( ! document.getElementById("quickSwap").checked )   ){
 					let sure2swap = window.confirm( "Swaping page will clear Key/Data in Box, OK?");
-							 if ( ! sure2swap )  return  ;
+							 if ( ! sure2swap )  {
+								 document.getElementById("pageTag").value =
+								    	localStorage.getItem (":j35mc:_pageTagB4");
+								 return ; } ;
 							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
-					}
+					}	
 
-			reFreshTable ("","", 1 );
+
+
+
+
+
+	if( document.getElementById("mylocalStore").hidden === false  ) {
+		reFreshTable("","");  return;
+		}
+	if( document.getElementById("keyCombo").hidden === false  )  reFreshItemCom();
 
 } )
 
+function toggleEnc() {
+
+	if ( document.getElementById("encBox").hidden ) {
+
+		document.getElementById("encBox" ).hidden = false ;
+		document.getElementById("decBox").hidden = false ;
+		document.getElementById("passwdBox").hidden = false ;
+		document.getElementById("encKey").hidden = false ;
+		document.getElementById("encClear").hidden = false ;
+		document.getElementById("pubKey").hidden = false ;
+		document.getElementById("pubEncBu").hidden = false ;
+		document.getElementById("PubKeyTXT").hidden = false ;	
+		return;
+		}
+	document.getElementById("encBox" ).hidden = true ;
+	document.getElementById("decBox" ).hidden = true ;
+	document.getElementById("passwdBox").hidden = true ;
+	document.getElementById("encKey").hidden = true ;
+	document.getElementById("encClear").hidden = true ;
+	document.getElementById("pubKey").hidden = true ;
+	document.getElementById("pubEncBu").hidden = true ;
+	document.getElementById("PubKeyTXT").hidden = true ;
+}
 
 function swapPageClearChange() {
-	if  (document.getElementById("swapPageClear").checked ) { 
+	if  (document.getElementById("swapPageClear").checked ) {
 		document.getElementById("swapPageClearLock").innerHTML="&#128274;"; }
 		else { document.getElementById("swapPageClearLock").innerHTML="&#128275;"; }
 
 		}
-
 
 function quickSwapChange() {
 
@@ -98,13 +186,16 @@ function quickSwapChange() {
 					+ "Page swaping will be done *EVEN* Box is filled with content \n"
 					+ "You have be warned !!\n"
 					+ "If you like to play safe, please disable this feature" );
-				return; }
+
+		localStorage.setItem( ":j35mc:_quickSwap", "1" );
+		return; }
 
 		alert ( "quickSwap diabled; \n"
 					+"(Pls Don't complaint for too much pop-up boxes during page swaping) " );
 
-	}
+		localStorage.setItem( ":j35mc:_quickSwap", "0" );
 
+	}
 
 function delConfirmChange () {
 
@@ -117,13 +208,12 @@ function delConfirmChange () {
 				return; }
 
 		alert ( "OneKey delete diabled; \n"
-					+"(Pls Don't complaint for too much pop-up boxes when deleting Key/Box pairs) " );	
-	
-	
+					+"(Pls Don't complaint for too much pop-up boxes when deleting Key/Box pairs) " );
+
+
 	}
 
-
-function checkBoxUpdate () {
+function checkBoxUpdate() {
 	// console.log (evt.path[0].value);
 	// console.log (evt.eventPhase);
 	if ( document.getElementById("feed_box") === '' ) return 0;
@@ -139,7 +229,12 @@ function checkBoxUpdate () {
 			 document.getElementById("pageTag").value =
 					localStorage.getItem( ":j35mc:_starTrack" ).split(":")[0] ;
 
-			reFreshTable ("","",1);
+			if( document.getElementById("mylocalStore").hidden === false  )
+						reFreshTable("","");
+
+			if( document.getElementById("keyCombo").hidden === false )
+						reFreshItemCom();
+
 			checkBoxUpdate();
 
 			return 0; } ;
@@ -160,9 +255,30 @@ function checkBoxUpdate () {
 		return 0;
 	}
 
+document.getElementById("cab").addEventListener("click", () => {
+
+	if (! document.getElementById("mylocalStore").hidden ) {
+		document.getElementById("mylocalStore").hidden = true ;
+		document.getElementById("keyCombo" ).hidden = false ;
+		document.getElementById("keyComboBox").hidden = false ;
+		// document.getElementsByClassName("keyCombo").hidden = false ;
+		reFreshItemCom();
+		return;
+		}
+	document.getElementById("mylocalStore").hidden = false ;
+	reFreshTable("","");
+	// alert ("hide Combo");
+	// document.getElementsByClassName("keyCombo").hidden = true ;
+	document.getElementById("keyCombo" ).hidden = true ;
+	document.getElementById("keyComboBox").hidden = true ;
+
+})
+
+document.getElementById("feed_box").addEventListener("focus", () => {
+					localStorage.setItem(":j35mc:_feed_boxB4", document.getElementById("feed_box").value ) ;
+}) ;
 
 document.getElementById("feed_box").addEventListener("change", checkBoxUpdate ) ;
-
 
 document.getElementById("boxUpdate").addEventListener("click", () => {
 
@@ -176,14 +292,11 @@ document.getElementById("boxUpdate").addEventListener("click", () => {
 		localStorage.getItem(":j35mc:_boxChanged").split(":")[1];
 
 	document.getElementById("pageTag").value =
-				localStorage.getItem(":j35mc:_boxChanged").split(":")[0];
+		localStorage.getItem(":j35mc:_boxChanged").split(":")[0];
 
 	localStorage.setItem( ":j35mc:_boxChanged" , "" );
 	document.getElementById("boxUpdate").innerHTML = "&#128309;" ;
-
-
-} );
-
+	} );
 
 document.getElementById("mylocalStore").addEventListener("click",function() {
 
@@ -192,17 +305,16 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 		+ "Or click on the red dot to DISCARD the changes" );
 		return ;
 		}
-		// DEBUG: console.log ("evt_bubbles: " + event.bubbles ); //QQQQQ
-		if (document.getElementById("pageTag").value === "*" ) {
-			 localStorage.setItem( ":j35mc:_starTrack" , event.target.id.split("_")[1] );
-
-		 }
+		// DEBUG: console.log ("evt_bubbles: " + event.bubbles );
+	if ( document.getElementById("pageTag").value === "*" ) {
+		localStorage.setItem( ":j35mc:_starTrack" , event.target.id.split("_")[1] );
+		}
 
     var my_table_node = document.getElementById(event.target.id)
-						.parentElement.parentElement.children ;
+							.parentElement.parentElement.children ;
 
-    for ( var i=0 ; i < my_table_node.length; i++)
-      { my_table_node[i].firstElementChild.style.color = "black";
+    for ( var i=0 ; i < my_table_node.length; i++) {
+		my_table_node[i].firstElementChild.style.color = "black";
         my_table_node[i].firstElementChild.nextSibling.style.color = "black"; }
 
 		document.getElementById("valueHeader").style.color = "blue";
@@ -216,12 +328,16 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 
 		var clickStoreKey = event.target.id.split("_")[1];
 		if ( clickStoreKey.includes(":") ) {
-					document.getElementById("localStoreKey").value = clickStoreKey.split(":")[1];
-					document.getElementById("feed_box").value =
-								localStorage.getItem( ":j35mc:" + clickStoreKey );
-					return;
-					}
+				document.getElementById("localStoreKey").value = clickStoreKey.split(":")[1];
+				document.getElementById("feed_box").value =
+							localStorage.getItem( ":j35mc:" + clickStoreKey );
+				return;
+				}
 		document.getElementById("localStoreKey").value = event.target.id.split("_")[1] ;
+
+		// Fixed BUG of mismatch page and Key
+		/* alert ( "Bug Check->" + document.getElementById("pageTag").value
+					+ ":" + event.target.id );	*/
 
 		document.getElementById("feed_box").value =
 					localStorage.getItem( ":j35mc:" + document.getElementById("pageTag").value
@@ -238,7 +354,7 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 		if ( clickStoreKey.includes(":") ) {
 				document.getElementById("localStoreKey").value = clickStoreKey.split(":")[1];
 				document.getElementById("feed_box").value =
-				localStorage.getItem( ":j35mc:" + clickStoreKey );
+						localStorage.getItem( ":j35mc:" + clickStoreKey );
 				copyTo();
 				return;
 				}
@@ -251,27 +367,25 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 		};
 
 	if ( event.target.id === "filterKey" ) {
-		// reFreshTable( document.getElementById("feed_box").value , "" );
-		if ( document.getElementById("pageTag").value === "*" ) {
-					alert ('filter for Keys with Page "*" is NOT allowed');
-			return;
-			}
-		var filterKey = window.prompt ("Please Input Filter for Keys" );
-		reFreshTable( filterKey , "" );
+
+				var filterKey = window.prompt ("Please Input Filter for Keys" );
+				if ( filterKey === "*" ) {
+							alert ("'*' in Filter is not allowed");
+							return; }
+
+				reFreshTable(filterKey, "");
 		};
 
-	if ( event.target.id === "filterValue" ) {
-		// reFreshTable( "" , document.getElementById( "feed_box").value );
-		if ( document.getElementById("pageTag").value === "*" ) {
-					alert ('filter for Boxes with Page "*" is NOT allowed');
-			return;
-			}
-		var filterValue = window.prompt ("Please Input Filter for Box(es)" );
-			reFreshTable( "" , filterValue );
+		if ( event.target.id === "filterValue" ) {
+					var filterValue = window.prompt ("Please Input Filter for Box(es)" );
+					if ( filterValue === "*" ) {
+								alert ("'*' in Filter is not allowed");
+								return;}
+					reFreshTable("" ,filterValue);
 		};
 
 	if ( event.target.id === "keyHeader" ) {
-		reFreshTable( "" , "" , 1 );
+		reFreshTable("","");
 	};
 });
 
@@ -293,38 +407,47 @@ function delPair()  {
 	document.getElementById("localStoreKey").value = "";
 	document.getElementById("feed_box").value = "";
 	// document.getElementById("delConfirm").checked = false ;
-	reFreshTable("", "", 1 );
-	}
 
+	if( document.getElementById("mylocalStore").hidden === false  )
+			reFreshTable("","");
+
+	if( document.getElementById("keyCombo").hidden === false  )
+			reFreshItemCom();
+	}
 
 function readPageCombo() {
 	var myObjs = [] ;
 	addItem = Object.create( {} );
 	Object.keys( localStorage ).forEach( function(key) {
-				//  if ( key.split(":")[2].includes("_") )  return ;
-				if ( key.includes(":j35mc:_") )  return ;
+		//  if ( key.split(":")[2].includes("_") )  return ;
+		if ( key.includes(":j35mc:_") )  return ;
 
 		myObjs.push( key.split(":")[2] );
-	      })
+	    })
 
-		myObjs.sort();
-		var uniqueArray = Array.from(new Set(myObjs));
-		var list = document.getElementById("pageTag");
-		uniqueArray.forEach( (item, i) => {
-								//alert (item ) ;
-								var option = document.createElement("option");
-								option.text =  item ;
-								option.value =  item ;
-								list.add(option) ;
-							} )
+	myObjs.sort();
+	var uniqueArray = Array.from(new Set(myObjs));
+	var list = document.getElementById("pageTag");
+
+	uniqueArray.forEach( (item, i) => {
+		//alert (item ) ;
+		var option = document.createElement("option");
+			option.text =  item ;
+			option.value =  item ;
+		// alert (item + "->" + item.length )
+		if ( item.length >= localStorage.getItem (':j35mc:_pageTagMax') ) {
+			localStorage.setItem (':j35mc:_pageTagMax', item.length );
+			localStorage.setItem (':j35mc:_colwidth', 55 - item.length ) ;
+			}
+		list.add(option) ;
+		} )
 		//===Pending the page with a wild card
 		var wildCardOption =  document.createElement("option");
 		wildCardOption.text =  "*" ;
 		wildCardOption.value =  "*" ;
 		list.add(wildCardOption);
-		//  location.reload(); //QQQQ
+		//  location.reload();
 		}
-
 
 function readPubKeyCombo() {
 	var myObjs = [] ;
@@ -337,14 +460,13 @@ function readPubKeyCombo() {
 	myObjs.sort();
 	var list = document.getElementById("pubKey");
 	myObjs.forEach( (item, i) => {
-			var option = document.createElement("option");
-				option.text =  item ;
-				option.value =  item ;
-			list.add(option) ;
-			} )
+		var option = document.createElement("option");
+			option.text =  item ;
+			option.value =  item ;
+		list.add(option) ;
+		} )
 
 	}
-
 
 function copyTo() {
 	var copyText = document.getElementById("feed_box");
@@ -352,7 +474,6 @@ function copyTo() {
 	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
 	document.execCommand("copy");
 	};
-
 
 function storeValue() {
 
@@ -387,47 +508,53 @@ function storeValue() {
 
 		//  readPageCombo_cb( newPage, reFreshTable ) ;   // QQQ
 
-		readPageCombo();
-		location.reload();
-		document.getElementById("pageTag").value = newPage ;
-		reFreshTable("","", 1 );
-		// alert ("QQQQQ" + document.getElementById("pageTag").value);
-		return;
+	readPageCombo();
+	location.reload();
+	document.getElementById("pageTag").value = newPage ;
+
+	if( document.getElementById("mylocalStore").hidden === false  )
+			reFreshTable("","");
+
+	if( document.getElementById("keyCombo").hidden === false  )
+			reFreshItemCom();
+	return;
 	}
 
 
 	if ( someid1 != '' ) {
-			someid1 = ":j35mc:" + document.getElementById("pageTag").value
+		someid1 = ":j35mc:" + document.getElementById("pageTag").value
 							+ ":"  + document.getElementById("localStoreKey").value ;
 			// TODO Beware of double-quote, in feed_box
-			if ( localStorage.getItem( someid1 ) != null ) { // Old data found
-				if  ( localStorage.getItem( someid1 ) !=   // if found data mismatch feedbox
-						document.getElementById("feed_box").value ) {
-							if ( ! window.confirm( "Overwrite old value ?") ) return;  //Check Overwrite
-							// if user confirmed to Overwrite TextBox
-							localStorage.setItem( someid1, document.getElementById("feed_box").value );
+		if ( localStorage.getItem( someid1 ) != null ) { // Old data found
+			if  ( localStorage.getItem( someid1 ) !=   // if found data mismatch feedbox
+					document.getElementById("feed_box").value ) {
+				if ( ! window.confirm( "Overwrite old value ?") ) return;  //Check Overwrite
+					// if user confirmed to Overwrite TextBox
+					localStorage.setItem( someid1, document.getElementById("feed_box").value );
 
-							checkBoxUpdate();
-							reFreshTable("","",1); return;
-							} ;
-						alert ("Same value in Box has been found");
-						return ; //	 skip when new value is equal stored value
-						}
-	  // stored intto a new Key
-      localStorage.setItem( someid1, document.getElementById("feed_box").value );
-	  checkBoxUpdate();
-      reFreshTable("","",1 );
-	  }
+					checkBoxUpdate();
+					reFreshTable("",""); return;
+					} ;
+				alert ("Same value in Box has been found");
+					return ; //	 skip when new value is equal stored value
+					}
+		// stored intto a new Key
+		localStorage.setItem( someid1, document.getElementById("feed_box").value );
+		checkBoxUpdate();
+	 	if( document.getElementById("mylocalStore").hidden === false  )
+				reFreshTable("","");
+		if( document.getElementById("keyCombo").hidden === false  )
+				reFreshItemCom();
+
+		}
 
 	}
-
 
 function boxclear(myElementId) {
 	document.getElementById(myElementId).value = '';
 	}
 
-
-function storeChkSum () {
+function storeChkSum() {
 	var nowjson = store2json();
 	document.getElementById("xxh32sum").innerHTML = localStorage.getItem( ":j35mc:_nowXXH32") ;
 
@@ -442,17 +569,15 @@ function storeChkSum () {
 	document.getElementById("xxh32sum").style.color = "black";
 	}
 
-
 function clearStore(){
-		Object.keys( localStorage ).forEach(
+	Object.keys( localStorage ).forEach(
 		function(key) {
-			 	if ( key.includes(":j35mc:_") ) return;
-				localStorage.removeItem( key );
-				} );
+			if ( key.includes(":j35mc:_") ) return;
+			localStorage.removeItem( key );
+			} );
 		localStorage.removeItem(":j35mc:_nowXXH32");
 		localStorage.removeItem(":j35mc:_feedXXH32");
 	}
-
 
 function clearKey() {
 if ( document.getElementById("localStoreKey").value === '_killall' ) {
@@ -463,7 +588,7 @@ if ( document.getElementById("localStoreKey").value === '_killall' ) {
 	var mylocalStore = document.getElementById("mylocalStore");
 	html_table_header("mylocalStore");
 	document.getElementById("feed_box").value = "" ;
-	reFreshTable();
+	reFreshTable("","");
 	boxclear("localStoreKey");
 	boxclear("feed_box");
 	location.reload();
@@ -477,9 +602,9 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] === '_addPk' 
 	return;}
 
 	localStorage.setItem( ":j35mc:_pubKey:"
-			+ document.getElementById("localStoreKey").value.split(":")[1] ,
-			document.getElementById("feed_box").value
-			);
+		+ document.getElementById("localStoreKey").value.split(":")[1] ,
+		document.getElementById("feed_box").value
+		);
 	alert ("PubKey has been added/updated");
 	readPubKeyCombo();
 	boxclear("localStoreKey");
@@ -510,14 +635,14 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 	}
 
 if 	( document.getElementById("localStoreKey").value === '_fromjsonF' ) {
-			fromJSON( "_fromjsonF", document.getElementById("feed_box").value )
-			boxclear("localStoreKey");
-			boxclear("feed_box");
-			return ;
+		fromJSON( "_fromjsonF", document.getElementById("feed_box").value )
+		boxclear("localStoreKey");
+		boxclear("feed_box");
+		return ;
 		}
 
 if 	( document.getElementById("localStoreKey").value === '_help' ) {
-	document.getElementById("feed_box").value =
+		document.getElementById("feed_box").value =
 			"_help : print this help \n"
 		+	"_killall : KILL ALL contents (CAUTION) \n"
 //		+	"_tojsonF : dump content in Box as json file \n"
@@ -531,18 +656,35 @@ if 	( document.getElementById("localStoreKey").value === '_help' ) {
 
 	};
 
+if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_setPara' ) {
+		var feedIN = document.getElementById("feed_box").value;
+		localStorage.setItem( ":j35mc:_"
+				+ document.getElementById("feed_box").value.split(":")[0],
+				document.getElementById("feed_box").value.split(":")[1] ) ;
+		alert ("Parameter : _"
+				+ document.getElementById("feed_box").value.split(":")[0]
+				+ " changed into :"
+				+ document.getElementById("feed_box").value.split(":")[1] );
+		boxclear("feed_box");
+
+}
+
+
 if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_width' ) {
-	var  number = document.getElementById("localStoreKey").value;
+	var number = document.getElementById("localStoreKey").value;
 	var new_width = document.getElementById("localStoreKey").value.split(":")[1] ;
 
 	if ( isNaN(new_width) ) new_width = 20 ;
 	if ( new_width >= 255 || new_width <= 0  ) new_width = 20 ;
 
 	localStorage.setItem( ":j35mc:_colwidth" ,  new_width );
-	reFreshTable("","",1);
+	reFreshTable("","");
 	};
 
 document.getElementById("localStoreKey").value = "" ;
+// reset the reddot to bluedot
+localStorage.setItem( ":j35mc:_boxChanged" , "" );
+document.getElementById("boxUpdate").innerHTML = "&#128309;" ;
 }
 
 function setColwidth(input) {
@@ -553,7 +695,6 @@ function setColwidth(input) {
 		}
 		localStorage.setItem( ":j35mc:_colwidth", input );
 		}
-
 
 function html_table_header(localID) {
 	var mylocalStore = document.getElementById(localID);
@@ -573,22 +714,95 @@ function html_table_header(localID) {
 	valueHeaderCell.id = "valueHeader"
 	}
 
+//===================
+function reFreshItemCom() {
+	// alert ("This is reFreshItemCom");
+	var keyCombo = document.getElementById("keyComboBox");
+	var keyComboLen = keyCombo.options.length ;
 
-function reFreshTable( keyFilter, storeFilter ,  sorting ) {
+	for (i = keyComboLen-1; i >= 0; i--) {
+		keyCombo.options[i] = null;
+		};
+
+	var pageFilter =  document.getElementById("pageTag").value ;
+
+	if ( pageFilter === "*" ) pageFilter = '' ;
+
+	var colwidth = localStorage.getItem(":j35mc:_colwidth");
+		if ( pageFilter === "*" ) colwidth = colwidth - 12 ;
+
+	var tailDot = '...' ;
+
+	var myObjs = [] ;
+	Object.keys( localStorage ).forEach( function(key,value) {
+				if ( key.includes(":j35mc:_") ) return ;
+				if ( ( document.getElementById("pageTag").value != "*" )  &&
+						 		key.split(":")[2] != pageFilter )  return ;
+						 		// skip pairs when the page is NOT matched
+
+					myObjs.push( key.split(":")[2] + ":" + key.split(":")[3] );
+				} )
+				// scan thro'
+
+	myObjs.sort();
+
+	myObjs.forEach( (item, i) => {
+
+		var option = document.createElement("option");
+
+		if ( pageFilter != '' ) {
+			option.text =  item.split(":")[1]  ; /* + "==>"
+				+ localStorage.getItem(':j35mc:'
+						+ pageFilter + ":" + item ).substring(0,20) + '...' ; */
+
+
+			option.value = item.split(":")[1] ;  // internal
+			keyCombo.add(option) ;
+			return ;
+			}
+		// pagefilter == "*"
+		option.text =  item ; //+ "==>" + localStorage.getItem(':j35mc:' + item ).substring(0,10) + '...' ;
+		option.value = item ;  // internal
+		keyCombo.add(option) ; return ;
+
+		})
+
+	// if ( document.getElementById("keyCombo").length === 1 ) {
+		document.getElementById("localStoreKey").value =
+			document.getElementById("keyComboBox").value ;
+
+  	//alert("QQ chk " + ":j35mc:" + document.getElementById("pageTag").value
+		//	+ ":" + document.getElementById("keyCombo").value );
+
+		if ( document.getElementById("pageTag").value === '*' )	{
+				document.getElementById("feed_box").value =
+				localStorage.getItem( ":j35mc:"
+						+ document.getElementById("localStoreKey").value );
+		}	else {
+				document.getElementById("feed_box").value =
+				localStorage.getItem( ":j35mc:"
+							+ document.getElementById("pageTag").value
+							+ ":" + document.getElementById("keyComboBox").value );
+			};
+  	if ( localStorage.getItem(":j35mc:_autoCopy") === '1' ) copyTo();
+	//	}
+
+};
+//===================
+function reFreshTable( keyFilter, storeFilter) {
 
 	var mylocalStore = document.getElementById("mylocalStore");
-    html_table_header("mylocalStore");
+  html_table_header("mylocalStore");
 
-	var checkStringKey = new RegExp(keyFilter,'') ;
+	var checkStringKey = new RegExp(keyFilter,'g') ;
 	if ( keyFilter === null ) checkStringKey = new RegExp("",'') ;
 
-	//alert ("MyValue :" + keyFilter  );
-	var checkStringValue = new RegExp(storeFilter,'');
+	var checkStringValue = new RegExp(storeFilter,'g');
 	if ( storeFilter === null ) checkStringValue = RegExp("",'') ;
 
 	var pageFilter =  document.getElementById("pageTag").value ;
 
-	if ( pageFilter === "*" ) { pageFilter = '' ;}
+	if ( pageFilter === "*" ) pageFilter = '';
 
 	// filter Block
 	var rowNum = mylocalStore.insertRow();
@@ -604,104 +818,66 @@ function reFreshTable( keyFilter, storeFilter ,  sorting ) {
 	//  eo filter block
 
 	var colwidth = localStorage.getItem(":j35mc:_colwidth");
+//		if ( pageFilter === "*" ) colwidth = colwidth - 12 ;
+  if ( document.getElementById("pageTag").value === "*" ) colwidth = colwidth - 12 ;
 	var tailDot = '...' ;
 
-	if (sorting  === 1 ) {
+	var myObjs = [] ;
 
-		var myObjs = [] ;
-		Object.keys( localStorage ).forEach( function(key,value) {
+	Object.keys( localStorage ).forEach( function(key,value) {
+				if ( key.includes(":j35mc:_") ) return ;
+				if ( ( document.getElementById("pageTag").value != "*" )  &&
+						 key.split(":")[2] != pageFilter )  return ;
+						 // skip pairs when the page is NOT matched
+				if ( ! ( checkStringKey.test(key.split(":")[3]) ) )
+							return  ;  // skip pairs when key is NOT matched
+			  if 	( ! checkStringValue.test(localStorage.getItem( key ) ) )
+							return ;  // skip pairs when Value is NOT matched
 
-			if ( key.includes(":j35mc:_") ) return ;
+				myObjs.push( key.split(":")[2] + ":" + key.split(":")[3] ); //,
+			 } ) // scan localStorage
 
-			if ( pageFilter === '') {
-				myObjs.push( key.split(":")[2] + ":" + key.split(":")[3] );
-				return;
-				}
-			else if ( key.split(":")[2] != pageFilter ) {return ;}
+	myObjs.sort();
 
-			myObjs.push( key.split(":")[3] );
-			} )
+	Object.keys( myObjs ).forEach( (key) => {
+			rowNum = mylocalStore.insertRow();
+			keyCell = rowNum.insertCell(0);
+			keyCell2 = rowNum.insertCell(1) ;
 
-		myObjs.sort();
-
-		Object.keys( myObjs ).forEach( (key) =>  {
+			var localStorgeString = localStorage.getItem(':j35mc:' +	myObjs[key] )
 			tailDot = '...' ;
-			var rowNum = mylocalStore.insertRow();
-			var keyCell = rowNum.insertCell(0);
-
-			var localStorgeString;
-
-			if ( pageFilter != '' ) {
-				keyCell.innerHTML = myObjs[key] ;
-				keyCell.id = "lsKey_"+ myObjs[key] ;
-
-				localStorgeString = localStorage.getItem( ":j35mc:"
-										+ document.getElementById("pageTag").value
-										+ ":"  +  myObjs[key] );
-							}
-			else {
-				keyCell.innerHTML = myObjs[key] ;
-				keyCell.id = "lsKey_"+ myObjs[key] ;
-				localStorgeString =
-						localStorage.getItem( ":j35mc:" + myObjs[key] );
-				}
-
-			var keyCell2 = rowNum.insertCell(1);
+																// .outKe.
+			if 	( document.getElementById("pageTag").value != "*" ) {
+							keyCell.innerHTML = myObjs[key].split(":")[1]  ;
+							keyCell.id = "lsKey_" + myObjs[key].split(":")[1]  ;
+							keyCell2.id = "lsVal_"+ myObjs[key].split(":")[1]   ;
+						} else {
+								keyCell.innerHTML = myObjs[key] ;
+								keyCell.id = "lsKey_" + myObjs[key] ;
+								keyCell2.id = "lsVal_"+ myObjs[key] ; }
 
 			if  ( localStorgeString.length <= colwidth ) tailDot = '';
-
 			keyCell2.innerHTML = localStorgeString.substring(0,colwidth) + tailDot ;
-			keyCell2.id = "lsVal_"+ myObjs[key]  ;
-
-			} )
-
-		return; };
-
-
-    Object.keys( localStorage ).forEach( function(key,value) {
-
-		if ( key.split(":")[2] != pageFilter )
-			return ;  // skip pairs when the page is NOT matched
-
-		if ( ! ( checkStringKey.test(key.split(":")[3]) ) )
-			return  ;  // skip pairs when key is NOT matched
-
-		if 	( ! checkStringValue.test(localStorage.getItem( key ) ) )
-			return ;  // skip pairs when Value is NOT matched
-
-		// var colwidth = localStorage.getItem(":j35mc:_colwidth")
-		tailDot = '...' ;
-		var rowNum = mylocalStore.insertRow();
-
-    	var keyCell = rowNum.insertCell(0);
-    		keyCell.innerHTML =  key.split(":")[3]  ;
-    		keyCell.id = "lsKey_"+  key.split(":")[3]  ;
-
-    	var localStorgeString = localStorage.getItem( key );
-    	var keyCell2 = rowNum.insertCell(1);
-
-		if  ( localStorgeString.length <= colwidth ) tailDot = '' ;
-        keyCell2.innerHTML = localStorgeString.substring(0,colwidth) + tailDot ;
-        keyCell2.id = "lsVal_"+ key.split(":")[3]  ;
 	} )
 
-  } ;  // eo function reFreshTable;
 
+} // eo fuction reFreshTable
 
+//===================
 function check_version() {
 var myversion = localStorage.getItem(":j35mc:_version");
 
-if (  ( myversion === null )  &&  localStorage.length >= 1    ) {
+if ( ( myversion === null )  &&  localStorage.length >= 1 ) {
 
-		alert ('Your stored data will be put under "page1" ');
-		Object.keys( localStorage ).forEach( function(key,value) {
-				if (key.substring(0, 7) != ":j35mc:") {
-					//alert ( "upgrade " + key );
-					var swap_value = localStorage.getItem( key );
-					localStorage.setItem( ":j35mc:page1:"+key, swap_value );
-					localStorage.removeItem(key);
-					}
-				} )
+	alert ('Your stored data will be put under "page1" ');
+	Object.keys( localStorage ).forEach( function(key,value) {
+		if (key.substring(0, 7) != ":j35mc:") {
+			//alert ( "upgrade " + key );
+			var swap_value = localStorage.getItem( key );
+			localStorage.setItem( ":j35mc:page1:"+key, swap_value );
+			localStorage.removeItem(key);
+			}
+		} )
 		alert ("upgrade Done!!");
 		localStorage.setItem( ":j35mc:_version", "2.0" );
 		return
@@ -725,11 +901,27 @@ if ( myversion === "2.0" )
 //alert ( "Version Checked" ) ;
 };
 
+function get_dateString() {
+	var my_date = new Date();
+	var my_date_str = my_date.getFullYear();
 
+        my_date_str = my_date_str.toString().slice(-2);
+        my_date_str = my_date_str.concat(
+			("0" + ( my_date.getMonth() + 1)).slice(-2)  ,
+            ("0" + ( my_date.getDate()  )).slice(-2) ,
+             "_" +
+            ("0" + ( my_date.getHours() )).slice(-2) ,
+            ("0" + ( my_date.getMinutes() )).slice(-2) // ,
+			// ":"
+			);
+		return (my_date_str);
+	};
+
+/*
 function switchPage()  {
 	var someid1 = document.getElementById("pageTag").value ;
 	reFreshTable("","", 1 ); }
-
+*/
 
 function fromJSON( fromJSON_type, content ){
 
@@ -742,11 +934,11 @@ function fromJSON( fromJSON_type, content ){
 			jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
 
 	try { myObjs = JSON.parse( jsonFeed ) }
-			catch(err) {
-				alert ("Invalid json feed ->" + err.message);
-				boxclear("feed_box");
-				return;
-				}
+		catch(err) {
+			alert ("Invalid json feed ->" + err.message);
+			boxclear("feed_box");
+			return;
+			}
 
 	var gen_checksum = XXH.h32().update( content ).digest().toString(16);
 		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
@@ -761,9 +953,8 @@ function fromJSON( fromJSON_type, content ){
 	location.reload();
 	// document.getElementById("feed_box").value =
 	//	"(Restore is completed,\n Please REMEMBER press 'Refresh' buttom reload page )";
-	reFreshTable("","",1 );
+	reFreshTable("","");
 	}
-
 
 function box2File() {
 
@@ -779,8 +970,7 @@ function box2File() {
 
 	}
 
-
-function dump2box () {
+function dump2box() {
 
 	if ( document.getElementById("feed_box").value != '' ) {
 		alert ("Please clear the box before export");
@@ -794,7 +984,6 @@ function dump2box () {
 			alert ("The content of DataStore has been changed, you better back-it-up ")
 	};
 
-
 function box2Store() {
 	if  ( document.getElementById("feed_box").value.substr(0,8) != '[{"Key":' ) {
 	alert ( "Invalid input to restore" );
@@ -804,36 +993,33 @@ function box2Store() {
 	fromJSON( "_fromjsonF", document.getElementById("feed_box").value ) ;
 	};
 
-
 function store2json() {
+			var myObjs = [] ;
+			var keySort = [] ;
+			addItem = Object.create( {} );
 
-	var myObjs = [] ;
-	var keySort = [] ;
-	addItem = Object.create( {} );
-
-	// extract the Page:Key from store
-	Object.keys( localStorage ).forEach( function(key) {
+			// extract the Page:Key from store
+			Object.keys( localStorage ).forEach( function(key) {
 		if ( key.includes(":j35mc:_") ) return ;
 		keySort.push( key.split(":")[2] + ":" + key.split(":")[3] );
-		})  // eo forEach
+			})  // eo forEach
 
-	keySort.sort();
+			keySort.sort();
 
-	Object.keys( keySort ).forEach( (key) =>  {
+			Object.keys( keySort ).forEach( (key) =>  {
 		addItem = { "Key" : keySort[key]
 					, "Value" : localStorage.getItem( ":j35mc:" + keySort[key] ) } ;
 		myObjs.push(addItem);
 		});
 
-	var jsonFeed = JSON.stringify(myObjs) ;
-	var gen_checksum = XXH.h32().update( jsonFeed ).digest().toString(16);
+		var jsonFeed = JSON.stringify(myObjs) ;
+		var gen_checksum = XXH.h32().update( jsonFeed ).digest().toString(16);
 		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
 
 		localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );
-
-	return jsonFeed ;
-	} // eo store2json()
-
+		return jsonFeed;
+	};
+		// eo store2json()
 
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
     readAsDefault: 'Text',
@@ -844,7 +1030,6 @@ FileReaderJS.setupInput(document.getElementById('file2Box'), {
       }
     }
   })
-
 
 FileReaderJS.setupInput(document.getElementById('loadDocument'), {
     readAsDefault: 'Text',
@@ -866,7 +1051,6 @@ FileReaderJS.setupInput(document.getElementById('loadDocument'), {
 		}
     }
   });
-
 
 function dump2file() {
 
@@ -899,13 +1083,13 @@ function dump2file() {
 							{type: 'application/json;charset=utf-8'})
 
 			saveAs(blob, fname);
-			
+
 			alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
 			location.reload();
 			// document.getElementById("feed_box").value =
 			//	'(Dump is completed,\n you may clear this message by clear button "X" )';
 			} );
-		
+
 		localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 		return ;
 		} else if ( document.getElementById("pubKey").value != '' ) {
@@ -918,12 +1102,12 @@ function dump2file() {
 							{type: 'application/json;charset=utf-8'})
 
 				saveAs(blob, fname);
-				
+
 				alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
 				location.reload();
 				// document.getElementById("feed_box").value =
 				// '(Dump is completed,\n you may clear this message by clear button "X" )';
-				
+
 				} ) ;
 			localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 			return ;
@@ -939,7 +1123,6 @@ function dump2file() {
 	// '(Dump is completed,\n you may clear this message by clear button "X" )';
 }
 
- 
 function encBox(inputTXT) {
 	//alert (inputTXT.value);
 
@@ -958,7 +1141,6 @@ function encBox(inputTXT) {
 
 }
 
-
 function encBoxPub( inputTXT ) {
 	if ( document.getElementById("pubKey").value  === '' ) {
 		alert ("PubKey is mssing");
@@ -973,8 +1155,7 @@ function encBoxPub( inputTXT ) {
 			} );
 			}
 
-
-function boxDec ( inputTXT ) {
+function boxDec( inputTXT ) {
 	if ( document.getElementById("encKey").value  === '' ) {
 		alert ("Encrypt passwd is mssing");
 		return;
@@ -982,14 +1163,11 @@ function boxDec ( inputTXT ) {
 
 	var encTXT = symGnuPG_dec( inputTXT.value );
 
-
 	Promise.resolve( encTXT ).then ( val => {
 		document.getElementById("feed_box").value = val ;
-		// alert (val);
 		});
 
 }
-
 
 async function symGnuPG_enc( inputTXT, Key ) {
 	// if ( document.getElementById("encKey").value  === '' ) {
@@ -1013,19 +1191,18 @@ async function symGnuPG_enc( inputTXT, Key ) {
    return (encText);
 }
 
-
 async function pKGnuPG_enc( inputTXT, Key ) {
 
 	var pubkey = await openpgp.key.readArmored(Key);
 
 	Object.keys( pubkey.keys ).forEach( function(myIt) {
-			console.log (  pubkey.keys[myIt].users[0].userId.userid ) } );
+		console.log (  pubkey.keys[myIt].users[0].userId.userid ) } );
 
-	 const options = {
-     message : window.openpgp.message.fromText(inputTXT) ,
-     publicKeys: pubkey.keys ,
-     armor : true
-    }
+	const options = {
+		message : window.openpgp.message.fromText(inputTXT) ,
+		publicKeys: pubkey.keys ,
+		armor : true
+		}
 
 	var encText = await window.openpgp.encrypt(options);
 	//  document.getElementById("outtext").value = encText.data ;
@@ -1033,7 +1210,6 @@ async function pKGnuPG_enc( inputTXT, Key ) {
 
 
 	}
-
 
 async function symGnuPG_dec( inputTXT ) {
 
@@ -1045,15 +1221,11 @@ async function symGnuPG_dec( inputTXT ) {
 	//// DEBUG:   console.log(feed);
 	//// DEBUG:   console.log(feedintext2);
 
-
-
     const options = {
-       message : await openpgp.message.readArmored( inputTXT ) ,
-       passwords : feed //,
-       // armor : true
+		message : await openpgp.message.readArmored( inputTXT ) ,
+		passwords : feed //,
+		// armor : true
 		}
-
-
 
     try { var outText = await window.openpgp.decrypt(options) ;
            // document.getElementById("feed_box").value = outText.data ;

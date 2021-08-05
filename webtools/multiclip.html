@@ -12,10 +12,12 @@
   </head>
 
 <body>
-Key: <input id="localStoreKey" type="text" size="10" >
-<input type="button" id="clearKey" value="&#10060;" onclick="clearKey()"/>
+<table>
+<tr>
+<td>Key: <input id="localStoreKey" type="text" size="10" ><input
+type="button" id="clearKey" value="&#10060;" onclick="clearKey()"/></td>
+</table>
 
-  <br />
 <span style="color: blue;">Box:</span>
 &#8681;<input type="file" value="File2Box" id="file2Box" width="5" /><br />
 
@@ -24,30 +26,30 @@ type="button"  value="&#10060;" onclick="boxclear('feed_box')" /><input
 type="button"  value="&#128203;" onclick="copyTo()" /><input
 type="button"  value="&#128452; &#8681;" onclick="storeValue()"/><span class="text"><input
 id="box2File" type="button"  value="&#8680;&#128190;" onclick="box2File()"/><input
-class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"/><input
-class="bluebox" type="button"  value="decBox" onclick="boxDec( feed_box )" />
-<span id="boxUpdate">&#128309;</span>
-
-
-
+type="button"  value="&#127922;" onclick="toggleEnc()"/><span id="boxUpdate">&#128309;</span>
+<input id="encBox" class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )" 
+hidden="true" /><input id="decBox" class="bluebox" type="button"  value="decBox" 
+onclick="boxDec( feed_box )" hidden="true" />
 </span>
 
 <br />
-<span  class="text">Passwd:</span><input
-id="encKey" type="text" size="15" ><input
-type="button"  value="&#10060;" onclick="boxclear('encKey')" />
-
+<span id="passwdBox" class="text" hidden="true">Passwd:</span><input
+id="encKey" type="text" size="15" hidden="true"/><input id="encClear"
+type="button"  value="&#10060;" onclick="boxclear('encKey')" hidden="true" />
 <br />
 
-
-PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
+<span id="PubKeyTXT" hidden="true">PubKey:</span><select 
+class="selectBox" id="pubKey" name="pubKey" hidden="true">
     <option value="">(none)</option>
-    </select><input
-class="bluebox" type="button"  value="encBox" onclick="encBoxPub( feed_box )"/>
+    </select><input id="pubEncBu"
+class="bluebox" type="button"  value="encBox" hidden="true" 
+onclick="encBoxPub( feed_box )"/>
+<br />
+<input type="button"  value="&#10060;&centerdot;&#10060;"
+onclick="boxclear('feed_box');boxclear('localStoreKey')" />
 
 	<br />
-	<br />
-&#128452; Page<select class="selectBox" id="pageTag" name="pageTag" >
+<span id="cab">&#128452;Page</span><select class="selectBox" id="pageTag" name="pageTag" >
     <option value="(new)">(new)</option>
     </select>
 
@@ -62,6 +64,11 @@ class="bluebox" type="button"  value="encBox" onclick="encBoxPub( feed_box )"/>
 
 <table class="table" id="mylocalStore" border="1" >
 </table>
+<span id="keyCombo" hidden="true" >Key:<select
+id="keyComboBox" name="keyCombo"  style="font-size: 20px;" >
+</select>
+<br />
+</span>
 <span class="text" >
 <input type="button"  value="&#10060; Pair" onclick="delPair()">
 OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" onchange="delConfirmChange()"/>
@@ -87,6 +94,9 @@ OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" onchange
     </tr>
 
 </table>
+
+
+
 <br />
 </body>
 
