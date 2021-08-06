@@ -643,6 +643,16 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 	boxclear("feed_box");
 	}
 
+if 	( document.getElementById("localStoreKey").value === '_insjsonF' ) {
+		fromJSON( "_insjsonF", document.getElementById("feed_box").value )
+		boxclear("localStoreKey");
+		boxclear("feed_box");
+		return ;
+		}
+
+
+
+
 if 	( document.getElementById("localStoreKey").value === '_fromjsonF' ) {
 		fromJSON( "_fromjsonF", document.getElementById("feed_box").value )
 		boxclear("localStoreKey");
@@ -937,7 +947,8 @@ function fromJSON( fromJSON_type, content ){
 	var myObjs = [] ;
 	var jsonFeed = content ;
 
-	clearStore();  // need to flush the store to prevent orphan pile-up
+	if (  fromJSON_type.slice(0,9)  === '_fromjson' )
+					clearStore();  // need to flush the store to prevent orphan pile-up
 
 	if ( fromJSON_type === '_fromjson' )
 			jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
