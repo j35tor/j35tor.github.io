@@ -24,7 +24,6 @@ function onReady() {
 		if  ( localStorage.getItem(':j35mc:_quickSwap') === '1' )
 				document.getElementById("quickSwap").checked = true;
 
-
 		check_version();
 		//  var keyFilter = searchParams.get("kf") || searchParams.get("keyFilter") ;
 		//  var valueFilter = searchParams.get("vf") || searchParams.get("valueFilter") ;
@@ -142,11 +141,6 @@ document.getElementById("pageTag").addEventListener("change", () => {
 						boxclear("feed_box");
 					}
 
-
-
-
-
-
 	if( document.getElementById("mylocalStore").hidden === false  ) {
 		reFreshTable("","");  return;
 		}
@@ -158,6 +152,7 @@ function toggleEnc() {
 
 	if ( document.getElementById("encBox").hidden ) {
 
+		// document.getElementsByClassName("bluebox").hidden = false;  // ByClass is not working
 		document.getElementById("encBox" ).hidden = false ;
 		document.getElementById("decBox").hidden = false ;
 		document.getElementById("passwdBox").hidden = false ;
@@ -165,6 +160,7 @@ function toggleEnc() {
 		document.getElementById("encClear").hidden = false ;
 		document.getElementById("pubKey").hidden = false ;
 		document.getElementById("pubEncBu").hidden = false ;
+		document.getElementById("pubDecBu").hidden = false ;
 		document.getElementById("PubKeyTXT").hidden = false ;
 		return;
 		}
@@ -175,6 +171,7 @@ function toggleEnc() {
 	document.getElementById("encClear").hidden = true ;
 	document.getElementById("pubKey").hidden = true ;
 	document.getElementById("pubEncBu").hidden = true ;
+	document.getElementById("pubDecBu").hidden = true ;
 	document.getElementById("PubKeyTXT").hidden = true ;
 }
 
@@ -190,7 +187,7 @@ function swapPageClearChange() {
 function quickSwapChange() {
 
 	if ( document.getElementById("quickSwap").checked === true ) {
-		// document.getElementById("quickSwap").checked = true ;
+
 		alert ( "You are enabling quickSwap\n"
 					+ "Page swaping will be done *EVEN* Box is filled with content \n"
 					+ "You have be warned !!\n"
@@ -209,7 +206,7 @@ function quickSwapChange() {
 function delConfirmChange () {
 
 	if ( document.getElementById("delConfirm").checked === true ) {
-		// document.getElementById("quickSwap").checked = true ;
+
 		alert ( "You are enabling OneKey Delete\n"
 					+ "Key/Box pair will be DELETE without confirmation\n"
 					+ "You have be warned !!\n"
@@ -219,12 +216,11 @@ function delConfirmChange () {
 		alert ( "OneKey delete diabled; \n"
 					+"(Pls Don't complaint for too much pop-up boxes when deleting Key/Box pairs) " );
 
-
 	}
 
 function checkBoxUpdate() {
-	// console.log (evt.path[0].value);
-	// console.log (evt.eventPhase);
+	//DEBUG: console.log (evt.path[0].value);
+	//DEBUG: console.log (evt.eventPhase);
 	if ( document.getElementById("feed_box") === '' ) return 0;
 	if ( document.getElementById("localStoreKey").value === '' ) return 0;
 
@@ -391,7 +387,7 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 								alert ("'*' in Filter is not allowed");
 								return;}
 					reFreshTable("" ,filterValue);
-		};
+					};
 
 	if ( event.target.id === "keyHeader" ) {
 		reFreshTable("","");
@@ -415,7 +411,6 @@ function delPair()  {
 	localStorage.removeItem( someid1 );
 	document.getElementById("localStoreKey").value = "";
 	document.getElementById("feed_box").value = "";
-	// document.getElementById("delConfirm").checked = false ;
 
 	if( document.getElementById("mylocalStore").hidden === false  )
 			reFreshTable("","");
@@ -428,7 +423,7 @@ function readPageCombo() {
 	var myObjs = [] ;
 	addItem = Object.create( {} );
 	Object.keys( localStorage ).forEach( function(key) {
-		//  if ( key.split(":")[2].includes("_") )  return ;
+
 		if ( key.includes(":j35mc:_") )  return ;
 
 		myObjs.push( key.split(":")[2] );
@@ -439,18 +434,18 @@ function readPageCombo() {
 	var list = document.getElementById("pageTag");
 
 	uniqueArray.forEach( (item, i) => {
-		//alert (item ) ;
+
 		var option = document.createElement("option");
 			option.text =  item ;
 			option.value =  item ;
-		// alert (item + "->" + item.length )
+
 		if ( item.length >= localStorage.getItem (':j35mc:_pageTagMax') ) {
 			localStorage.setItem (':j35mc:_pageTagMax', item.length );
 			localStorage.setItem (':j35mc:_colwidth', 55 - item.length ) ;
 			}
 		list.add(option) ;
 		} )
-		//===Pending the page with a wild card
+
 		var wildCardOption =  document.createElement("option");
 		wildCardOption.text =  "*" ;
 		wildCardOption.value =  "*" ;
@@ -515,8 +510,6 @@ function storeValue() {
 		localStorage.setItem( someid1, document.getElementById("feed_box").value );
 		alert ("New page :" + newPage + " created" );
 
-		//  readPageCombo_cb( newPage, reFreshTable ) ;   // QQQ
-
 	readPageCombo();
 	location.reload();
 	document.getElementById("pageTag").value = newPage ;
@@ -564,10 +557,10 @@ function boxclear(myElementId) {
 	}
 
 function storeChkSum() {
-	var nowjson = store2json();
+	 	
 	document.getElementById("xxh32sum").innerHTML = localStorage.getItem( ":j35mc:_nowXXH32") ;
 
-	if ( localStorage.getItem( ":j35mc:_nowXXH32")!= localStorage.getItem( ":j35mc:_feedXXH32") ) {
+	if ( localStorage.getItem( ":j35mc:_nowXXH32") != localStorage.getItem( ":j35mc:_feedXXH32") ) {
 		alert ("The content of store has been changed, \n"
 			+ "Please backup the change or perform the sync") ;
 
@@ -643,18 +636,19 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0]  === '_rmPk' 
 	boxclear("feed_box");
 	}
 
+
 if 	( document.getElementById("localStoreKey").value === '_insjsonF' ) {
-		fromJSON( "_insjsonF", document.getElementById("feed_box").value )
-		boxclear("localStoreKey");
-		boxclear("feed_box");
-		return ;
-		}
+			fromJSON( "_insjsonF", document.getElementById("feed_box").value );
+			boxclear("localStoreKey");
+			boxclear("feed_box");
+			return ;
+			}
 
 
 
 
 if 	( document.getElementById("localStoreKey").value === '_fromjsonF' ) {
-		fromJSON( "_fromjsonF", document.getElementById("feed_box").value )
+		fromJSON( "_fromjsonF", document.getElementById("feed_box").value );
 		boxclear("localStoreKey");
 		boxclear("feed_box");
 		return ;
@@ -735,7 +729,7 @@ function html_table_header(localID) {
 
 //===================
 function reFreshItemCom() {
-	// alert ("This is reFreshItemCom");
+
 	var keyCombo = document.getElementById("keyComboBox");
 	var keyComboLen = keyCombo.options.length ;
 
@@ -786,12 +780,8 @@ function reFreshItemCom() {
 
 		})
 
-	// if ( document.getElementById("keyCombo").length === 1 ) {
 		document.getElementById("localStoreKey").value =
 			document.getElementById("keyComboBox").value ;
-
-  	//alert("QQ chk " + ":j35mc:" + document.getElementById("pageTag").value
-		//	+ ":" + document.getElementById("keyCombo").value );
 
 		if ( document.getElementById("pageTag").value === '*' )	{
 				document.getElementById("feed_box").value =
@@ -891,7 +881,7 @@ if ( ( myversion === null )  &&  localStorage.length >= 1 ) {
 	alert ('Your stored data will be put under "page1" ');
 	Object.keys( localStorage ).forEach( function(key,value) {
 		if (key.substring(0, 7) != ":j35mc:") {
-			//alert ( "upgrade " + key );
+
 			var swap_value = localStorage.getItem( key );
 			localStorage.setItem( ":j35mc:page1:"+key, swap_value );
 			localStorage.removeItem(key);
@@ -948,7 +938,7 @@ function fromJSON( fromJSON_type, content ){
 	var jsonFeed = content ;
 
 	if (  fromJSON_type.slice(0,9)  === '_fromjson' )
-					clearStore();  // need to flush the store to prevent orphan pile-up
+		clearStore();  // need to flush the store to prevent orphan pile-up
 
 	if ( fromJSON_type === '_fromjson' )
 			jsonFeed = jsonFeed.replace("'[","[").replace("]'","]") ;
@@ -959,10 +949,21 @@ function fromJSON( fromJSON_type, content ){
 			boxclear("feed_box");
 			return;
 			}
-
+  /*
 	var gen_checksum = XXH.h32().update( content ).digest().toString(16);
 		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
 		localStorage.setItem( ":j35mc:_feedXXH32" , gen_checksum )
+	*/
+	const h32 = xxhash();
+
+	xxhash(jsonFeed).then( hasher => {
+			var gen_checksum = hasher.h32(jsonFeed)  //  .toString(16) ;
+				gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
+				localStorage.setItem( ":j35mc:_feedXXH32", gen_checksum );
+				if ( localStorage.getItem( ":j35mc:_nowXXH32") === null )
+						localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );	
+			})
+
 
 
 	Object.keys( myObjs ).forEach( function(key) {
@@ -971,8 +972,7 @@ function fromJSON( fromJSON_type, content ){
 
 	alert ( '(Restore is completed,\nPlease refresh the page by reload key on browser' );
 	location.reload();
-	// document.getElementById("feed_box").value =
-	//	"(Restore is completed,\n Please REMEMBER press 'Refresh' buttom reload page )";
+
 	reFreshTable("","");
 	}
 
@@ -1013,40 +1013,49 @@ function box2Store() {
 	fromJSON( "_fromjsonF", document.getElementById("feed_box").value ) ;
 	};
 
-function store2json() {
-			var myObjs = [] ;
-			var keySort = [] ;
-			addItem = Object.create( {} );
-
-			// extract the Page:Key from store
-			Object.keys( localStorage ).forEach( function(key) {
+function store2json( callback ) {
+	
+	var myObjs = [] ;
+	var keySort = [] ;
+	addItem = Object.create( {} );
+	// extract the Page:Key from store
+	Object.keys( localStorage ).forEach( function(key) {
 		if ( key.includes(":j35mc:_") ) return ;
 		keySort.push( key.split(":")[2] + ":" + key.split(":")[3] );
-			})  // eo forEach
+		})  // eo forEach
 
-			keySort.sort();
+	keySort.sort();
 
-			Object.keys( keySort ).forEach( (key) =>  {
+	Object.keys( keySort ).forEach( (key) =>  {
 		addItem = { "Key" : keySort[key]
 					, "Value" : localStorage.getItem( ":j35mc:" + keySort[key] ) } ;
 		myObjs.push(addItem);
 		});
 
-		var jsonFeed = JSON.stringify(myObjs) ;
+	var jsonFeed = JSON.stringify(myObjs) ;
+
+	const h32  = xxhash(  );
+	xxhash(jsonFeed).then( hasher => {
+
+		var gen_checksum = hasher.h32(jsonFeed);
+		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
+		localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );
+		callback (jsonFeed );
+		})
+		/*
 		var gen_checksum = XXH.h32().update( jsonFeed ).digest().toString(16);
 		gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;  //  front padding with '0'
-
 		localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );
-		return jsonFeed;
-	};
-		// eo store2json()
+		*/
+	return jsonFeed;
+	};  // eo store2json()
 
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
     readAsDefault: 'Text',
     on: {
       load: function (event, file) {
 		document.getElementById("feed_box").value = event.target.result ;
-		// fromJSON( "fromDump", event.target.result );
+
       }
     }
   })
@@ -1072,7 +1081,7 @@ FileReaderJS.setupInput(document.getElementById('loadDocument'), {
     }
   });
 
-function dump2file() {
+function dump2file(jsonStore) {
 
 	var fileExt = '.gpg' ;
 	if 	( ( document.getElementById("encKey").value === '' )
@@ -1093,10 +1102,10 @@ function dump2file() {
 			fname = fname.split('.')[0] + fileExt ;
 		}
     }
-	var store = store2json() ;
+	//// var store = store2json() ;
 
 	if ( document.getElementById("encKey").value != '' ) {
-		var encTXT =  symGnuPG_enc( store , document.getElementById("encKey").value  );
+		var encTXT =  symGnuPG_enc( jsonStore , document.getElementById("encKey").value  );
 
 		Promise.resolve( encTXT ).then ( val => {
 			const blob = new Blob( [ val.data ],
@@ -1106,15 +1115,13 @@ function dump2file() {
 
 			alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
 			location.reload();
-			// document.getElementById("feed_box").value =
-			//	'(Dump is completed,\n you may clear this message by clear button "X" )';
 			} );
-
+	
 		localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 		return ;
 		} else if ( document.getElementById("pubKey").value != '' ) {
 
-			var encTXT = pKGnuPG_enc( store , localStorage
+			var encTXT = pKGnuPG_enc( jsonStore , localStorage
 				.getItem( ":j35mc:_pubKey:" + document.getElementById("pubKey").value ) );
 
 			Promise.resolve( encTXT ).then ( val => {
@@ -1125,26 +1132,24 @@ function dump2file() {
 
 				alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
 				location.reload();
-				// document.getElementById("feed_box").value =
-				// '(Dump is completed,\n you may clear this message by clear button "X" )';
-
 				} ) ;
 			localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 			return ;
 			}
 
-	const blob = new Blob([ store ],
+	const blob = new Blob([ jsonStore ],
 			{type: 'application/json;charset=utf-8'})
 
-    saveAs(blob, fname);
+  saveAs(blob, fname);
+
+
 	alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
+	localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 	location.reload();
-	// document.getElementById("feed_box").value =
-	// '(Dump is completed,\n you may clear this message by clear button "X" )';
-}
+
+	}
 
 function encBox(inputTXT) {
-	//alert (inputTXT.value);
 
 	if ( document.getElementById("encKey").value  === '' ) {
 		alert ("Encrypt passwd is mssing");
@@ -1176,15 +1181,59 @@ function encBoxPub( inputTXT ) {
 			}
 
 function boxDec( inputTXT ) {
-	if ( document.getElementById("encKey").value  === '' ) {
+
+	if ( document.getElementById("encKey").value  === '' ) { //  ||
+					// document.getElementById("pubKey").value === '(none)'  ) {
 		alert ("Encrypt passwd is mssing");
 		return;
-	} ;
+		} ;
+
+
 
 	var encTXT = symGnuPG_dec( inputTXT.value );
 
 	Promise.resolve( encTXT ).then ( val => {
 		document.getElementById("feed_box").value = val ;
+		});
+
+}
+
+
+async function decFromSKString( secKey ) {
+
+	var r2gKey = await openpgp.key.readArmored(secKey);
+	//DEBUG:  console.log ( r2gKey.keys[0].users[0].userId.userid );
+	//DEBUG:  console.log ( r2gKey.keys[0] );
+
+	var aass = document.getElementById("feed_box").value ;
+
+	const options = {
+		message : await openpgp.message.readArmored( aass ) ,
+		privateKeys: r2gKey.keys // ,
+		}
+
+	var decText = await window.openpgp.decrypt(options);
+
+	document.getElementById("feed_box").value = decText.data ;
+	}
+
+
+function decBoxPub() {
+
+	var secKeyPW = window.prompt ("Please Input password to unlock SecKey" );
+
+	var storeKey = document.getElementById("pubKey").value;
+		storeKey = localStorage.getItem(":j35mc:_pubKey:" + storeKey );
+
+
+	var inputTXT = document.getElementById("feed_box")
+
+	var encTXT =  pKunSym( inputTXT.value, secKeyPW, storeKey );
+
+
+	Promise.resolve( encTXT ).then ( val => {
+		if  ( val === 'undefined' ) return ;
+		try { decFromSKString( val ) } catch { ( e ) => { alert ("Error " + e);  } } ;
 		});
 
 }
@@ -1196,17 +1245,14 @@ async function symGnuPG_enc( inputTXT, Key ) {
 		return;
 		} ;
 
-  /// var feed = document.getElementById("encKey").value;
-  //// DEBUG:   console.log(feedintext2);
-  const options = {
-       message : window.openpgp.message.fromText(inputTXT) ,
-       passwords : Key ,
-       armor : true
-   }
-   //// DEBUG:alert ("options.feed ==>>>>" + options.passwords );
+
+	const options = {
+		message : window.openpgp.message.fromText(inputTXT) ,
+		passwords : Key ,
+		armor : true
+		}
 
    const encText = await window.openpgp.encrypt(options);
-
    /// DEBUG:  console.log("encText \n " + encText.data );
    return (encText);
 }
@@ -1225,21 +1271,38 @@ async function pKGnuPG_enc( inputTXT, Key ) {
 		}
 
 	var encText = await window.openpgp.encrypt(options);
-	//  document.getElementById("outtext").value = encText.data ;
 	return (encText);
-
-
 	}
+
+
+async function pKunSym( inputTXT, secKeyPW, storeKey ) {
+
+	var feed = document.getElementById("encKey").value;
+
+    const options = {
+		message : await openpgp.message.readArmored( storeKey ) ,
+		passwords : secKeyPW //,
+		// armor : true
+		}
+
+    try { var outText = await window.openpgp.decrypt(options) ;
+		  return (outText.data);
+		  }  catch  (err) {
+		  alert ("Some problem with the Key :\n" + err.message);
+		  boxclear("feed_box");
+		  return;}
+}
+///================
+
 
 async function symGnuPG_dec( inputTXT ) {
 
-	if ( document.getElementById("encKey").value  === '' ) {
+	if ( document.getElementById("encKey").value  === '') {
 		alert ("Encrypt passwd is mssing");
 		return;
 		} ;
 	var feed = document.getElementById("encKey").value;
-	//// DEBUG:   console.log(feed);
-	//// DEBUG:   console.log(feedintext2);
+			console.log(feed);
 
     const options = {
 		message : await openpgp.message.readArmored( inputTXT ) ,
@@ -1248,8 +1311,8 @@ async function symGnuPG_dec( inputTXT ) {
 		}
 
     try { var outText = await window.openpgp.decrypt(options) ;
-           // document.getElementById("feed_box").value = outText.data ;
 		   return (outText.data);
            }
     catch  (err) {alert ( err.message )  }
 }
+///================

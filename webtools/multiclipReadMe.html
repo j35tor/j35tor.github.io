@@ -12,6 +12,10 @@
   </head>
 
 <body>
+<h2>Multiclip Board <span style="font-size: 15px; font-family:Arial; 
+color: #00AADE;"><br />-Turn your browser on mobile into a notepad</span> </h2>
+
+
 <h3>Background</h3>
 <a href="#how2play">(If you are impatient, just click here to jump directly to "how to play")</a><br />
 This app is started as a gadget-ware and considered as a play-thing to sharpen my JavaScript skills.  The user-interface may look primitive, so please feel free to fork this project and get a more sophisticated layout.<p />
@@ -78,7 +82,7 @@ Just &#9314; simple steps to kick start.
 </ol>
 <ul>
 <li>
-If page combo is pointed to (new page) <img style="vertical-align: middle;" src="./res/pageCom.png"/>, the app will prompt ask the page name.  Once the page is confirmed, you input will be shown the table underneath.
+If page combo is pointed to (new page) <img style="vertical-align: middle;" src="./res/pageCom.png"/>, the app will prompt ask the page name.  Once it has been confirmed, you input will be stored in table, you can reveal it by select combo box to corresponding page.
 </li>
 </ul>
 <h3>More functions offered by this app</h3>
@@ -127,6 +131,8 @@ You can also see boxes stated as <span class="red">Filter</span> with red fonts,
 
 Now come to part I like most: it is the clicking on the data store table,  when you click it the corresponding row will lite with <span class="blue">blue color</span>.  And both of Key/Box will be update with your selection; whether you click the left side (Key) or Right (<span class="blue">Box</span>) will have one slight but useful difference: the content will be auto-copy to your clip-broad when you can on the right-column (<span class="blue">Box</span>).<p />
 
+You may also found that click to the area <img style="vertical-align: sub;" src="./res/pageTog.png"/> will toggle the table into a combo box, by doing that you can locate your interested item by select the target key.  Just click the area again to resume back to table mode. <p />
+
 <img src="./res/mob_col2.png"/> <br />
 At the bottom data store table, that is Delete &#10060; pair button. It will delete the selected/highlighted row.  Be relaxed, the app will prompt for your confirmation before the actual action, unless you enable the OneKey delete checkbox near to it, so use your power wisely.<p />
 
@@ -171,7 +177,7 @@ If you like to &#9762;nuke&#9762; all the stored content, use "_killall".   The 
 Acknowledgment: This app has used the services provided by following JavaScript and I would like to thank the peoples behind these projects; or this app will not be that useful.
 <ul>
 <li> <a href="https://openpgpjs.org">openpgpjs.org</a> to provide encryption functionality</li>
-<li> <a href="https://github.com/pierrec/js-xxhash/">js-xxhash</a> to help generate the xxh32 hash</li>
+<li> <a href="https://github.com/jungomi/xxhash-wasm">xxhash-wasm.js</a> to help generate the xxh32 hash</li>
 <li> <a href="https://github.com/bgrins/filereader.js/">filereader</a> to simplify the file reading</li>
 <li> <a href="https://github.com/eligrey/FileSaver.js/">FileSave.js</a> to enable file save as ease</li>
 </ul>
