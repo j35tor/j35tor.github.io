@@ -4,14 +4,14 @@ angular.module('platecal', [])
         {
           //  $scope.aaa = "BBB";
           const Fara_constant = 26.801;   //  26.801 A·h/mol
-          $scope.metals = [   { Symbol: "NiSO4" , mass:"58.6934" , density: "8.908", valence: "2" },
+          $scope.metals = [   { Symbol: "NiSO\u{2084}" , mass:"58.6934" , density: "8.908", valence: "2" },
                               { Symbol: "Acid Cu" , mass:"63.546" , density: "8.96" , valence: "2"  },
                               { Symbol: "Tin" , mass:"118.710" , density: "7.265" , valence: "2"  },
                               { Symbol: "Au", mass:"196.966570" , density: "19.30" , valence: "1"  },
                               { Symbol: "Ag", mass:"107.8682" , density: "10.49 " , valence: "1"  },
                               { Symbol: "Pd", mass:"106.42" , density: "12.023" , valence: "2"  },
                               { Symbol: "Pt", mass:"195.084" , density: "21.45 " , valence: "4"  },
-                              { Symbol: "ZnCl2", mass:"65.38" , density: "7.14  " , valence: "2"  },
+                              { Symbol: "ZnCl\u{2082}", mass:"65.38" , density: "7.14  " , valence: "2"  },
 
                               { Symbol: "Bi", mass:"208.98040" , density: "9.78   " , valence: "1"  },
                               { Symbol: "Co", mass:"58.933194" , density: "8.90   " , valence: "1"  },
@@ -27,23 +27,23 @@ angular.module('platecal', [])
                               $scope.targetMetal.electroChemEqCal.toString().substring(0,6) ;
                               recalc_metal();
                             }
-          $scope.convTabUnits = [  { unit: "cm <-> inch" , modFactor : "0.3937007874", srcUnit: "cm" , destUnit : "inch(es)" },
+          $scope.convTabUnits = [  { unit: "cm \u{2194} inch" , modFactor : "0.3937007874", srcUnit: "cm" , destUnit : "inch(es)" },
                                    // { unit: "inch -> cm" , modFactor : "2.54" , srcUnit: "inch(es)" , destUnit : "cm" } ,
-                                   { unit: "ft <-> meter" , modFactor : "0.3048", srcUnit: "ft" , destUnit : "m(s)" } ,
+                                   { unit: "ft \u{2194} meter" , modFactor : "0.3048", srcUnit: "ft" , destUnit : "m(s)" } ,
                                    // { unit: "meter -> ft" , modFactor : "3.2808", srcUnit: "m(s)" , destUnit : "ft(s)" },
-                                   { unit: "um <-> m-inch" , modFactor : "40",  srcUnit: "um" , destUnit : "m-inch" },
+                                   { unit: "um \u{2194} m-inch" , modFactor : "40",  srcUnit: "um" , destUnit : "m-inch" },
                                   //  { unit: "m-inch -> um" , modFactor : "0.025", srcUnit: "m-inch" ,  destUnit : "um" },
-                                   { unit: "sq-ft <-> dm2" , modFactor : "9.290304", srcUnit: "sq-ft" ,  destUnit : "dm2" },
+                                   { unit: "sq-ft \u{2194} dm\u{00b2}"  , modFactor : "9.290304", srcUnit: "sq-ft" ,  destUnit : "dm\u{00b2}" },
                                   //  { unit: "dm2 -> sq-ft" , modFactor : "0.107639104167097", srcUnit: "dm2" , destUnit : "sq-ft" },
-                                   { unit: "oz <-> g" , modFactor : "28.328611898017", srcUnit: "oz(s)" ,  destUnit : "gram(s)" },
-                                   { unit: "toz <-> g" , modFactor : "31.1034768", srcUnit: "toz(s)" ,  destUnit : "gram(s)" },
-                                   { unit: "lb <-> kg" , modFactor : "0.45359237" ,srcUnit: "lb(s)" ,  destUnit : "kg(s)" },
-                                   { unit: "gal <-> lit" , modFactor : "3.785411784" ,srcUnit: "gal(s)" ,  destUnit : "lit(s)" },
-                                   { unit: "toz/gal <-> g/l" , modFactor : "8.21666930173005", srcUnit: "toz/gal" ,  destUnit : "g/lit" },
-                                   { unit: "fl oz <-> ml" , modFactor : "29.57353", srcUnit: "fl.oz" ,  destUnit : "ml" },
-                                   { unit: "floz/gal <-> ml/lit" , modFactor : "7.81250011557527" , srcUnit: "floz/gal" ,  destUnit : "ml/l" },
-                                   { unit: "cu-ft <-> lit" , modFactor : "28.316846592", srcUnit: "cu-ft" ,  destUnit : "litre(s)" },
-                                   { unit: "A/sq-ft <-> ASD" , modFactor : "0.107639104167097", srcUnit: "A/sq-ft" ,  destUnit : "A/dm2" },
+                                   { unit: "oz \u{2194} g" , modFactor : "28.328611898017", srcUnit: "oz(s)" ,  destUnit : "gram(s)" },
+                                   { unit: "toz \u{2194} g" , modFactor : "31.1034768", srcUnit: "toz(s)" ,  destUnit : "gram(s)" },
+                                   { unit: "lb \u{2194} kg" , modFactor : "0.45359237" ,srcUnit: "lb(s)" ,  destUnit : "kg(s)" },
+                                   { unit: "gal \u{2194} lit" , modFactor : "3.785411784" ,srcUnit: "gal(s)" ,  destUnit : "lit(s)" },
+                                   { unit: "toz/gal \u{2194} g/l" , modFactor : "8.21666930173005", srcUnit: "toz/gal" ,  destUnit : "g/lit" },
+                                   { unit: "fl oz \u{2194} ml" , modFactor : "29.57353", srcUnit: "fl.oz" ,  destUnit : "ml" },
+                                   { unit: "floz/gal \u{2194} ml/lit" , modFactor : "7.81250011557527" , srcUnit: "floz/gal" ,  destUnit : "ml/l" },
+                                   { unit: "cu-ft \u{2194} lit" , modFactor : "28.316846592", srcUnit: "cu-ft" ,  destUnit : "litre(s)" },
+                                   { unit: "A/sq-ft \u{2194} ASD" , modFactor : "0.107639104167097", srcUnit: "A/sq-ft" ,  destUnit : "A/dm2" },
                                 ]
 
 
