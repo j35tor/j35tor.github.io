@@ -1,10 +1,20 @@
 <html lang="en" dir="ltr"   ng-app="platecal">
 <head>
    <title>PlateCal</title>
+   <style>
+    body, .platecal { font-family:Arial;
+		     }
+   
+	@media screen and (min-width : 400px) { 
+ 			body, .platecal { font-size: 20px; };  }
+	@media screen and (min-width : 800px) { 
+			body, .platecal { font-size: 16px; }; }
+		
+   </style>
 </head>
 <body ng-controller="platecal_ctrl" >
 
-<table id="platecal" >
+<table id="platecal" class="platecal" >
         <tr>
         <td>Metal layer:</td>
         <td colspan="2" >
@@ -35,22 +45,26 @@
 
 
         <tr>
-        <td>------------------------</td>
-        <td>-------</td>
+        <td>---------------------------</td>
+        <td>----------</td>
         <td>-----</td>
         </tr>
 
         <tr>
         <td>Metal Thickness:</td>
         <td>  <input id="thickness"  inputmode="numeric" pattern="[0-9]*" type="text"
-                  onchange="onValueChanged_Thickness()"  size="4"  value="0" ></td>
+                  onchange="onValueChanged_Thickness()"  size="4"  value="0" >
+			  <input type="button" value="." onclick="addDot(thickness)" />						  
+		</td>
         <td>&mu;m</td>
         </tr>
 
         <tr>
         <td>Plated surface area:</td>
         <td>  <input id="platedArea"  inputmode="numeric" pattern="[0-9]*"  type="text"
-                  onchange="onValueChanged_platedArea()"  size="4"></td>
+                  onchange="onValueChanged_platedArea()"  size="4">
+			  <input type="button" value="." onclick="addDot(platedArea)" />				  
+		</td>
         <td>dm&#178;</td>
         </tr>
 
@@ -61,28 +75,32 @@
         </tr>
 
         <tr>
-        <td>------------------------</td>
-        <td>-------</td>
+        <td>---------------------------</td>
+        <td>----------</td>
         <td>-----</td>
         </tr>
 
         <tr>
         <td>Current Density:</td>
         <td>  <input id="currentDensity" inputmode="numeric" pattern="[0-9]*"  type="text"
-                onchange="onValueChanged_CurrentDensity()" size="4"></td>
+                onchange="onValueChanged_CurrentDensity()" size="4">
+			  <input type="button" value="." onclick="addDot(currentDensity)" />
+		</td>
         <td>A/dm&#178; (asd)</td>
         </tr>
 
         <tr>
         <td>Applied Current:</td>
         <td>  <input id="appliedCurrent" inputmode="numeric" pattern="[0-9]*"  type="text"
-                  onchange="onValueChanged_AppliedCurrent()" size="4"></td>
+                  onchange="onValueChanged_AppliedCurrent()" size="4">
+			  <input type="button" value="." onclick="addDot(appliedCurrent)" />	  
+				  </td>
         <td>Amp</td>
         </tr>
 
         <tr>
-        <td>------------------------</td>
-        <td>-------</td>
+        <td>---------------------------</td>
+        <td>----------</td>
         <td>-----</td>
         </tr>
 
@@ -99,12 +117,12 @@
         <tr>
         <td>Click-Copy Pad:</td>
         <td colspan="2"><input id="clickPad" type="text" size="8" >
-            <input type="button" value="Copy" onclick="padCopy(clickPad)"></td>
+            <input type="button" value="📋" onclick="padCopy(clickPad)"></td>
 			
         </tr>
 
 </table>
---------------------------------<br />
+-------------------------------------------- <br />
 Unit Conversion tools:
 
 <table>
