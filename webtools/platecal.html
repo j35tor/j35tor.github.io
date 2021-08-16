@@ -129,12 +129,13 @@ Unit Conversion tools:
   <tr>
   <td>
 	<input type="button" value="&#10060;" onclick="boxclear('convTabLeft')" />
-    <input type="button" value="⇩" onclick="onValueChanged_ConvTabLeft()" />
+
   </td>
   <td>  
     <input id="convTabLeft" inputmode="numeric" pattern="[0-9]*"
              onchange="onValueChanged_ConvTabLeft()"   type="text" size="8"/>
 	<input type="button" value="."  onclick="addDot(convTabLeft)" />
+    <input type="button" value="⇩" onclick="onValueChanged_ConvTabLeft()" />	
   </td>
   <td>  
     <span id="conTabLeftUnit">cm</span>
@@ -159,13 +160,13 @@ Unit Conversion tools:
 <tr> 
 	<td id="conTabRight">
 	<input type="button" value="&#10060;" onclick="boxclear('convTabRightOut')" />
-	<input type="button" value="⇧" onclick="onValueChanged_ConvTabRight()">
+
   </td>
   <td>	
     <input id="convTabRightOut"  inputmode="numeric" pattern="[0-9]*"
              onchange="onValueChanged_ConvTabRight()"   type="text" size="8"  > 
 	<input type="button" value="." onclick="addDot(convTabRightOut)" />
-
+	<input type="button" value="⇧" onclick="onValueChanged_ConvTabRight()" />
 	</td>
     <td>  
    	<span id="conTabRightUnit"> inch(es) </span>					
