@@ -100,46 +100,64 @@
         <td>Click-Copy Pad:</td>
         <td colspan="2"><input id="clickPad" type="text" size="8" >
             <input type="button" value="Copy" onclick="padCopy(clickPad)"></td>
+			
         </tr>
 
 </table>
 --------------------------------<br />
 Unit Conversion tools:
+
 <table>
   <tr>
   <td>
+	<input type="button" value="&#10060;" onclick="boxclear('convTabLeft')" />
+    <input type="button" value="⇩" onclick="onValueChanged_ConvTabLeft()" />
+  </td>
+  <td>  
     <input id="convTabLeft" inputmode="numeric" pattern="[0-9]*"
-                              onchange="onValueChanged_ConvTabLeft()"   type="text" size="8"  ></td>
+             onchange="onValueChanged_ConvTabLeft()"   type="text" size="8"/>
+	<input type="button" value="."  onclick="addDot(convTabLeft)" />
+  </td>
+  <td>  
+    <span id="conTabLeftUnit">cm</span>
+  </td>
+  <td> 	
+	<input type="button" value="📋" onclick="padCopy(convTabLeft)"> 	
+  </td>
+   <td></td>
+</tr>
 
-  <td> <input type="button" value="."  onclick="addDot(convTabLeft)"> </td>
-  <td id="conTabLeftUnit">cm</td>
-
-  <td>
-      <select id="convTabLeftUnit" ng-model="convTabLeftUnit"  ng-init="convTabLeftUnit = convTabUnits[0]"
-          ng-options="conTabUnit.unit for conTabUnit in convTabUnits" ng-change="onValueChanged_ConvTabLeftUnit()"
-          >
+ <tr>
+   <td></td>
+   <td>
+	    <select id="convTabLeftUnit" ng-model="convTabLeftUnit"  
+		  ng-init="convTabLeftUnit = convTabUnits[0]"
+          ng-options="conTabUnit.unit for conTabUnit in convTabUnits" 
+		  ng-change="onValueChanged_ConvTabLeftUnit()"/>
         </select>
   </td>
-  <td id="conTabRight">
+</tr>
+
+<tr> 
+	<td id="conTabRight">
+	<input type="button" value="&#10060;" onclick="boxclear('convTabRightOut')" />
+	<input type="button" value="⇧" onclick="onValueChanged_ConvTabRight()">
+  </td>
+  <td>	
     <input id="convTabRightOut"  inputmode="numeric" pattern="[0-9]*"
-                        onchange="onValueChanged_ConvTabRight()"   type="text" size="8"  > </td>
-  <td> <input type="button" value="." onclick="addDot(convTabRightOut)" > </td>
-  <td id="conTabRightUnit">inch(es)</td>
+             onchange="onValueChanged_ConvTabRight()"   type="text" size="8"  > 
+	<input type="button" value="." onclick="addDot(convTabRightOut)" />
+
+	</td>
+    <td>  
+   	<span id="conTabRightUnit"> inch(es) </span>					
+ 	</td>				
+    <td> <input type="button" value="📋" onclick="padCopy(convTabRightOut)"> </td>
+    <td> </td>					
   </tr>
-
-  <tr>
-  <td><input type="button" value="Copy" onclick="padCopy(convTabLeft)"></td>
-  <td><input type="button" value="&#8594;" onclick="onValueChanged_ConvTabLeft()"></td>
-  <td></td>
-  <td></td>
-
-  <td> <input type="button" value="Copy" onclick="padCopy(convTabRightOut)"> </td>
-  <td> <input type="button" value="&#8592;" onclick="onValueChanged_ConvTabRight()"></td>
-  </tr>
+ </table>
 
 
-
-</table>
   <!-- {{targetMetal.electroChemEqCal}}  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.0/angular.min.js"></script>
 

@@ -199,6 +199,11 @@ function addDot(local)
   local.value=local.value + '.';
 }
 
+function boxclear(myElementId) {
+	document.getElementById(myElementId).value = '';
+	}
+
+
 
 document.getElementById("platecal").addEventListener("click",function()
 {
