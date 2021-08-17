@@ -102,8 +102,29 @@ document.getElementById("pageTag").addEventListener("change", () => {
 		}
 
 
-	if ( document.getElementById("quickSwap").checked &&
-				(! document.getElementById("swapPageClear").checked )	) {
+	if ( ( document.getElementById("feed_box").value === '' ) && 
+			( document.getElementById("localStoreKey").value === '' ) )  {
+			
+			if( document.getElementById("mylocalStore").hidden === false  ) {
+				reFreshTable("","");  return;  }
+			if( document.getElementById("keyCombo").hidden === false  )  reFreshItemCom();
+			
+			return ;
+			}
+			
+	//  alert ("Check " + document.getElementById("quickSwap").checked  );
+	
+	if ( ( document.getElementById("quickSwap").checked == true ) &&
+			( document.getElementById("swapPageClear").checked == true ) ) { 
+			
+				alert ("Key/Box LOCK and Quick Swap can not be used at the same time\n"
+							+ "Please un-selected one of these options (at least temporary)");
+				document.getElementById("pageTag").value =  localStorage.getItem(":j35mc:_pageTagB4") ;
+				return; }	
+
+	
+	if ( ( document.getElementById("quickSwap").checked == true ) &&
+			( document.getElementById("swapPageClear").checked != true ) ) {
 				boxclear("localStoreKey");
 				boxclear("feed_box");
 				localStorage.setItem( ":j35mc:_boxChanged" , '' );
@@ -112,22 +133,14 @@ document.getElementById("pageTag").addEventListener("change", () => {
 						reFreshTable("","");  return;
 						}
 
-			  if( document.getElementById("keyCombo").hidden === false )  reFreshItemCom();
-		return ;
-	} else {
-				alert ("Key/Box LOCK and Quick Swap can not be used at the same time\n"
-							+ "Please un-selected one of these options (at least temporary)");
-				 document.getElementById("pageTag").value =  localStorage.getItem(":j35mc:_pageTagB4") ;
-				return;
+				if( document.getElementById("keyCombo").hidden === false )  reFreshItemCom();
+					  return ;  
+		
+			}  
 
-	}
-
-
-
-
-	if ( !document.getElementById("swapPageClear").checked )   {
-
-		if ( ( document.getElementById("feed_box").value != '' )    ||
+	if ( document.getElementById("swapPageClear").checked != true ) {
+	
+		if ( ( document.getElementById("feed_box").value != '' ) ||
 			 ( document.getElementById("localStoreKey").value != '' ) ||
 			 ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' )  ) { //  ||
 			   //  ( ! document.getElementById("quickSwap").checked )   ){
@@ -139,7 +152,7 @@ document.getElementById("pageTag").addEventListener("change", () => {
 							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
-					}
+					} 
 
 	if( document.getElementById("mylocalStore").hidden === false  ) {
 		reFreshTable("","");  return;
