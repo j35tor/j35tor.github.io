@@ -102,27 +102,27 @@ document.getElementById("pageTag").addEventListener("change", () => {
 		}
 
 
-	if ( ( document.getElementById("feed_box").value === '' ) && 
+	if ( ( document.getElementById("feed_box").value === '' ) &&
 			( document.getElementById("localStoreKey").value === '' ) )  {
-			
+
 			if( document.getElementById("mylocalStore").hidden === false  ) {
 				reFreshTable("","");  return;  }
 			if( document.getElementById("keyCombo").hidden === false  )  reFreshItemCom();
-			
+
 			return ;
 			}
-			
+
 	//  alert ("Check " + document.getElementById("quickSwap").checked  );
-	
+
 	if ( ( document.getElementById("quickSwap").checked == true ) &&
-			( document.getElementById("swapPageClear").checked == true ) ) { 
-			
+			( document.getElementById("swapPageClear").checked == true ) ) {
+
 				alert ("Key/Box LOCK and Quick Swap can not be used at the same time\n"
 							+ "Please un-selected one of these options (at least temporary)");
 				document.getElementById("pageTag").value =  localStorage.getItem(":j35mc:_pageTagB4") ;
-				return; }	
+				return; }
 
-	
+
 	if ( ( document.getElementById("quickSwap").checked == true ) &&
 			( document.getElementById("swapPageClear").checked != true ) ) {
 				boxclear("localStoreKey");
@@ -134,12 +134,12 @@ document.getElementById("pageTag").addEventListener("change", () => {
 						}
 
 				if( document.getElementById("keyCombo").hidden === false )  reFreshItemCom();
-					  return ;  
-		
-			}  
+					  return ;
+
+			}
 
 	if ( document.getElementById("swapPageClear").checked != true ) {
-	
+
 		if ( ( document.getElementById("feed_box").value != '' ) ||
 			 ( document.getElementById("localStoreKey").value != '' ) ||
 			 ( localStorage.getItem( ":j35mc:_boxChanged" ) != '' )  ) { //  ||
@@ -152,7 +152,7 @@ document.getElementById("pageTag").addEventListener("change", () => {
 							}
 						boxclear("localStoreKey");
 						boxclear("feed_box");
-					} 
+					}
 
 	if( document.getElementById("mylocalStore").hidden === false  ) {
 		reFreshTable("","");  return;
@@ -391,6 +391,7 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 							alert ("'*' in Filter is not allowed");
 							return; }
 
+				filterKey = skipDangerTag(filterKey);
 				reFreshTable(filterKey, "");
 		};
 
@@ -399,6 +400,8 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
 					if ( filterValue === "*" ) {
 								alert ("'*' in Filter is not allowed");
 								return;}
+
+					filterValue = skipDangerTag(filterValue);
 					reFreshTable("" ,filterValue);
 					};
 
@@ -492,16 +495,35 @@ function copyTo() {
 	document.execCommand("copy");
 	};
 
+
+function skipDangerTag(feed){
+
+if (localStorage.getItem( ":j35mc:_expertMode") != 1 ) {
+			feed = feed.toString();
+			feed = feed.replace(/<\/?[^>]+>/gi, '');
+			return feed ;
+	}
+return feed ;
+};
+
+
 function storeValue() {
 
-	if ( document.getElementById("feed_box").value.includes("<script") ) {
-		alert ("your input is invalid, please use '&lt;' instead"); return;
-		}
-
 	var someid1 = document.getElementById("localStoreKey").value ;
+
+			someid1 = skipDangerTag(someid1);
+
+	if ( someid1.replace(/\s+/, "")   === '' ) return ;
+	if ( someid1 != document.getElementById("localStoreKey").value ){
+				if (!	window.confirm("The illegal characters in Key.\n "
+													 + "The Key will be reset as:" + someid1 ) )  return  ;
+				else { document.getElementById("localStoreKey").value  = someid1 };
+
+				}
+
 	if ( someid1.includes("_") ) { alert ("Key included '_' is NOT allowed");  return; }
 	if ( someid1.includes(":") ) { alert ("Key included ':' is NOT allowed");  return; }
-	if ( someid1.includes("<") ) { alert ("Key included '<' is NOT allowed");  return; }
+	// if ( someid1.includes("<") ) { alert ("Key included '<' is NOT allowed");  return; }
 	// TODo some users may use ':' before the updated....
 	if ( someid1 === '' ) return;
 
@@ -512,16 +534,27 @@ function storeValue() {
 
 	if  ( document.getElementById("pageTag").value === "(new)" ) {
 		let newPage = window.prompt("Please input name for new page");
-
+		
+	    if ( newPage === null ) return;		
 		if ( newPage.includes("_") ) { alert ("Page Name included '_' is NOT allowed");  return; }
 		if ( newPage.includes(":") ) { alert ("Page Name included ':' is NOT allowed");  return; }
 		if ( newPage.includes("*") ) { alert ("Page Name included '*' is NOT allowed");  return; }
-		if ( newPage.includes("<") ) { alert ("Page Name included '<' is NOT allowed");  return; }
+		// if ( newPage.includes("<") ) { alert ("Page Name included '<' is NOT allowed");  return; }
 
-		someid1 = ":j35mc:" + newPage + ":"
-				+ document.getElementById("localStoreKey").value ;
+		var checkedNewPage = skipDangerTag (newPage);
+
+		if 	( checkedNewPage.replace(/\s+/, "")   === '' ) {
+			alert ("Page name contains invalid character \nPlease try again");
+			return;
+			}
+
+
+		someid1 = ":j35mc:" + checkedNewPage + ":"
+						// + document.getElementById("localStoreKey").value ;
+						+ someid1;
+
 		localStorage.setItem( someid1, document.getElementById("feed_box").value );
-		alert ("New page :" + newPage + " created" );
+		alert ("New page :" + checkedNewPage + " created" );
 
 	readPageCombo();
 	location.reload();
@@ -535,10 +568,10 @@ function storeValue() {
 	return;
 	}
 
-
-	if ( someid1 != '' ) {
+     if ( someid1 != '' ) {
 		someid1 = ":j35mc:" + document.getElementById("pageTag").value
-							+ ":"  + document.getElementById("localStoreKey").value ;
+							// + ":"  + document.getElementById("localStoreKey").value ;
+							+ ":"  + someid1 ;
 			// TODO Beware of double-quote, in feed_box
 		if ( localStorage.getItem( someid1 ) != null ) { // Old data found
 			if  ( localStorage.getItem( someid1 ) !=   // if found data mismatch feedbox
@@ -570,7 +603,7 @@ function boxclear(myElementId) {
 	}
 
 function storeChkSum() {
-	 	
+
 	document.getElementById("xxh32sum").innerHTML = localStorage.getItem( ":j35mc:_nowXXH32") ;
 
 	if ( localStorage.getItem( ":j35mc:_nowXXH32") != localStorage.getItem( ":j35mc:_feedXXH32") ) {
@@ -866,7 +899,12 @@ function reFreshTable( keyFilter, storeFilter) {
 			keyCell = rowNum.insertCell(0);
 			keyCell2 = rowNum.insertCell(1) ;
 
-			var localStorgeString = localStorage.getItem(':j35mc:' +	myObjs[key] )
+			var localStorgeString = localStorage.getItem(':j35mc:' +	myObjs[key] );
+			if (localStorage.getItem( ":j35mc:_expertMode") != 1 ) {
+						localStorgeString = localStorgeString.toString();
+						localStorgeString = localStorgeString.replace(/<\/?[^>]+>/gi, '');
+			};  // trap all tags
+
 			tailDot = '...' ;
 																// .outKe.
 			if 	( document.getElementById("pageTag").value != "*" ) {
@@ -974,7 +1012,7 @@ function fromJSON( fromJSON_type, content ){
 				gen_checksum = ( "00000000" + gen_checksum ).slice(-8) ;
 				localStorage.setItem( ":j35mc:_feedXXH32", gen_checksum );
 				if ( localStorage.getItem( ":j35mc:_nowXXH32") === null )
-						localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );	
+						localStorage.setItem( ":j35mc:_nowXXH32", gen_checksum );
 			})
 
 
@@ -1027,7 +1065,7 @@ function box2Store() {
 	};
 
 function store2json( callback ) {
-	
+
 	var myObjs = [] ;
 	var keySort = [] ;
 	addItem = Object.create( {} );
@@ -1129,7 +1167,7 @@ function dump2file(jsonStore) {
 			alert ( '(Dump is completed,\nPlease refresh the page by reload key on browser' );
 			location.reload();
 			} );
-	
+
 		localStorage.setItem( ":j35mc:_feedXXH32", localStorage.getItem(":j35mc:_nowXXH32")) ;
 		return ;
 		} else if ( document.getElementById("pubKey").value != '' ) {
@@ -1315,7 +1353,6 @@ async function symGnuPG_dec( inputTXT ) {
 		return;
 		} ;
 	var feed = document.getElementById("encKey").value;
-			console.log(feed);
 
     const options = {
 		message : await openpgp.message.readArmored( inputTXT ) ,
@@ -1329,3 +1366,4 @@ async function symGnuPG_dec( inputTXT ) {
     catch  (err) {alert ( err.message )  }
 }
 ///================
+
