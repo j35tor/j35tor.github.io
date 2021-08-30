@@ -79,7 +79,7 @@ onclick="boxclear('feed_box');boxclear('localStoreKey')" />
 
 <table class="table" style="background-color: #CAEADE;" id="mylocalStore" border="1" >
 </table>
-<span id="keyCombo" hidden="true" >Key:<select
+<span id="keyCombo" hidden="true" >🔑:<select
 id="keyComboBox" name="keyCombo"  style="font-size: 20px; background-color: #CAEADE;" >
 </select>
 <br />
@@ -98,11 +98,12 @@ onclick="store2json( storeChkSum );"><span id="xxh32sum"></span>
 	  <td>
 		<input
         type="button" id="dump2file" value="Ex:&#128452;&#8680;&#128190;"  
-		onclick=" store2json(dump2file) " />
+		style="background-color: #FA8072" onclick=" store2json(dump2file) " />
       </td>
 	   <td>
 		<input type="file" id="loadDocument" value="Load" style="display:none"/>
-		<button id="importCab">Im:&#128452;&#8678;&#128190;</button>  </td>
+		<button id="importCab" 
+		style="background-color: #CAEADE;"> Im:&#128452;&#8678;&#128190;</button></td>
     </tr>
 
 </table>
