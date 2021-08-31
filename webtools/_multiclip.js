@@ -50,21 +50,6 @@ window.addEventListener('resize', () => {
 
 } );
 
-document.getElementById("fileSelect").addEventListener("click", () => {
-	if (  document.getElementById("file2Box") ) {
-			 document.getElementById("file2Box").click();
-		}
-	
-}, false);
-
-document.getElementById("importCab").addEventListener("click", () => {
-	if (  document.getElementById("loadDocument") ) {
-			 document.getElementById("loadDocument").click();
-		}
-	
-}, false);
-
-
 document.getElementById("keyComboBox").addEventListener("focus", () => {
 	localStorage.setItem(":j35mc:_keyComboBoxB4",
 		document.getElementById("keyComboBox").value )
@@ -777,8 +762,8 @@ function html_table_header(localID) {
 	var tableHeader =   mylocalStore.insertRow() ;
 	var keyHeaderCell = tableHeader.insertCell(0) ;
 	if ( document.getElementById("pageTag").value === "*" ) {
-			keyHeaderCell.innerHTML = "Page:&#128273;" ;}
-			else { keyHeaderCell.innerHTML = "&#128273;" ; }
+			keyHeaderCell.innerHTML = "Page:Key" ;}
+			else { keyHeaderCell.innerHTML = "Key" ; }
 
 	keyHeaderCell.id = "keyHeader" ;
 	var valueHeaderCell = tableHeader.insertCell(1) ;
