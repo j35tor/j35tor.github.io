@@ -57,10 +57,42 @@ async function symGnuPG_decF( myvalue ) {
 
 	}
 
+function passwdHard() {
+	
+	var passwdFlip = window.prompt ("Please at least 8 chars" );
+	if  ( ( document.getElementById("symKey").value === '' ) || 
+			(  document.getElementById("symKey").value === '(Press Dice button)' ) )  genRan() ;
+	
+	console.log  ( "A=" + passwdFlip.length + "::" + ( passwdFlip.length % 2 == 0 ) );	
+	
+	if ( !(passwdFlip.length % 2 == 0 ) ) {    passwdFlip.length -= 1 } ;
+	
+	console.log ( "B=" + passwdFlip.length + "AAAA" );
+	
+	for (let i = 0; i < passwdFlip.length; i=i+2 ) {
+		
+		let x = passwdFlip[i];	
+		let y = passwdFlip[i+1];	
+		alert ( `${x} <->` + y );
+		
+	};
+		
+	
+	/*	
+	let x22 = passwdFlip[0];
+ 	let y = passwdFlip[1];
+	alert ( `${x22} <->`  + y );
+	
+	let passwd_blend = document.getElementById("symKey").value ;
+	let new_passed = passwd_blend.replaceAll( `${x22}`, `${y}` ) ;  
+	alert ( document.getElementById("symKey").value  + "\n" + new_passed );
+	*/
+	
+} 
 
 
-function genRan()
-{
+
+function genRan()  {
 var bytes = new Uint8Array(35);
 window.crypto.getRandomValues(bytes);
 
@@ -68,8 +100,7 @@ document.getElementById("symKey").value = base32.encode(bytes);
 
 }
 
-function copy2clip(myElementId)
-{
+function copy2clip(myElementId) {
 
   var copyText = document.getElementById(myElementId);
   copyText.select();
@@ -79,8 +110,7 @@ function copy2clip(myElementId)
 }
 
 
-function qrcode_gen()
-{
+function qrcode_gen() {
    ///// DEBUG:  alert ("QRCode");
    if ( document.getElementById('symKey').length >= 1990 )
         { alert ("Input is too long") ;
