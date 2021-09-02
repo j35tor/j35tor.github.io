@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
   <style>
   body   { background-color: #0DEADE; }
@@ -10,16 +11,16 @@
 passwd:<input type="text" id="symKey"  value="(Press Dice button)"><button
 onclick="boxclear('symKey') ; kill_qr()  " style="font-size: 18px;">&#10060; </button><button
 onclick="genRan()" style="font-size: 18px;">&#127922;</button>
-<!--
+
 <button
 onclick="passwdHard()" style="font-size: 18px;">&#128171;</button>
--->
 
 <br />
 (you may edit the passwd in above box)
 <button onclick="copy2clip('symKey')" style="font-size: 20px; vertical-align: baseline;" >&#128203;</button>
 <!-- <input type="button" style="background-image:url('./res/qr_code.svg')" onclick="qrcode_gen()" /> -->
-<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img  style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
+<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img 
+style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
 <br />
 <div id="qr"></div>
 

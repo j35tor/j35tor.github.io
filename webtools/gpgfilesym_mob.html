@@ -1,14 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
+  <style>
+  body   { background-color: #0DCCa6; }
+  </style>
+  <link id="favicon" rel="icon" type="image/x-icon" href="./discEnc.ico" />
 </head>
 <body>
 
-passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button onclick="boxclear('symKey')">&#10060;</button><button 
-onclick="genRan()"> GenKey </button>
+passwd:<input type="text" id="symKey"  value="(Press Dice button)"><button onclick="boxclear('symKey')">&#10060;</button><button 
+onclick="genRan()">&#127922;</button> <button
+onclick="passwdHard()" style="font-size: 18px;">&#128171;</button>
+
 <br />
-(you may edit the SymKey in above box)
-<button onclick="copy2clip('symKey')"> copyKey </button>
-<button onclick="qrcode_gen()">Key2QR</button> <br /> 
+(you may edit the passwd in above box)
+<button onclick="copy2clip('symKey')" style="font-size: 20px; vertical-align: baseline;" >&#128203;</button>
+<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img 
+style="vertical-align: sub;" src="./res/qr_code.svg"> </button> 
 <div id="qr"></div> 
 //==============================================
 <br />

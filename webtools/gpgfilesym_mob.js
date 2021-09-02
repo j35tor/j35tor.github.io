@@ -25,6 +25,32 @@ async function symGnuPG_decF( myvalue ) {
 
 	}
 
+function passwdHard() {
+	
+	var passwdFlip = window.prompt ("Please at least 6 chars" );
+	if  ( ( document.getElementById("symKey").value === '' ) || 
+			(  document.getElementById("symKey").value === '(Press Dice button)' ) )  genRan() ;
+			
+	if 	( passwdFlip.length < 6 ) {
+		alert ("Please at least feed 6 chars ");
+		return ;
+		};	
+	
+	var hardPasswd_len = passwdFlip.length ;
+	var passwd_blend = document.getElementById("symKey").value ;
+	
+	if ( hardPasswd_len % 2 == 1 )    hardPasswd_len -= 1 ; 
+	
+	for (let i = 0; i <= ( hardPasswd_len - 2 ) ; i=i+2 ) {
+		
+		let x = passwdFlip[i];	
+		let y = passwdFlip[i+1];	
+		// DEBUG  //alert ( `${x} <->  ${y}` );
+		passwd_blend = passwd_blend.replaceAll( `${x}`, `${y}` ) ;
+		// DEBUG // alert ( document.getElementById("symKey").value  + "\n" + passwd_blend );
+	};
+	document.getElementById("symKey").value	 =  passwd_blend ;
+} 
 
 
 function genRan()  {
@@ -41,8 +67,7 @@ function copy2clip(myElementId)  {
 	//// DEBUG:   alert("Copied the text: " + copyText.value);
 	}
 
-function qrcode_gen()
-{
+function qrcode_gen() {
    ///// DEBUG:  alert ("QRCode");
    if ( document.getElementById('symKey').length >= 1990 )
         { alert ("Input is too long") ;

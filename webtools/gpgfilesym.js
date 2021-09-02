@@ -10,7 +10,6 @@ if (document.readyState !== "loading") {
     document.addEventListener("DOMContentLoaded", onReady);
 }
 
-
 function readPubKeyCombo() {
 	var myObjs = [] ;
 	addItem = Object.create( {} );
@@ -29,8 +28,6 @@ function readPubKeyCombo() {
 			} )
 
 	}
-
-
 
 async function symGnuPG_decF( myvalue ) {
 	var passwd = document.getElementById("symKey").value;
@@ -59,38 +56,30 @@ async function symGnuPG_decF( myvalue ) {
 
 function passwdHard() {
 	
-	var passwdFlip = window.prompt ("Please at least 8 chars" );
+	var passwdFlip = window.prompt ("Please at least 6 chars" );
 	if  ( ( document.getElementById("symKey").value === '' ) || 
 			(  document.getElementById("symKey").value === '(Press Dice button)' ) )  genRan() ;
+			
+	if 	( passwdFlip.length < 6 ) {
+		alert ("Please at least feed 6 chars ");
+		return ;
+		};	
 	
-	console.log  ( "A=" + passwdFlip.length + "::" + ( passwdFlip.length % 2 == 0 ) );	
+	var hardPasswd_len = passwdFlip.length ;
+	var passwd_blend = document.getElementById("symKey").value ;
 	
-	if ( !(passwdFlip.length % 2 == 0 ) ) {    passwdFlip.length -= 1 } ;
+	if ( hardPasswd_len % 2 == 1 )    hardPasswd_len -= 1 ; 
 	
-	console.log ( "B=" + passwdFlip.length + "AAAA" );
-	
-	for (let i = 0; i < passwdFlip.length; i=i+2 ) {
+	for (let i = 0; i <= ( hardPasswd_len - 2 ) ; i=i+2 ) {
 		
 		let x = passwdFlip[i];	
 		let y = passwdFlip[i+1];	
-		alert ( `${x} <->` + y );
-		
+		// DEBUG // alert ( `${x} <->  ${y}` );
+		passwd_blend = passwd_blend.replaceAll( `${x}`, `${y}` ) ;
+		// DEGUG  // alert ( document.getElementById("symKey").value  + "\n" + passwd_blend );
 	};
-		
-	
-	/*	
-	let x22 = passwdFlip[0];
- 	let y = passwdFlip[1];
-	alert ( `${x22} <->`  + y );
-	
-	let passwd_blend = document.getElementById("symKey").value ;
-	let new_passed = passwd_blend.replaceAll( `${x22}`, `${y}` ) ;  
-	alert ( document.getElementById("symKey").value  + "\n" + new_passed );
-	*/
-	
+	document.getElementById("symKey").value	 =  passwd_blend ;
 } 
-
-
 
 function genRan()  {
 var bytes = new Uint8Array(35);
@@ -109,7 +98,6 @@ function copy2clip(myElementId) {
   //// DEBUG:   alert("Copied the text: " + copyText.value);
 }
 
-
 function qrcode_gen() {
    ///// DEBUG:  alert ("QRCode");
    if ( document.getElementById('symKey').length >= 1990 )
@@ -121,7 +109,6 @@ function qrcode_gen() {
     qr.make();
      document.getElementById('qr').innerHTML =  qr.createImgTag();
 }
-
 
 function boxclear(myElementId) {
 	document.getElementById(myElementId).value = '';
@@ -207,11 +194,6 @@ FileReaderJS.setupInput(document.getElementById('file2gpgPub'), {
     }  // eo read event
   })
 
-
-
-
-
-
 FileReaderJS.setupInput(document.getElementById('file2gpg'), {
     readAsDefault: 'ArrayBuffer',
     on: {
@@ -261,17 +243,12 @@ FileReaderJS.setupInput(document.getElementById('file2gpg'), {
 
 	  progress: function (event, file) {
 
-			//====
-
-			if (event.lengthComputable)  {
-					var percentLoaded = Math.round((event.loaded / event.total) * 100);
-					// Increase the progress bar length.
-					if (percentLoaded < 100) {
-						document.getElementById("read_blks").innerHTML
-									=  percentLoaded + '%' ;  } }
-
-
-			//=====
+		if (event.lengthComputable)  {
+			var percentLoaded = Math.round((event.loaded / event.total) * 100);
+			// Increase the progress bar length.
+			if (percentLoaded < 100) {
+				document.getElementById("read_blks").innerHTML
+							=  percentLoaded + '%' ;  } }
 
 		}, // eo on progress
 
@@ -285,9 +262,6 @@ FileReaderJS.setupInput(document.getElementById('file2gpg'), {
 
     }  // eo read event
   })
-
-
-
 
 FileReaderJS.setupInput(document.getElementById('file2dec'), {
     readAsDefault: 'Text',
@@ -310,21 +284,15 @@ FileReaderJS.setupInput(document.getElementById('file2dec'), {
       } ,
 
 	progress: function (event, file) {
-
-			//====
-
-			if (event.lengthComputable)  {
-					var percentLoaded = Math.round((event.loaded / event.total) * 100);
-					// Increase the progress bar length.
-					if (percentLoaded < 100) {
-						document.getElementById("read_blks_dec").innerHTML
-									=  percentLoaded + '%' ;  } }
-
-
-			//=====
-
+		if (event.lengthComputable)  {
+			var percentLoaded = Math.round((event.loaded / event.total) * 100);
+				// Increase the progress bar length.
+				if (percentLoaded < 100) {
+					document.getElementById("read_blks_dec").innerHTML
+						=  percentLoaded + '%' ;  } 
+				}
 		}, // eo on progress
-	loadend: function(e, file) {
+		loadend: function(e, file) {
 			document.getElementById("read_blks_dec").innerHTML = "100%";
 		} ,
 
