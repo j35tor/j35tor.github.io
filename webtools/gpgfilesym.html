@@ -4,51 +4,66 @@
   <style>
   body   { background-color: #0DEADE; }
   </style>
-  <link id="favicon" rel="icon" type="image/x-icon" href="./discEnc.ico" />
+   <link id="favicon" rel="icon" type="image/x-icon" href="./discEnc.ico" />
 </head>
 <body>
 
-passwd:<input type="text" id="symKey"  value="(Press Dice button)"><button
-onclick="boxclear('symKey') ; kill_qr()  " style="font-size: 18px;">&#10060; </button><button
-onclick="genRan()" style="font-size: 18px;">&#127922;</button>
-
-<button
-onclick="passwdHard()" style="font-size: 18px;">&#128171;</button>
-
+passwd:<input type="text" id="symKey"  value="(Press GenKey)"><button
+onclick="boxclear('symKey')" style="font-size: 18px;">&#10060; </button>
 <br />
-(you may edit the passwd in above box)
-<button onclick="copy2clip('symKey')" style="font-size: 20px; vertical-align: baseline;" >&#128203;</button>
+
+<button onclick="genRan()" style="font-size: 18px;">&#127922;</button><button
+onclick="passwdHard()" style="font-size: 18px;">&#128171;</button><button 
+onclick="copy2clip('symKey')" style="font-size: 20px; vertical-align: baseline;" 
+>&#128203;</button>
 <!-- <input type="button" style="background-image:url('./res/qr_code.svg')" onclick="qrcode_gen()" /> -->
-<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img 
-style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
+<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img  style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
 <br />
 <div id="qr"></div>
 
-//==============================================
 <br />
-GnuPG Sym Encrypt file:
-<br />
-Read Original <input type="file"  value="File2gpg" id="file2gpg" />
+Password Encryption<br />
+<span style="color: red">Encrypt</span> file:
+<button id="fileSelect" 
+style="background-color: #FA8072" >&#128190;&#8680;&#129513;</button><input type="file" 
+value="File2gpg" id="file2gpg" style="display:none"/>
+<!-- Read Original <input type="file"  value="File2gpg" id="file2gpg" />
+-->
 <span id="read_blks">0%</span>
 <br />
+<br />
+<span style="color: blue">Decrypt</span> file:
+<button id="fileSelectDec" 
+style="background-color: #77AADE" >&#129513;&#8680;&#128190;</button><input type="file" 
+value="File2dec" id="file2dec" style="display:none"/> <span id="read_blks_dec">0%</span>
+
+<br />
 <span id="inFile"> </span>
-<p />
-GnuPG Sym Decrypt file:
-<br />
-Read Encrypted <input type="file"  value="File2dec" id="file2dec" />
-<span id="read_blks_dec">0%</span>
-<br />
 <span id="outFile"> </span>
 <br />
 //==============================================
 <br />
-PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
+PubKey:<select class="selectBox" id="pubKey" name="pubKey" >
     <option value="(none)">(none)</option>
-    </select> <!-- <input
-	type="button"  value="encBox" onclick=""/>  -->
+    </select> <br />
+	<span style="color: red">Encrypt</span> file:
+	<button id="fileSelectPubEnc" 
+		style="background-color: #FA8072" >&#128190;&#8680;&#129513;</button>	
+	
+	<input type="file"  value="File2gpgPub" id="file2gpgPub" 
+			style="display:none" /><span id="read_blksPub">0%</span>
+	<br />	
+	<br />
+	<span id="inFile"> </span>
+	<span style="color: blue">Decrypt</span> file:
+	<button id="fileSelectPubDec" 
+		style="background-color: #77AADE" >&#129513;&#8680;&#128190;</button>
+	
+	<input id="pubgpgDec" type="file"  value="dec" 
+				style="display:none" /><span id="read_blksPubDec">0%</span>
 <br />
-	Read Original <input type="file"  value="File2gpgPub" id="file2gpgPub" />
-	<span id="read_blksPub">0%</span>
+	 
+	
 	<br />
 	<span id="inFilePub"> </span>
 	<p />
@@ -58,23 +73,24 @@ PubKey Enc:<select class="selectBox" id="pubKey" name="pubKey" >
 
 
 
-<!-- <script src="./cdn/xxhash.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js"></script>
+<script src="./cdn/xxhash.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js"></script> -->
 
-<!-- <script src="./cdn/qrcode.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="./cdn/qrcode.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script> -->
+
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js"></script> -->
 <!-- https://github.com/cozmo/jsQR   -->
 
-<!-- <script src="./cdn/openpgp.min.js"></script>  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script>
+<script src="./cdn/openpgp.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.10/openpgp.min.js"></script> -->
 
-<!-- <script src="./cdn/FileSaver.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+<script src="./cdn/FileSaver.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script> -->
 
-<!-- <script src="./cdn/filereader.js"></script> -->
-<script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
+<script src="./cdn/filereader.min.js"></script> 
+<!-- <script src="https://bgrins.github.io/filereader.js/filereader.js"></script> -->
 
 <script src="../webtools/base32.js"></script>
 <script src="./gpgfilesym.js"></script>
