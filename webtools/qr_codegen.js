@@ -43,7 +43,10 @@ function qrcode_gen()
 	//  var playplay = qr.stringToBytes("sadfdsaf"); 
 	//  alert ("PP " + playplay);
 	
-	qr.addData(qr_feed, 'Byte');
+	var utf8 = unescape(encodeURIComponent( qr_feed ));
+	
+	// qr.addData(qr_feed, 'Byte');
+	qr.addData(utf8);
     qr.make();
      document.getElementById('qr').innerHTML =  qr.createImgTag();
 }
