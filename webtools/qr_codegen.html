@@ -1,13 +1,24 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <style>
+  body   { background-color: #FFAACC; }
+  </style>
+
+
 </head>
 <body>
 
 <textarea id="feedtext" style="width: 540px; height: 200px;">(Text to generate QR code)</textarea> <br/>
 <br />
-<button onclick="qrcode_gen()">&#8595; QR code</button>
-<button onclick="genRan()"> GenRandom Text</button>
-<button onclick="boxclear('feedtext')"> Clear Text</button>
+<button onclick="qrcode_gen()" style="vertical-align: baseline;" ><img  
+style="vertical-align: sub;" src="./res/qr_code.svg"> </button>
+
+
+
+<button onclick="genRan()">&#127922;</button>
+<button onclick="boxclear('feedtext')">&#10060; </button>
 <br />
 
 <div id="qr"></div>
