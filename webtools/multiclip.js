@@ -54,14 +54,14 @@ document.getElementById("fileSelect").addEventListener("click", () => {
 	if (  document.getElementById("file2Box") ) {
 			 document.getElementById("file2Box").click();
 		}
-	
+
 }, false);
 
 document.getElementById("importCab").addEventListener("click", () => {
 	if (  document.getElementById("loadDocument") ) {
 			 document.getElementById("loadDocument").click();
 		}
-	
+
 }, false);
 
 
@@ -379,9 +379,9 @@ document.getElementById("mylocalStore").addEventListener("click",function() {
     };
 
     if ( event.target.id.substring(0,6) === "lsVal_" ) {
-		document.getElementById(event.target.id).style.color = "blue";
+		document.getElementById(event.target.id).style.color = "#B933FF";
 		document.getElementById(event.target.id).parentElement
-				.firstElementChild.style.color = "blue";
+				.firstElementChild.style.color = "#B933FF";
 
 	 	var clickStoreKey = event.target.id.split("_")[1];
 		if ( clickStoreKey.includes(":") ) {
@@ -549,8 +549,8 @@ function storeValue() {
 
 	if  ( document.getElementById("pageTag").value === "(new)" ) {
 		let newPage = window.prompt("Please input name for new page");
-		
-	    if ( newPage === null ) return;		
+
+	    if ( newPage === null ) return;
 		if ( newPage.includes("_") ) { alert ("Page Name included '_' is NOT allowed");  return; }
 		if ( newPage.includes(":") ) { alert ("Page Name included ':' is NOT allowed");  return; }
 		if ( newPage.includes("*") ) { alert ("Page Name included '*' is NOT allowed");  return; }
@@ -1381,4 +1381,3 @@ async function symGnuPG_dec( inputTXT ) {
     catch  (err) {alert ( err.message )  }
 }
 ///================
-
