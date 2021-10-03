@@ -634,12 +634,16 @@ function storeChkSum() {
 			+ "Please backup the change or perform the sync") ;
 
 		document.getElementById("xxh32sum").style.color = "red";
+
+		if ( localStorage.getItem( ":j35mc:_lastCheck").split(":")[2]  != 
+		        localStorage.getItem( ":j35mc:_nowXXH32") ) {
 		
-		localStorage.setItem( ":j35mc:_lastCheck", 
-				get_dateString() +":" 
-				+ localStorage.getItem( ":j35mc:_feedXXH32") + ":"
-				+ localStorage.getItem( ":j35mc:_nowXXH32")
-				);
+					localStorage.setItem( ":j35mc:_lastCheck", 
+							get_dateString() +":" 
+							+ localStorage.getItem( ":j35mc:_feedXXH32") + ":"
+							+ localStorage.getItem( ":j35mc:_nowXXH32")
+							);
+				};		
 		return;
 		}
 
