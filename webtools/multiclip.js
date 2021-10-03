@@ -50,6 +50,7 @@ window.addEventListener('resize', () => {
 
 } );
 
+
 document.getElementById("fileSelect").addEventListener("click", () => {
 	if (  document.getElementById("file2Box") ) {
 			 document.getElementById("file2Box").click();
@@ -63,6 +64,8 @@ document.getElementById("importCab").addEventListener("click", () => {
 		}
 
 }, false);
+
+
 
 
 document.getElementById("keyComboBox").addEventListener("focus", () => {
@@ -526,7 +529,12 @@ function storeValue() {
 
 	var someid1 = document.getElementById("localStoreKey").value ;
 
-			someid1 = skipDangerTag(someid1);
+	if ( someid1 === '(new)' )
+		someid1 = window.prompt("Please input 🔑");
+
+	document.getElementById("localStoreKey").value =  someid1 ;
+
+	someid1 = skipDangerTag(someid1);
 
 	if ( someid1.replace(/\s+/, "")   === '' ) return ;
 	if ( someid1 != document.getElementById("localStoreKey").value ){
@@ -626,10 +634,17 @@ function storeChkSum() {
 			+ "Please backup the change or perform the sync") ;
 
 		document.getElementById("xxh32sum").style.color = "red";
+		
+		localStorage.setItem( ":j35mc:_lastCheck", 
+				get_dateString() +":" 
+				+ localStorage.getItem( ":j35mc:_feedXXH32") + ":"
+				+ localStorage.getItem( ":j35mc:_nowXXH32")
+				);
 		return;
 		}
 
 	document.getElementById("xxh32sum").style.color = "black";
+	localStorage.setItem( ":j35mc:_lastCheck",'');
 	}
 
 function clearStore(){
@@ -744,6 +759,14 @@ if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_setPara'
 }
 
 
+if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_getPara' ) {
+		let getPara = document.getElementById("feed_box").value;
+		let gotPara = localStorage.getItem( ":j35mc:_"	+ getPara );
+		alert ("Parameter : _" + getPara + "=>" + gotPara );
+		boxclear("localStoreKey");
+		boxclear("feed_box");
+		return;
+}
 if 	( document.getElementById("localStoreKey").value.split(":")[0] == '_width' ) {
 	var number = document.getElementById("localStoreKey").value;
 	var new_width = document.getElementById("localStoreKey").value.split(":")[1] ;
@@ -777,8 +800,8 @@ function html_table_header(localID) {
 	var tableHeader =   mylocalStore.insertRow() ;
 	var keyHeaderCell = tableHeader.insertCell(0) ;
 	if ( document.getElementById("pageTag").value === "*" ) {
-			keyHeaderCell.innerHTML = "Page:&#128273;" ;}
-			else { keyHeaderCell.innerHTML = "&#128273;" ; }
+			keyHeaderCell.innerHTML = "Page:Key" ;}
+			else { keyHeaderCell.innerHTML = "Key" ; }
 
 	keyHeaderCell.id = "keyHeader" ;
 	var valueHeaderCell = tableHeader.insertCell(1) ;
@@ -820,6 +843,18 @@ function reFreshItemCom() {
 
 	myObjs.sort();
 
+
+
+	//=========================
+	if ( pageFilter != '' ) {
+
+		var option = document.createElement("option");
+		option.text =  '(new)';
+		option.value =  '(new)';
+
+		keyCombo.add(option) ;
+	};
+	//======================
 	myObjs.forEach( (item, i) => {
 
 		var option = document.createElement("option");
@@ -1381,3 +1416,4 @@ async function symGnuPG_dec( inputTXT ) {
     catch  (err) {alert ( err.message )  }
 }
 ///================
+
