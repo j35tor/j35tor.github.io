@@ -14,26 +14,37 @@
 </head>
 <body>
 scoop
-<select id="scoop" onchange="scoop_change()">
-		<option value="---">-----</option>
+<select id="scoop" onchange='combo_change(id)'>
+		<option value="(init)">-----</option>
 		<option value="Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser">cmd1</option>	
 		<option value="[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12">cmd2</option>		
 		<option value="iwr -useb get.scoop.sh | iex">cmd3</option>
 		<option value="done">done</option>
 </select>
+<br />
+choco<select id="choco" onchange='combo_change(id)'>
+		<option value="(init)">-----</option>
+		<option value='$env:ChocolateyInstall="C:\Users\UID\choco"'>cmd1</option>
+		<option value='Set-ExecutionPolicy Bypass -Scope Process -Force;'>cmd2</option>
+		<option value="[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12">cmd3</option>		
+		<option value="iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))">cmd4</option>
+		<option value='(change "C:\Users\UID\AppData\Local\" to non-RO)'>cmd5</option>
+		<option value="done">done</option>
+</select>
+
 
 <div class="click_lines" id="click_lines">
 <!--
 <div id="line1">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser </div>
 <div id="line2">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
 <div id="line3">iwr -useb get.scoop.sh | iex</div> <br />
---> 
+
 <div id="line3a">$env:ChocolateyInstall="C:\Users\UID\choco"</div>
 <div id="line3b">Set-ExecutionPolicy Bypass -Scope Process -Force; </div>
 <div id="line3c">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
 <div id="line3d">iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))</div> 
 <div id="line3e">(change "C:\Users\UID\AppData\Local\" to non-RO)</div> <br /> 
-
+-->
 <div id="line4">~\scoop\apps\git\current\usr\bin\gpg.exe </div>
 <div id="line5">gpgconf --kill gpg-agent </div>
 <div id="line6">gpg-connect-agent reloadagent /bye</div>
@@ -94,10 +105,10 @@ type="button"  value="ts+Key" onclick="webKey()" />
 		document.getElementById(myElementId).value = '';
 		}
 		
-	function scoop_change() {
-		
-		navigator.clipboard.writeText( document.getElementById("scoop").value );
-		document.getElementById("scoop").value = "done";
+	function combo_change(myTag) {
+		// alert (myTag);
+		navigator.clipboard.writeText( document.getElementById(myTag).value );
+		document.getElementById(myTag).value = "done";
 	}	
 		
 </script>
