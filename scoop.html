@@ -13,11 +13,21 @@
 
 </head>
 <body>
+scoop
+<select id="scoop" onchange="scoop_change()">
+		<option value="---">-----</option>
+		<option value="Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser">cmd1</option>	
+		<option value="[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12">cmd2</option>		
+		<option value="iwr -useb get.scoop.sh | iex">cmd3</option>
+		<option value="done">done</option>
+</select>
+
 <div class="click_lines" id="click_lines">
+<!--
 <div id="line1">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser </div>
 <div id="line2">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
 <div id="line3">iwr -useb get.scoop.sh | iex</div> <br />
-
+--> 
 <div id="line3a">$env:ChocolateyInstall="C:\Users\UID\choco"</div>
 <div id="line3b">Set-ExecutionPolicy Bypass -Scope Process -Force; </div>
 <div id="line3c">[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 </div>
@@ -29,7 +39,6 @@
 <div id="line6">gpg-connect-agent reloadagent /bye</div>
 <div id="line6a">ssh -T git@github.com</div>
 <div id="line8">git clone git@github.com:_1</div>  <br />
-
 
 <div id="line_">---</div>
 </div>
@@ -84,6 +93,13 @@ type="button"  value="ts+Key" onclick="webKey()" />
 	function boxclear(myElementId) { 
 		document.getElementById(myElementId).value = '';
 		}
+		
+	function scoop_change() {
+		
+		navigator.clipboard.writeText( document.getElementById("scoop").value );
+		document.getElementById("scoop").value = "done";
+	}	
+		
 </script>
 
 </html>
