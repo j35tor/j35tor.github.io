@@ -4,7 +4,6 @@
   <meta charset="utf-8">
 
   <title>JSONEditorRW</title>
-  
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.css" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.1/jsoneditor.min.js"></script>
@@ -27,23 +26,49 @@
 
 <p>
   This webtool can convert your browser into a JSON editor <br />
-  with support of loading/saving to local files system. <br />
+  with support of file loading from <button id="fileSelect"
+    style="background-color: #77AADE" >&#8678;&#128190;</button>/saving to <button id="fileSave"
+    style="background-color: #FA8072" >&#128190;&#8680;  </button> <br />
+    local files system. <br /><br />
   File I/O is done via <a href="https://bgrins.github.io/filereader.js/">FileReader.js</a> and
   <a href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a>.<br>
-  Only supported on modern browsers <br />(Chrome, FireFox, IE10+, Safari 6.1+, Opera 15+).<br />
+  Only in workable condition when you are using modern browsers, <br />
+  (Chrome, FireFox, IE10+, Safari 6.1+, Opera 15+)<br />
+  please accept my apology if your browser is not on the above list.
+</p>
+<p>
+  <button id="fileSelect"
+  style="background-color: #77AADE" >&#8678;&#128190;</button>
+  <!--
+  Load a JSON document: -->
+  <input type="file" id="loadDocument" value="Load" style="display:none"/>
 
-</p>
-<p>
-  Load a JSON document: <input type="file" id="loadDocument" value="Load"/>
-</p>
-<p>
-  Save a JSON document: <input type="button" id="saveDocument" value="Save" />
+  <button id="fileSave"
+  style="background-color: #FA8072" >&#128190;&#8680;  </button>
+  <!--
+  Save a JSON document:
+  -->
+  <input type="button" id="saveDocument" value="Save" style="display:none" />
 </p>
 
 <div id="jsoneditor"></div>
 
-  This tool is powered/inspired by  <a href="https://github.com/josdejong/jsoneditor"> jsoneditor </a>
+  This tool is powered/inspired by <a href="https://github.com/josdejong/jsoneditor"> jsoneditor </a>
 <script>
+  // button masking
+  document.getElementById("fileSelect").addEventListener("click", () => {
+  	if (  document.getElementById("loadDocument") ) {
+  			 document.getElementById("loadDocument").click();
+  		}
+
+  }, false);
+
+  document.getElementById("fileSave").addEventListener("click", () => {
+    if (  document.getElementById("saveDocument") ) {
+         document.getElementById("saveDocument").click();
+      }
+
+  }, false);
   // create the editor
   const editor = new JSONEditor(document.getElementById('jsoneditor'))
 
