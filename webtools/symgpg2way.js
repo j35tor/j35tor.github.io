@@ -107,6 +107,35 @@ function genRan()  {
 	document.getElementById("symKey").value = base32.encode(bytes);
 	}
 
+
+function passwdHard() {
+
+	var passwdFlip = window.prompt ("Please at least 6 chars" );
+	if  ( ( document.getElementById("symKey").value === '' ) ||
+			(  document.getElementById("symKey").value === '(Press Dice button)' ) )  genRan() ;
+
+	if 	( passwdFlip.length < 6 ) {
+		alert ("Please at least feed 6 chars ");
+		return ;
+		};
+
+	var hardPasswd_len = passwdFlip.length ;
+	var passwd_blend = document.getElementById("symKey").value ;
+
+	if ( hardPasswd_len % 2 == 1 )    hardPasswd_len -= 1 ;
+
+	for (let i = 0; i <= ( hardPasswd_len - 2 ) ; i=i+2 ) {
+
+		let x = passwdFlip[i];
+		let y = passwdFlip[i+1];
+		// DEBUG // alert ( `${x} <->  ${y}` );
+		passwd_blend = passwd_blend.replaceAll( `${x}`, `${y}` ) ;
+		// DEGUG  // alert ( document.getElementById("symKey").value  + "\n" + passwd_blend );
+	};
+	document.getElementById("symKey").value	 =  passwd_blend ;
+}
+	
+
 function copy2clip(myElementId) {
 	var copyText = document.getElementById(myElementId);
 	copyText.select();
@@ -162,6 +191,14 @@ function cutHead() {
 
 		}
 
+
+document.getElementById("file2BoxALT").addEventListener("click", () => {
+		if ( document.getElementById("file2Box") ) {
+					document.getElementById("file2Box").click();
+				}
+
+		}, false);
+
 FileReaderJS.setupInput(document.getElementById('file2Box'), {
     readAsDefault: 'Text',
     on: {
@@ -171,6 +208,13 @@ FileReaderJS.setupInput(document.getElementById('file2Box'), {
       }
     }
   })
+
+document.getElementById("file2EncALT").addEventListener("click", () => {
+		if ( document.getElementById("file2Enc") ) {
+					document.getElementById("file2Enc").click();
+				}
+
+		}, false);
 
 
 FileReaderJS.setupInput(document.getElementById('file2Enc'), {
@@ -182,5 +226,3 @@ FileReaderJS.setupInput(document.getElementById('file2Enc'), {
       }
     }
   })
-
-

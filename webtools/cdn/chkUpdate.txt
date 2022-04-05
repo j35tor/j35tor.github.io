@@ -12,3 +12,4 @@
 ## https://data.jsdelivr.com/v1/package/npm/xxhash
 ## https://data.jsdelivr.com/v1/package/npm/filesaver.js-npm
 ## https://data.jsdelivr.com/v1/package/npm/file-reader-wrapper
+## https://data.jsdelivr.com/v1/package/npm/xxhash-wasm
