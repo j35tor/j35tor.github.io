@@ -1325,15 +1325,21 @@ async function decFromSKString( secKey ) {
 
 function decBoxPub() {
 
-	var secKeyPW = window.prompt ("Please Input password to unlock SecKey" );
+	let secKeyPW = ''; 
 
-	var storeKey = document.getElementById("pubKey").value;
+	if ( document.getElementById("encKey").value  === ''  || 
+		   document.getElementById("encKey").value  ==  undefined  )
+  		secKeyPW = window.prompt ("Please Input password to unlock SecKey" );
+	else secKeyPW = document.getElementById("encKey").value ;
+
+
+	let storeKey = document.getElementById("pubKey").value;
 		storeKey = localStorage.getItem(":j35mc:_pubKey:" + storeKey );
 
 
-	var inputTXT = document.getElementById("feed_box")
+	let inputTXT = document.getElementById("feed_box")
 
-	var encTXT =  pKunSym( inputTXT.value, secKeyPW, storeKey );
+	let encTXT =  pKunSym( inputTXT.value, secKeyPW, storeKey );
 
 
 	Promise.resolve( encTXT ).then ( val => {
