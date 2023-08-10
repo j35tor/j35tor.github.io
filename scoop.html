@@ -3,14 +3,15 @@
 <head>
   <title>Scoop Quick Cmd</title>
     <style>
-  .click_lines > * 
-  { white-space: pre; font-family:monospace; font-size:14px;" 
-  }
+  .click_lines > * { 
+	white-space: pre; font-family:monospace; font-size:14px;
+	}
 
-   .ts 
-  { white-space: pre; font-family:monospace; font-size:16px;" 
-  }   
-  </style>
+   .ts  { 
+	white-space: pre; font-family:monospace; font-size:16px;
+	}
+
+   </style>
 
 </head>
 <body>
@@ -20,7 +21,7 @@ scoop
 		<option value="Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser">cmd1</option>	
 		<option value="[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12">cmd2</option>		
 		<option value="iwr -useb get.scoop.sh | iex">cmd3</option>
-		<option value="scoop install aria2  gnupg  openssh git ffmpeg">cmd4</option>	
+		<option value="scoop install aria2  gnupg ffmpeg">cmd4</option>	
 		<option value="done">done</option>
 </select>
 <br />
