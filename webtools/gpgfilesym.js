@@ -113,6 +113,7 @@ function passwdHard() {
 	
 	var hardPasswd_len = passwdFlip.length ;
 	var passwd_blend = document.getElementById("symKey").value ;
+	var passwd_original = document.getElementById("symKey").value ;
 	
 	if ( hardPasswd_len % 2 == 1 )    hardPasswd_len -= 1 ; 
 	
@@ -124,6 +125,12 @@ function passwdHard() {
 		passwd_blend = passwd_blend.replaceAll( `${x}`, `${y}` ) ;
 		// DEGUG  // alert ( document.getElementById("symKey").value  + "\n" + passwd_blend );
 	};
+
+	if (passwd_original == passwd_blend) {
+
+	alert ("Warning! Password unchanged!");	
+	return;	
+	}
 	document.getElementById("symKey").value	 =  passwd_blend ;
 } 
 
