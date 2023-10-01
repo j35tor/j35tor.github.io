@@ -8,7 +8,7 @@ function onReady() {
   var box_width = document.documentElement.clientWidth - 40;
   document.getElementById("feed_box").style.width = box_width + "px";
   // var inp_width =  document.documentElement.clientWidth / 3 ;
-  var inp_width = document.documentElement.clientWidth - 200;
+  var inp_width = document.documentElement.clientWidth - 260;
   document.getElementById("encKey").style.width = inp_width + "px";
 
   if (localStorage.getItem(":j35mc:_boxChanged") === null) {
@@ -21,6 +21,9 @@ function onReady() {
   localStorage.setItem(":j35mc:_starTrack", "");
   localStorage.setItem(":j35mc:_pageTagMax", 0);
   localStorage.setItem(":j35mc:_keyMax", 0);
+
+  localStorage.setItem(":j35mc:_backgroundColor", "#EDEADE");
+  document.getElementById("background_style").style.backgroundColor =  "#c0beb6" ; //  "#f5df7d" ;
 
   if (localStorage.getItem(":j35mc:_quickSwap") === "1") {
     document.getElementById("quickSwap").checked = true;
@@ -46,7 +49,7 @@ if (document.readyState !== "loading") {
 window.addEventListener("resize", () => {
   var box_width = document.documentElement.clientWidth - 40;
   document.getElementById("feed_box").style.width = box_width + "px";
-  var inp_width = document.documentElement.clientWidth - 200;
+  var inp_width = document.documentElement.clientWidth - 260;
   document.getElementById("encKey").style.width = inp_width + "px";
 });
 
@@ -1374,6 +1377,25 @@ function encBox(inputTXT) {
     document.getElementById("feed_box").value = val.data;
   });
 }
+
+
+// function changeBackground (destColor) {document.body.style.backgroundColor
+  function changeBackground () {  
+
+    //  document.getElementById("body").style.color=destColor;
+  //  document.body.style.backgroundColor = destColor ;
+
+  if ( localStorage.getItem(":j35mc:_backgroundColor") == "#EDEADE" ) {
+      document.body.style.backgroundColor = "#c0beb6";
+      document.getElementById("background_style").style.backgroundColor = "#EDEADE" ;
+      localStorage.setItem(":j35mc:_backgroundColor", "#c0beb6" );   
+      } else {
+        document.body.style.backgroundColor = "#EDEADE";
+        document.getElementById("background_style").style.backgroundColor = "#c0beb6" ;
+        localStorage.setItem(":j35mc:_backgroundColor", "#EDEADE" );
+      }
+  }
+
 
 function encBoxPub(inputTXT) {
   if (document.getElementById("pubKey").value === "") {

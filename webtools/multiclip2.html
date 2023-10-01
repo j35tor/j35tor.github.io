@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="MultiClipBoard">
+    <meta name="keywords" content="Mulit copy and paste">
+    <meta name="author" content="j35tor">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./multiclip.css">
+	  <link id="favicon" rel="icon" type="image/x-icon" href="./multiclip.ico" />
+    <title>MultiClipBoard</title>
+  </head>
+
+<body>
+<table>
+<tr>
+<td>&#128273; :<input id="localStoreKey" type="text" size="10" ><input
+type="button" id="clearKey" value="&#10060;" onclick="clearKey()"/></td>
+<!--- 
+<td><span class="ts">ts:</span><span class="ts" id="tsMMDD">YYMMDD</span><span class="ts" id="tsHHMM">_HHMM</span></td>
+</tr>
+--->
+</table>
+
+<input type="button"  value="&#10060;" onclick="boxclear('feed_box')"/>
+<span style="color: blue;">Box</span><button id="fileSelect" 
+style="background-color: #77AADE" >&#8678;&#128190;</button><input type="file" 
+value="File2Box" id="file2Box" style="display:none"/><input
+id="box2File" type="button"  value="&#8680;&#128190;" 
+style="background-color: #FA8072" onclick="box2File()"/><input
+type="button"  value="&#128203;" onclick="copyTo()" /><span id="boxUpdate">&#128309;</span>
+<input type="button"  value="&#128452; &#8681;" style="background-color: #CAEADE;"
+onclick="storeValue()"/><span class="text"><input
+type="button" style="background-color: yellow;" value="&#127922;"
+onclick="toggleEnc()"/>  <input type="button"  value="&#10060;&centerdot;&#10060;"
+onclick="boxclear('feed_box');boxclear('localStoreKey')" />
+<input id="background_style" type="button" value=" " 
+onclick="changeBackground()"/>
+
+<br />
+
+<!-- background-color: #00CCEE;  -->
+<textarea id="feed_box" style="height: 200px;"></textarea><br />
+
+</span>
+
+<!-- <br /> -->
+<span id="passwdBox" class="text" hidden="true">Passwd:</span><input
+id="encKey" style="background-color: yellow" type="password" size="15"
+hidden="true"/><input id="encClear" type="button"  value="&#10060;"
+onclick="boxclear('encKey')" hidden="true" />
+<input id="encBox" class="bluebox" type="button"  value="encBox" onclick="encBox( feed_box )"
+hidden="true" /><input id="decBox" class="bluebox" type="button"  value="decBox"
+onclick="boxDec( feed_box )" hidden="true" />
+<br />
+
+<span id="PubKeyTXT" hidden="true">PubKey:</span><select
+class="selectBox" style="background-color: yellow" id="pubKey" name="pubKey" hidden="true">
+    <option value="">(none)</option>
+    </select><input id="pubEncBu"
+class="bluebox" type="button"  value="encBox" hidden="true"
+onclick="encBoxPub( feed_box )"/><input id="pubDecBu"
+class="bluebox" type="button"  value="decBox" hidden="true"
+onclick="decBoxPub( feed_box )"/>
+<!--
+<br />
+-->
+<br />
+
+
+<span id="cab" style="background-color: #CAEADE;">&#128452;Page
+</span><select class="selectBox" id="pageTag"
+        style="background-color: #CAEADE;" name="pageTag" >
+    <option value="(new)">(new)</option>
+    </select>
+
+    <input type="checkbox" id="swapPageClear" name="swapPageClear"
+    unchecked onchange="swapPageClearChange()"/><span id="swapPageClearLock">&#128275;</span>
+    &#128273;/<span
+    style="color: blue;">Box</span> &#9889;&#128256;<input
+    type="checkbox" id="quickSwap" name="quickSwap" unchecked onchange="quickSwapChange()"/>
+
+<br />
+<table class="table" style="background-color: #CAEADE;" id="mylocalStore" border="1" >
+</table>
+<span id="keyCombo" hidden="true" >🔑:<select
+id="keyComboBox" name="keyCombo"  style="font-size: 20px; background-color: #CAEADE;" >
+</select>
+<br />
+</span>
+<span class="text" >
+<input type="button"  value="&#10060; Pair" onclick="delPair()">
+OneKey &#10060;<input type="checkbox" id="delConfirm" name="delConfirm" onchange="delConfirmChange()"/>
+<input type="button"  value="Chk&#128452;"  style="background-color: #CAEADE;" 
+onclick="store2json( storeChkSum );"><span id="xxh32sum"></span>
+</span>
+<br/>
+<br/>
+
+<table>
+    <tr>
+	  <td>
+		<input
+        type="button" id="dump2file" value="Ex:&#128452;&#8680;&#128190;"  
+		style="background-color: #FA8072" onclick=" store2json(dump2file) " />
+      </td>
+	   <td>
+		<input type="file" id="loadDocument" value="Load" style="display:none"/>
+		<button id="importCab" 
+		style="background-color: #CAEADE;"> Im:&#128452;&#8678;&#128190;</button></td>
+    </tr>
+
+</table>
+
+
+
+<br />
+</body>
+
+<!-- https://cdn.jsdelivr.net/npm/file-reader-wrapper@0.9.10/filereader.js -->
+<script src="./cdn/filereader.min.js"></script>
+<!-- https://cdn.jsdelivr.net/npm/filesaver.js-npm@1.0.1/FileSaver.min.js  -->
+<script src="./cdn/FileSaver.min.js"></script>
+<!-- https://cdnjs.cloudflare.com/ajax/libs/openpgp/4.10.8/openpgp.min.js -->
+<script src="./cdn/openpgp.min.js"></script>
+<!-- https://cdn.jsdelivr.net/npm/xxhashjs@0.2.2/build/xxhash.min.js  -->
+<!-- <script src="./cdn/xxhash.min.js"></script> -->
+<script src="./cdn/xxhash-wasm.js"></script>
+<script src="./multiclip.js"></script>
+</html>

@@ -423,8 +423,12 @@ FileReaderJS.setupInput(document.getElementById('pubgpgDec'), {
 
 		document.getElementById("inFilePub").innerHTML = "xxh32 checksum :" + gen_checksum ; 
 		
-		var secKeyPW = window.prompt ("Please Input password to unlock SecKey" );
-
+		var secKeyPW = "" ;
+		if ( (document.getElementById("keyAddon").value == ''  )	
+				|| 	(document.getElementById("keyAddon").value === undefined  ) )
+				secKeyPW = window.prompt ("Please Input password to unlock SecKey" );
+				else  secKeyPW =  document.getElementById("keyAddon").value ;
+				
 		var storeKey = document.getElementById("pubKey").value;
 			storeKey = localStorage.getItem(":j35mc:_pubKey:" + storeKey );
 			
