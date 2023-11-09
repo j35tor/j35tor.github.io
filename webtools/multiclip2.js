@@ -23,7 +23,7 @@ function onReady() {
   localStorage.setItem(":j35mc:_keyMax", 0);
 
   localStorage.setItem(":j35mc:_backgroundColor", "#EDEADE");
-  //  document.getElementById("background_style").style.backgroundColor =  "#c0beb6" ; //  "#f5df7d" ;
+  document.getElementById("background_style").style.backgroundColor =  "#c0beb6" ; //  "#f5df7d" ;
 
   if (localStorage.getItem(":j35mc:_quickSwap") === "1") {
     document.getElementById("quickSwap").checked = true;
