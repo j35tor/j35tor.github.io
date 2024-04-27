@@ -20,8 +20,11 @@ PlainTEXT
 style="background-color: #77AADE">&#8678;&#128190;</button><button
 class="mybutton" onclick="copy2clip('feedtext')">&#8680;&#128203;</button><button
 class="mybutton" onclick="box2File('feedtext')"
-style="background-color: #FA8072" >&#8680;&#128190;</button><button
-class="mybutton" onclick="symGnuPG_enc()"> &#8681; pwEnc</button><button
+style="background-color: #FA8072" >&#8680;&#128190;</button>
+<!-- <button
+class="mybutton" onclick="symGnuPG_enc()"> &#8681; pwEnc</button>
+-->
+<button
 class="mybutton" onclick="boxclear('feedtext')">&#10060;</button>
 <br />
 <textarea id="feedtext" style="width: 540px; height: 150px;" >(Text to Encrypt)</textarea>
@@ -31,11 +34,13 @@ class="mybutton" onclick="boxclear('feedtext')">&#10060;</button>
 <!-- Encrypt & Save as<input type="file"  value="File2Box" id="file2Buffer" />  -->
 <br />
 passwd:<input type="text" id="symKey"  value="(Press Dice button get Passwd)"  size="25" /><button
-onclick="boxclear('symKey') ; kill_qr() " style="font-size: 18px;">&#10060;</button> <br />
+onclick="boxclear('symKey') ; kill_qr() " style="font-size: 18px;">&#10060;</button><button
+class="mybutton" onclick="symGnuPG_enc()"> &#8681;Enc</button><button
+class="mybutton" onclick="symGnuPG_dec(outtext)"> &#8679;Dec</button> <br/> <!--&nbsp; -->
 <button  class="mybutton" onclick="copy2clip('symKey')">&#128203;</button><button
 onclick="genRan()" style="font-size: 18px;">&#127922;</button><button
 onclick="passwdHard()" style="font-size: 18px;">&#128171;</button><button
-onclick="qrcode_gen()" style="vertical-align: sub;" >
+onclick="qrcode_gen()" style="vertical-align: sub;">
 <img  style="vertical-align: baseline;" src="./res/qr_code.svg"> </button> <br />
 <div id="qr"></div>
  <!-- GenKey  -->
@@ -50,8 +55,11 @@ Encrypted Text:
 style="background-color: #77AADE">&#8678;&#128190;</button><button
 class="mybutton" onclick="copy2clip('outtext')">&#8680;&#128203;</button><button
 class="mybutton" onclick="box2File('outtext')"
-style="background-color: #FA8072">&#8680;&#128190;</button><button
-class="mybutton" onclick="symGnuPG_dec(outtext)"> &#8679; pwDec</button><button
+style="background-color: #FA8072">&#8680;&#128190;</button>
+<!--
+<button
+class="mybutton" onclick="symGnuPG_dec(outtext)"> &#8679; pwDec</button> -->
+<button
 class="mybutton" onclick="boxclear('outtext')">&#10060;</button>
 <br />
 <textarea id="outtext" style="width: 540px; height: 150px;">(Press pwEnc to get the OUTPUT)</textarea>
