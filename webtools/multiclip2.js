@@ -697,7 +697,7 @@ function storeChkSum() {
 			localStorage.setItem(":j35mc:_nowXXH32", gen_checksum );  // xxhash
 			return ;};
 	if ( localStorage.getItem(":j35mc:_lastCheck" ) == undefined ) {
-			localStorage.setItem(":j35mc:_lastCheck", gen_checksum );
+			localStorage.setItem(":j35mc:_lastCheck", gen_checksum );  // xxhash
 			return ;};
 	
 	document.getElementById("xxh32sum").innerHTML = localStorage.getItem(
