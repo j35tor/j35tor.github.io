@@ -693,8 +693,12 @@ function boxclear(myElementId) {
 function storeChkSum() {
 	
 	
-	if (  localStorage.getItem(	":j35mc:_nowXXH32" ) == undefined ) return ;
-	if ( localStorage.getItem(":j35mc:_lastCheck" ) == undefined ) return ;
+	if (  localStorage.getItem(	":j35mc:_nowXXH32" ) == undefined ) {   
+			localStorage.setItem(":j35mc:_nowXXH32", gen_checksum );  // xxhash
+			return ;};
+	if ( localStorage.getItem(":j35mc:_lastCheck" ) == undefined ) {
+			localStorage.setItem(":j35mc:_lastCheck", gen_checksum );
+			return ;};
 	
 	document.getElementById("xxh32sum").innerHTML = localStorage.getItem(
 			":j35mc:_nowXXH32",  );
