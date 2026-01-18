@@ -691,9 +691,15 @@ function boxclear(myElementId) {
 }
 
 function storeChkSum() {
-  document.getElementById("xxh32sum").innerHTML = localStorage.getItem(
-    ":j35mc:_nowXXH32",
-  );
+	
+	
+	if (  localStorage.getItem(	":j35mc:_nowXXH32" ) == undefined ) return ;
+	if ( localStorage.getItem(":j35mc:_lastCheck" ) == undefined ) return ;
+	
+	document.getElementById("xxh32sum").innerHTML = localStorage.getItem(
+			":j35mc:_nowXXH32",  );
+
+
 
   if (
     localStorage.getItem(":j35mc:_nowXXH32") !=
